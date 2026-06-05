@@ -19,7 +19,7 @@ Use this audit table when checking drafts:
 | Performance improvement | Control group, dosage, test condition, quantitative result, variability if available |
 | Mechanism | FTIR/XPS/SEM/AFM/fluorescence/thermal/rheology or equivalent direct evidence |
 | Durability | Water, temperature, ageing, freeze-thaw, chemical, UV, traffic, or service-condition stress |
-| Sustainability | Functional unit, comparison boundary, material source, energy/carbon/waste logic |
+| Sustainability | Functional unit, comparison boundary, material source, energy/carbon/waste logic, and explicit tradeoff/limitation language |
 | Engineering applicability | Workability, storage stability, constructability, curing, cost, compatibility, or field constraints |
 | Data interpretation | Control comparison, test condition, unit, replication/variability, figure-to-claim mapping |
 
@@ -30,6 +30,8 @@ If evidence is absent, use visible flags:
 - `[needs quantitative result]`
 - `[needs control group]`
 - `[needs mechanism evidence]`
+- `[needs functional unit or LCA boundary]`
+- `[needs carbon factor or waste-processing evidence]`
 - `[needs live journal verification]`
 - `[confirm with supervisor/co-authors]`
 
@@ -42,6 +44,12 @@ Prefer:
 Avoid unless proven:
 
 - "proves", "completely solves", "universal", "first", "green material", "field-ready"
+
+For sustainability language:
+
+- Do not use "green", "low-carbon", or "sustainable" from waterborne chemistry, waste use, or recycled content alone.
+- If no complete LCA exists, label any estimate as a screening calculation and define the functional unit.
+- If only durability or bonding data exist, phrase environmental value as a service-life hypothesis requiring verification.
 
 For review articles, distinguish:
 

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import csv
 import io
+import logging
 from collections.abc import Iterable
 from typing import Any
 
@@ -41,6 +42,9 @@ DEFAULT_CLAIMS = [
     "Mechanism explanation",
     "Durability or service-condition relevance",
 ]
+
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
 
 
 class AcademicSearchService:
@@ -82,8 +86,10 @@ class AcademicSearchService:
                     )
                 )
             except AdapterDisabled as exc:
+                logger.warning("Academic source disabled during search: %s", exc)
                 warnings.append(str(exc))
             except AdapterError as exc:
+                logger.warning("Academic source failed during search: %s", exc)
                 warnings.append(str(exc))
 
         records = merge_records(raw_records, fallback_evidence_layer=evidence_layer)
@@ -112,9 +118,11 @@ class AcademicSearchService:
             try:
                 record = adapter.fetch(doi=doi, title=title, external_id=external_id)
             except AdapterDisabled as exc:
+                logger.warning("Academic source disabled during metadata fetch: %s", exc)
                 warnings.append(str(exc))
                 continue
             except AdapterError as exc:
+                logger.warning("Academic source failed during metadata fetch: %s", exc)
                 warnings.append(str(exc))
                 continue
             if record:

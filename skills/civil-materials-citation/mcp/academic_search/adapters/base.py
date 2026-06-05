@@ -3,8 +3,11 @@
 from __future__ import annotations
 
 import re
+import random
 import time
 from collections.abc import Callable
+from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from typing import Any, Protocol
 
 import httpx
@@ -57,6 +60,7 @@ def get_response_with_retries(
     backoff_seconds: tuple[float, ...] = DEFAULT_BACKOFF_SECONDS,
     client_factory: Callable[..., Any] = httpx.Client,
     sleep: Callable[[float], None] = time.sleep,
+    jitter: Callable[[float], float] | None = None,
 ) -> Any:
     """GET a URL with bounded retry/backoff for transient upstream failures."""
 
@@ -69,12 +73,13 @@ def get_response_with_retries(
             with client_factory(**client_kwargs) as client:
                 response = client.get(url, params=params)
             if response.status_code in RETRY_STATUS_CODES and attempt < attempts - 1:
-                sleep(_backoff_for_attempt(attempt, backoff_seconds))
+                sleep(_retry_delay_for_response(response, attempt, backoff_seconds, jitter=jitter))
                 continue
             return response
         except httpx.HTTPError as exc:
             if _is_retryable_http_error(exc) and attempt < attempts - 1:
-                sleep(_backoff_for_attempt(attempt, backoff_seconds))
+                response = exc.response if isinstance(exc, httpx.HTTPStatusError) else None
+                sleep(_retry_delay_for_response(response, attempt, backoff_seconds, jitter=jitter))
                 continue
             raise
     raise AdapterError("retry loop exited unexpectedly")
@@ -90,6 +95,7 @@ def get_json_with_retries(
     backoff_seconds: tuple[float, ...] = DEFAULT_BACKOFF_SECONDS,
     client_factory: Callable[..., Any] = httpx.Client,
     sleep: Callable[[float], None] = time.sleep,
+    jitter: Callable[[float], float] | None = None,
 ) -> dict[str, Any]:
     response = get_response_with_retries(
         url,
@@ -100,6 +106,7 @@ def get_json_with_retries(
         backoff_seconds=backoff_seconds,
         client_factory=client_factory,
         sleep=sleep,
+        jitter=jitter,
     )
     response.raise_for_status()
     return response.json()
@@ -109,6 +116,45 @@ def _backoff_for_attempt(attempt: int, backoff_seconds: tuple[float, ...]) -> fl
     if attempt < len(backoff_seconds):
         return backoff_seconds[attempt]
     return backoff_seconds[-1] if backoff_seconds else 0.0
+
+
+def _retry_delay_for_response(
+    response: Any,
+    attempt: int,
+    backoff_seconds: tuple[float, ...],
+    *,
+    jitter: Callable[[float], float] | None = None,
+) -> float:
+    retry_after = _retry_after_seconds(response)
+    if retry_after is not None:
+        return retry_after
+    base_delay = _backoff_for_attempt(attempt, backoff_seconds)
+    jitter_func = jitter if jitter is not None else _default_jitter
+    return max(0.0, jitter_func(base_delay))
+
+
+def _retry_after_seconds(response: Any) -> float | None:
+    headers = getattr(response, "headers", {}) or {}
+    value = headers.get("Retry-After") if hasattr(headers, "get") else None
+    if not value:
+        return None
+    try:
+        return max(0.0, float(str(value).strip()))
+    except ValueError:
+        pass
+    try:
+        retry_at = parsedate_to_datetime(str(value))
+    except (TypeError, ValueError, IndexError, OverflowError):
+        return None
+    if retry_at.tzinfo is None:
+        retry_at = retry_at.replace(tzinfo=timezone.utc)
+    return max(0.0, (retry_at - datetime.now(timezone.utc)).total_seconds())
+
+
+def _default_jitter(delay: float) -> float:
+    if delay <= 0:
+        return 0.0
+    return delay * random.uniform(0.8, 1.2)
 
 
 def _is_retryable_http_error(exc: httpx.HTTPError) -> bool:

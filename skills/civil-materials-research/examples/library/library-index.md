@@ -13,5 +13,6 @@ This library gives one high-quality example entry per civil-materials module. Us
 | civil-materials-pptx | pptx-outline-json-example.md |
 | civil-materials-figure | figure-package-example.md |
 | civil-materials-data | data-fair-package-example.md |
+| manuscript paragraph patterns | manuscript-paragraph-examples.md |
 
 Quality rule: examples are patterns, not evidence. Replace placeholders with verified data, citations, and test conditions before manuscript use.

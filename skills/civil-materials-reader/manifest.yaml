@@ -27,6 +27,9 @@ axes:
       evidence-chain-audit:
         path: references/evidence-chain-audit.md
         triggers: ["evidence chain", "claim evidence", "audit", "证据链", "证据审计", "审稿风险", "claim-evidence"]
+      microstructure-interpretation:
+        path: references/microstructure-interpretation.md
+        triggers: ["SEM", "fluorescence", "AFM", "DSC", "TG", "DTG", "microstructure", "morphology", "显微", "微观形貌"]
       journal-club:
         path: references/journal-club-reading.md
         triggers: ["journal club", "group meeting", "组会", "汇报"]

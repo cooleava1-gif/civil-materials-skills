@@ -12,11 +12,12 @@ from academic_search.adapters.base import AcademicSourceAdapter, get_json_with_r
 
 
 class FakeResponse:
-    def __init__(self, status_code, payload=None):
+    def __init__(self, status_code, payload=None, headers=None):
         self.status_code = status_code
         self.payload = payload or {}
+        self.headers = headers or {}
         self.request = httpx.Request("GET", "https://example.test")
-        self.response = httpx.Response(status_code, request=self.request)
+        self.response = httpx.Response(status_code, request=self.request, headers=self.headers)
 
     def json(self):
         return self.payload
@@ -61,11 +62,51 @@ class AdapterBaseTest(unittest.TestCase):
             timeout=1.0,
             client_factory=client_factory,
             sleep=sleeps.append,
+            jitter=lambda delay: delay,
         )
 
         self.assertEqual(payload, {"ok": True})
         self.assertEqual(len(calls), 2)
         self.assertEqual(sleeps, [1.0])
+
+    def test_get_json_with_retries_uses_retry_after_before_backoff(self):
+        calls = []
+        sleeps = []
+        responses = [FakeResponse(429, headers={"Retry-After": "3"}), FakeResponse(200, {"ok": True})]
+
+        def client_factory(**kwargs):
+            return FakeClient(responses, calls)
+
+        payload = get_json_with_retries(
+            "https://example.test/works",
+            timeout=1.0,
+            client_factory=client_factory,
+            sleep=sleeps.append,
+            jitter=lambda delay: delay + 0.25,
+        )
+
+        self.assertEqual(payload, {"ok": True})
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(sleeps, [3.0])
+
+    def test_get_json_with_retries_applies_jitter_to_backoff(self):
+        calls = []
+        sleeps = []
+        responses = [FakeResponse(503), FakeResponse(200, {"ok": True})]
+
+        def client_factory(**kwargs):
+            return FakeClient(responses, calls)
+
+        payload = get_json_with_retries(
+            "https://example.test/works",
+            timeout=1.0,
+            client_factory=client_factory,
+            sleep=sleeps.append,
+            jitter=lambda delay: delay + 0.5,
+        )
+
+        self.assertEqual(payload, {"ok": True})
+        self.assertEqual(sleeps, [1.5])
 
     def test_get_json_with_retries_does_not_retry_404(self):
         calls = []

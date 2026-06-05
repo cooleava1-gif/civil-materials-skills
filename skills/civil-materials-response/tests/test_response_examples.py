@@ -27,6 +27,29 @@ class ResponseExamplesTest(unittest.TestCase):
         for phrase in ["point-by-point", "revision plan", "CCC", "RMPD", "回复审稿人"]:
             self.assertIn(phrase, manifest)
 
+    def test_response_pattern_and_document_format_references_cover_real_revision_scenarios(self):
+        patterns = SKILL_ROOT / "references" / "response-patterns.md"
+        document_format = SKILL_ROOT / "references" / "response-document-format.md"
+        self.assertTrue(patterns.exists(), "response-patterns.md should exist")
+        self.assertTrue(document_format.exists(), "response-document-format.md should exist")
+
+        pattern_text = patterns.read_text(encoding="utf-8")
+        document_text = document_format.read_text(encoding="utf-8")
+
+        for phrase in [
+            "English Needs Major Revision",
+            "Add More References",
+            "Incremental",
+            "Sample size",
+            "Error Bars",
+            "Raw Data",
+            "Conflicting Reviewer",
+            "Beyond Scope",
+        ]:
+            self.assertIn(phrase.lower(), pattern_text.lower())
+        for phrase in ["Author Response", "tracked", "cover letter", "Page X", "Lines Y-Z", "conflicting reviewer"]:
+            self.assertIn(phrase.lower(), document_text.lower())
+
 
 if __name__ == "__main__":
     unittest.main()

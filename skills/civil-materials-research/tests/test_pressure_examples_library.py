@@ -105,7 +105,14 @@ class AllModulePressureSuiteTest(unittest.TestCase):
         )
         journal_shortlist = (SKILL_ROOT / "references" / "journal-shortlist.md").read_text(encoding="utf-8")
 
-        for reference in ["statistical-methods.md", "test-standards-mapping.md"]:
+        for reference in [
+            "statistical-methods.md",
+            "test-standards-mapping.md",
+            "standards-mapping.md",
+            "characterization-guide.md",
+            "sustainability-claims-guide.md",
+            "thesis-timeline.md",
+        ]:
             self.assertTrue((SKILL_ROOT / "references" / reference).exists())
             self.assertIn(reference, manifest_text)
             self.assertIn(reference, skill_text)
@@ -116,6 +123,24 @@ class AllModulePressureSuiteTest(unittest.TestCase):
             self.assertIn(phrase, civil_generic)
         for journal in ["Cement and Concrete Research", "Journal of Materials in Civil Engineering", "Resources, Conservation and Recycling", "Fuel"]:
             self.assertIn(journal, journal_shortlist)
+
+    def test_execution_level_guides_include_required_practical_content(self):
+        checks = {
+            "references/statistical-methods.md": ["ANOVA", "Tukey", "Shapiro-Wilk", "mean", "SD"],
+            "references/standards-mapping.md": ["GB/T", "ASTM", "EN", "JTG", "AASHTO"],
+            "references/characterization-guide.md": ["FTIR", "SEM", "fluorescence", "XRD", "TG/DTG", "rheology"],
+            "references/sustainability-claims-guide.md": ["functional unit", "LCA", "screening", "tradeoff", "waterborne epoxy"],
+            "references/thesis-timeline.md": ["First 4 Weeks", "Months 3-6", "review paper", "experimental manuscript"],
+            "examples/library/manuscript-paragraph-examples.md": ["Context", "Gap", "Results", "Mechanism", "Implication"],
+        }
+
+        for relative, phrases in checks.items():
+            with self.subTest(relative=relative):
+                path = SKILL_ROOT / relative
+                self.assertTrue(path.exists(), f"{relative} should exist")
+                text = path.read_text(encoding="utf-8")
+                for phrase in phrases:
+                    self.assertIn(phrase, text)
 
 
 if __name__ == "__main__":

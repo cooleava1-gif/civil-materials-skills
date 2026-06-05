@@ -1,5 +1,10 @@
 cbm:
   font_family: Arial
+  dpi: 600
+  preferred_formats: ["TIFF", "PDF", "EPS"]
+  single_column_width_mm: 90
+  double_column_width_mm: 180
+  min_font_size_pt: 6
   background: "#FFFFFF"
   axis: "#2F332F"
   grid: "#E8E2D6"
@@ -12,6 +17,11 @@ cbm:
 
 ccc:
   font_family: Arial
+  dpi: 600
+  preferred_formats: ["TIFF", "PDF", "EPS"]
+  single_column_width_mm: 90
+  double_column_width_mm: 180
+  min_font_size_pt: 6
   background: "#FFFFFF"
   axis: "#26313A"
   grid: "#DDE6EA"
@@ -24,6 +34,11 @@ ccc:
 
 rmpd_ijpe:
   font_family: Arial
+  dpi: 600
+  preferred_formats: ["EPS", "TIFF", "PDF"]
+  single_column_width_mm: 82
+  double_column_width_mm: 169
+  min_font_size_pt: 8
   background: "#FFFFFF"
   axis: "#2E2E2E"
   grid: "#E6E6DE"
@@ -36,6 +51,11 @@ rmpd_ijpe:
 
 jbe:
   font_family: Arial
+  dpi: 600
+  preferred_formats: ["TIFF", "PDF", "EPS"]
+  single_column_width_mm: 90
+  double_column_width_mm: 180
+  min_font_size_pt: 6
   background: "#FFFFFF"
   axis: "#30353B"
   grid: "#E4E7EC"

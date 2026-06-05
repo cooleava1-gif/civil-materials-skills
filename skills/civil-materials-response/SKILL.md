@@ -42,4 +42,8 @@ Each reviewer comment should become:
 
 Use `scripts/build_response_package.py` to scaffold a point-by-point response package.
 
+Use `references/response-patterns.md` when the reviewer comment matches a high-frequency scenario such as language revision, more references, weak novelty, insufficient comparison, small sample size, missing error bars, raw data request, conflicting reviewers, or requested experiments beyond scope.
+
+Use `references/response-document-format.md` when the user needs a revision package format, tracked-changes handoff, author response layout, or revision cover letter.
+
 Use `examples/cbm-major-revision-response-example.md`, `examples/ccc-methodology-critique-response-example.md`, and `examples/rmpd-minor-revision-response-example.md` as concrete models. Use `tests/pressure-tests/aggressive-reviewer-mechanism-request.md` to check that responses stay respectful, evidence-bound, and honest about missing data.

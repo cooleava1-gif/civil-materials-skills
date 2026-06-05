@@ -23,3 +23,37 @@ Match language strength to evidence strength.
 - "The mechanism is..." without FTIR, SEM, fluorescence, rheology, hydration, or equivalent evidence.
 - "Durability was improved" without aging, moisture, freeze-thaw, retained strength, or service-condition data.
 - "Suitable for engineering application" without constructability, storage stability, viscosity, dosage, or field boundary.
+
+## Handling Negative or Inconclusive Results
+
+Use negative results to define boundaries, not to hide failure.
+
+### Non-significant trend
+
+Before:
+
+> The 15% epoxy dosage significantly improved bonding strength.
+
+After:
+
+> The 15% epoxy group showed a higher mean bonding strength than the 10% group, but the difference was not statistically significant (p = 0.12). The trend is therefore interpreted cautiously and should be confirmed with additional replicates.
+
+### Performance decreases at high dosage
+
+Before:
+
+> Higher epoxy dosage improves the emulsion performance.
+
+After:
+
+> Bonding strength increased up to the intermediate epoxy dosage but decreased at 20%, indicating a dosage-dependent threshold. The decrease may be associated with increased viscosity or phase separation, but direct morphology evidence is required before assigning a mechanism.
+
+### Mechanism evidence does not match hypothesis
+
+Before:
+
+> FTIR confirmed the expected curing mechanism.
+
+After:
+
+> FTIR did not show the expected reduction of the oxirane peak for the low-dosage group, suggesting that curing may have been incomplete under the tested condition. The mechanism discussion was revised to reflect this uncertainty.

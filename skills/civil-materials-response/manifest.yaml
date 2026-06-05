@@ -9,9 +9,15 @@ axes:
       point-by-point:
         path: references/response-strategy.md
         triggers: ["reviewer", "comments", "response", "point-by-point", "逐条回复", "回复审稿人"]
+      response-patterns:
+        path: references/response-patterns.md
+        triggers: ["English needs major revision", "add more references", "novelty", "sample size", "error bars", "raw data", "conflicting reviewers", "高频审稿意见"]
       revision-plan:
         path: references/experiment-revision.md
         triggers: ["revise", "experiment", "additional test", "revision plan", "补实验", "修改方案"]
+      document-format:
+        path: references/response-document-format.md
+        triggers: ["author response", "tracked changes", "revision cover letter", "response document", "回复文档", "修回格式"]
       language-polish:
         path: references/language-bank.md
         triggers: ["polish response", "tone", "rebuttal language", "语气", "润色回复"]

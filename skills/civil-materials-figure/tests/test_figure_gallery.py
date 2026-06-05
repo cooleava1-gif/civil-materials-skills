@@ -11,12 +11,15 @@ SKILL_ROOT = Path(__file__).resolve().parents[1]
 class FigureGalleryAssetsTest(unittest.TestCase):
     def test_gallery_reference_and_style_presets_exist(self):
         gallery = SKILL_ROOT / "references" / "figure-gallery.md"
+        production_spec = SKILL_ROOT / "references" / "figure-production-spec.md"
         presets = SKILL_ROOT / "assets" / "templates" / "figure-style-presets.yaml"
 
         self.assertTrue(gallery.exists(), "figure-gallery.md should document the gallery workflow")
+        self.assertTrue(production_spec.exists(), "figure-production-spec.md should document submission production rules")
         self.assertTrue(presets.exists(), "figure-style-presets.yaml should define journal style presets")
 
         gallery_text = gallery.read_text(encoding="utf-8")
+        production_text = production_spec.read_text(encoding="utf-8")
         preset_text = presets.read_text(encoding="utf-8")
 
         for phrase in [
@@ -30,6 +33,10 @@ class FigureGalleryAssetsTest(unittest.TestCase):
             self.assertIn(phrase, gallery_text)
         for preset in ["cbm", "ccc", "rmpd_ijpe", "jbe"]:
             self.assertIn(f"{preset}:", preset_text)
+        for phrase in ["dpi", "TIFF", "EPS", "single column", "double column", "SEM"]:
+            self.assertIn(phrase, production_text)
+        for phrase in ["dpi:", "preferred_formats:", "single_column_width_mm:", "double_column_width_mm:", "min_font_size_pt:"]:
+            self.assertIn(phrase, preset_text)
 
     def test_gallery_example_cards_have_claim_caption_and_risk(self):
         expected = [
@@ -86,6 +93,38 @@ class FigureGalleryDemoScriptTest(unittest.TestCase):
 
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("CSV must include columns: label, value", result.stderr)
+
+    def test_plot_svg_generates_svg_from_valid_csv(self):
+        script = SKILL_ROOT / "scripts" / "civil_materials_plot_svg.py"
+        self.assertTrue(script.exists(), "civil_materials_plot_svg.py should exist")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            csv_path = Path(tmp) / "bonding.csv"
+            output_path = Path(tmp) / "bonding.svg"
+            csv_path.write_text("label,value\nControl,0.42\nEpoxy 15%,0.68\n", encoding="utf-8")
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(script),
+                    str(csv_path),
+                    "--title",
+                    "Bonding strength",
+                    "--ylabel",
+                    "Pull-off strength (MPa)",
+                    "--output",
+                    str(output_path),
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+
+            self.assertIn(str(output_path), result.stdout)
+            self.assertTrue(output_path.exists())
+            svg = output_path.read_text(encoding="utf-8")
+            self.assertIn("<svg", svg)
+            self.assertIn("<rect", svg)
+            self.assertIn("<text", svg)
 
     def test_gallery_demo_generates_all_svg_examples(self):
         script = SKILL_ROOT / "scripts" / "gallery_demo.py"

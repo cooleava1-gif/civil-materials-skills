@@ -85,6 +85,10 @@ Open `references/` files only when the request needs deeper help:
 - From data to figures to manuscript claims -> `references/data-to-manuscript.md`.
 - Statistical method choice, uncertainty, replicate count, or significance wording -> `references/statistical-methods.md`.
 - ASTM/EN/JTG/GB/AASHTO/RILEM method mapping and test comparability -> `references/test-standards-mapping.md`.
+- GB/T or JTG to ASTM/EN/ISO manuscript language and comparability cautions -> `references/standards-mapping.md`.
+- Instrument/sample-preparation guidance for FTIR, SEM, fluorescence, XRD, TG/DTG, DSC, AFM, and rheology -> `references/characterization-guide.md`.
+- Sustainability, low-carbon, LCA, recycled-material, waste-utilization, or service-life environmental claims -> `references/sustainability-claims-guide.md`.
+- Master's thesis roadmap, semester planning, review-to-experiment timeline, or paper pipeline planning -> `references/thesis-timeline.md`.
 - Companion skill coordination, including citation, response, data/FAIR, and PPTX handoff -> `references/companion-modules.md`.
 - Full-module pressure testing and failure-mode validation -> `references/pressure-test-suite.md`.
 - Concrete module examples and output shapes -> `examples/library/library-index.md`.

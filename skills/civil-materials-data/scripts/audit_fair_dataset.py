@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import sys
 from pathlib import Path
 
 
@@ -92,16 +93,19 @@ def render_markdown(report: dict[str, object]) -> str:
         "## FAIR",
     ]
     fair = report["fair"]
-    assert isinstance(fair, dict)
+    if not isinstance(fair, dict):
+        raise TypeError("report['fair'] must be a dict")
     for key, value in fair.items():
         lines.append(f"- {key}: {'pass' if value else 'incomplete'}")
     lines.extend(["", "## Missing"])
     missing = report["missing"]
-    assert isinstance(missing, list)
+    if not isinstance(missing, list):
+        raise TypeError("report['missing'] must be a list")
     lines.extend([f"- {item}" for item in missing] or ["- none"])
     lines.extend(["", "## Actions"])
     actions_list = report["actions"]
-    assert isinstance(actions_list, list)
+    if not isinstance(actions_list, list):
+        raise TypeError("report['actions'] must be a list")
     lines.extend([f"- {item}" for item in actions_list] or ["- none"])
     return "\n".join(lines) + "\n"
 
@@ -112,7 +116,12 @@ def main() -> int:
     parser.add_argument("--json", action="store_true", help="Emit JSON instead of Markdown.")
     args = parser.parse_args()
 
-    report = audit(Path(args.dataset_dir))
+    dataset_dir = Path(args.dataset_dir)
+    if not dataset_dir.is_dir():
+        print(f"Error: directory not found: {dataset_dir}", file=sys.stderr)
+        return 1
+
+    report = audit(dataset_dir)
     if args.json:
         print(json.dumps(report, ensure_ascii=False, indent=2))
     else:

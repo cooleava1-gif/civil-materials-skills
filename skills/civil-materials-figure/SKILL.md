@@ -25,4 +25,6 @@ Use the figure gallery when a request needs a polished visual direction before e
 
 Use `references/characterization-figures.md` when the request involves XRD overlays, TG/DTG curves, FTIR overlays, SEM/TEM image annotation, fluorescence microscopy, or error-bar/boxplot choices.
 
+Use `references/figure-production-spec.md` before final submission exports, especially for DPI, TIFF/EPS/PDF, final figure width, font size, subfigure labels, and microscopy scale bars.
+
 Do not treat gallery demos as evidence. They are layout examples; manuscript claims still need real data, test conditions, and source-grounded captions.

@@ -118,6 +118,25 @@ class AcademicSearchServiceTest(unittest.TestCase):
         self.assertEqual(len(result["records"]), 1)
         self.assertEqual(result["warnings"], ["disabled source", "transient upstream failure"])
 
+    def test_search_logs_adapter_failures(self):
+        service = AcademicSearchService(
+            adapters=[
+                FailingAdapter(AdapterDisabled("disabled source")),
+                FailingAdapter(AdapterError("transient upstream failure")),
+            ]
+        )
+
+        with self.assertLogs("academic_search.service", level="WARNING") as captured:
+            result = service.search_civil_materials(
+                {
+                    "topic": "waterborne epoxy modified emulsified asphalt bonding performance",
+                }
+            )
+
+        self.assertEqual(result["records"], [])
+        self.assertIn("disabled source", "\n".join(captured.output))
+        self.assertIn("transient upstream failure", "\n".join(captured.output))
+
     def test_fetch_metadata_marks_missing_fields_and_source_provenance(self):
         service = AcademicSearchService(
             adapters=[

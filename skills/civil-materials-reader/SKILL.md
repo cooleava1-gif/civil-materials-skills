@@ -40,6 +40,7 @@ The output should include:
 - For cement/concrete papers, always capture fresh properties, strength, durability, hydration/microstructure, and sustainability boundary separately.
 - For review writing, convert each borrowable idea into: claim -> evidence -> mechanism -> boundary -> citation role.
 - Flag reviewer risks when a conclusion is stronger than the measurements.
+- Use `references/microstructure-interpretation.md` when interpreting SEM, fluorescence microscopy, AFM, DSC/TG, or morphology figures.
 
 If the user asks for a PPT after reading, hand off to `civil-materials-paper2ppt`. If the user asks for polished English after reading, hand off to `civil-materials-polishing`.
 

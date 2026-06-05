@@ -1,4 +1,5 @@
 import json
+import importlib.util
 import subprocess
 import sys
 import tempfile
@@ -7,6 +8,16 @@ from pathlib import Path
 
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
+AUDIT_SCRIPT = SKILL_ROOT / "scripts" / "audit_fair_dataset.py"
+
+
+def load_audit_module():
+    spec = importlib.util.spec_from_file_location("audit_fair_dataset", AUDIT_SCRIPT)
+    if spec is None or spec.loader is None:
+        raise RuntimeError("Could not load audit_fair_dataset.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 class CivilMaterialsDataSkillStructureTest(unittest.TestCase):
@@ -53,6 +64,15 @@ class CivilMaterialsDataSkillStructureTest(unittest.TestCase):
         ]:
             self.assertIn(field, metadata + data_csv)
         self.assertIn("Data Availability Statement", statement)
+
+    def test_domain_schemas_include_units_ranges_and_sanity_checks(self):
+        asphalt_schema = (SKILL_ROOT / "references" / "asphalt-data-schema.md").read_text(encoding="utf-8")
+        concrete_schema = (SKILL_ROOT / "references" / "cement-concrete-data-schema.md").read_text(encoding="utf-8")
+
+        for phrase in ["Type", "Unit or format", "Typical/allowed values", "Sanity check", "epoxy_dosage", "curing_condition"]:
+            self.assertIn(phrase, asphalt_schema)
+        for phrase in ["Type", "Unit or format", "Typical/allowed values", "Sanity check", "binder_type", "allowed_values"]:
+            self.assertIn(phrase, concrete_schema)
 
     def test_generated_waterborne_epoxy_example_package_exists(self):
         package_dir = (
@@ -190,6 +210,34 @@ class CivilMaterialsDataScriptsTest(unittest.TestCase):
 
             self.assertEqual(result.returncode, 1)
             self.assertFalse(report["fair"]["interoperable"])
+
+    def test_audit_fair_dataset_reports_missing_dataset_dir_to_stderr(self):
+        missing_dir = Path(tempfile.gettempdir()) / "civil_materials_missing_dataset_dir_for_test"
+        result = subprocess.run(
+            [sys.executable, str(AUDIT_SCRIPT), "--dataset-dir", str(missing_dir), "--json"],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(result.stdout, "")
+        self.assertIn("directory not found", result.stderr)
+        self.assertIn(str(missing_dir), result.stderr)
+
+    def test_render_markdown_uses_explicit_type_validation(self):
+        audit_module = load_audit_module()
+
+        with self.assertRaises(TypeError):
+            audit_module.render_markdown(
+                {
+                    "status": "incomplete",
+                    "dataset_dir": "example",
+                    "fair": [],
+                    "missing": [],
+                    "actions": [],
+                }
+            )
 
 
 class CivilMaterialsDataRouterIntegrationTest(unittest.TestCase):

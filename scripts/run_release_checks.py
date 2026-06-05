@@ -94,6 +94,7 @@ def collect_release_issues(root: Path) -> dict[str, list[str]]:
 def run_tests(root: Path) -> None:
     test_roots = [
         root / "skills" / "civil-materials-research" / "tests",
+        root / "skills" / "civil-materials-reader" / "tests",
         root / "skills" / "civil-materials-data" / "tests",
         root / "skills" / "civil-materials-figure" / "tests",
         root / "skills" / "civil-materials-polishing" / "tests",

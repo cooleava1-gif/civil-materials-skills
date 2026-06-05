@@ -24,6 +24,9 @@ axes:
       gallery:
         path: references/figure-gallery.md
         triggers: ["gallery", "figure gallery", "figure example", "style preset", "demo figure", "figure card", "图表示例"]
+      production-spec:
+        path: references/figure-production-spec.md
+        triggers: ["dpi", "TIFF", "EPS", "PDF", "figure production", "submission figure", "分辨率", "投稿图", "出图规范"]
 
   domain:
     default: civil-materials
