@@ -83,6 +83,34 @@ Reviewer risk:
 - Do not generalize from one attractive micrograph.
 - Do not infer durability or bonding mechanism unless linked to performance data.
 
+## Fluorescence Microscopy Plate
+
+Best use: visualize polymer/epoxy phase distribution within the asphalt matrix and compare morphology across dosage series.
+
+Required image metadata:
+
+- magnification and Scale bar, kept consistent across all images in the plate.
+- excitation wavelength and emission filter set, for example UV 330-380 nm excitation and 420 nm long-pass emission.
+- sample preparation, including thin-film thickness, embedding medium, staining, or drying condition when applicable.
+- epoxy content and specimen label for each image.
+- number of representative fields observed for each formulation.
+
+Caption boundary:
+
+> Fluorescence microscopy images of [material system] at epoxy contents of
+> [X], [Y], and [Z]% by dry residue weight. Bright regions correspond to
+> [epoxy-rich / polymer-rich phase], whereas dark regions correspond to the
+> asphalt-rich phase. Scale bar: [N] um. Images are representative of [n]
+> fields of view per formulation. Excitation: [wavelength/filter]; emission:
+> [wavelength/filter].
+
+Reviewer risk:
+
+- Do not claim `uniform distribution` from a single field of view; state how many fields were observed.
+- Do not quantify phase area fraction without image analysis software, such as ImageJ thresholding, and a stated method.
+- Always report excitation and emission conditions or the filter set catalog number so results are reproducible.
+- Avoid using fluorescence images alone to support mechanism claims. Pair with at least one quantitative technique, such as FTIR, DSC, rheology, or bonding-performance data.
+
 ## Error Bars, Boxplots, and Scatter
 
 Choose:

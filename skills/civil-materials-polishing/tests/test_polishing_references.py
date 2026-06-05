@@ -22,6 +22,14 @@ class PolishingReferencesTest(unittest.TestCase):
         self.assertIn("conclusions.md", skill_text)
         self.assertIn("中译英", manifest)
 
+    def test_conclusions_second_example_is_an_actual_revised_paragraph(self):
+        text = (SKILL_ROOT / "references" / "conclusions.md").read_text(encoding="utf-8")
+
+        self.assertIn("FTIR analysis confirmed epoxy ring-opening", text)
+        self.assertIn("fluorescence microscopy revealed", text)
+        self.assertIn("long-term field performance", text)
+        self.assertNotIn("Mechanism and durability conclusions should be limited", text)
+
 
 if __name__ == "__main__":
     unittest.main()

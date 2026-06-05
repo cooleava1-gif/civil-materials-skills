@@ -2,6 +2,8 @@
 
 Use this reference to keep civil-materials claims tied to recognized test methods. Always verify the latest official standard text before final submission.
 
+> Companion reference: [standards-mapping.md](standards-mapping.md) provides GB/T, JTG, ASTM, EN, and ISO mapping by material class with manuscript wording templates and citation cautions. Use both references for complete coverage.
+
 ## Asphalt and Pavement Materials
 
 | Evidence need | Common standards or families | Report with the result |

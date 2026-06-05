@@ -2,6 +2,8 @@
 
 Use this reference when converting Chinese laboratory test descriptions into internationally legible manuscript methods. Always verify the official standard year and exact clauses before submission.
 
+> Companion reference: [test-standards-mapping.md](test-standards-mapping.md) organizes related standards by evidence need, such as moisture resistance, workability, durability, or LCA claims. Use both references for complete coverage.
+
 ## Concrete and Cementitious Materials
 
 | Test | Chinese standard | International counterpart | Key difference to report |

@@ -28,10 +28,10 @@ Why: the revision keeps the main contribution while removing universal deploymen
 
 Before:
 
-> The mechanism and durability were proved by the strength test results.
+> The FTIR and SEM results proved that the waterborne epoxy improved the mechanism and durability of the modified emulsified asphalt, making it suitable for long-term pavement service.
 
 After:
 
-> The strength results support a performance improvement. Mechanism and durability conclusions should be limited to the available FTIR/microscopy and moisture-aging evidence, respectively; if those measurements are absent, state them as future work.
+> FTIR analysis confirmed epoxy ring-opening at ~915 cm-1 after curing, and fluorescence microscopy revealed a co-continuous morphology at 15% epoxy content. Under the tested moisture conditioning (60 degC water soak, 48 h), the 15% epoxy formulation retained 89% of its dry pull-off strength, compared with 64% for the control. These results indicate improved moisture resistance under the specific conditions tested; long-term field performance under traffic loading and environmental cycling remains to be verified.
 
-Why: the revision prevents performance data from being promoted into mechanism or service-life proof.
+Why: mechanism and durability are stated only within the bounds of actual tests. `Proved` is replaced with evidence-specific language, and field service suitability becomes a limitation rather than a conclusion.

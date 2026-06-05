@@ -56,6 +56,42 @@ dependent performance benefit, but field durability should be confirmed using
 moisture, aging, and traffic-related exposure tests.
 ```
 
+### Methods paragraph (materials and specimen preparation)
+
+Before:
+
+```text
+Waterborne epoxy resin was supplied by Company A. The epoxy equivalent weight
+was 210 g/eq. The curing agent was a polyamine. The amine value was 280 mg
+KOH/g. Cationic emulsified asphalt was used. The residue content was 62%.
+The penetration was 68 dmm. Five epoxy contents were 0, 5, 10, 15, and 20%.
+The mixing speed was 3000 rpm. The mixing time was 3 min. The mixing
+temperature was 25 degC.
+```
+
+Problem: this is a fact list, not a reproducible method. The reader cannot see the logic from material specification to formulation, preparation, conditioning, and testing.
+
+After:
+
+```text
+[Material specification] Waterborne epoxy resin (type [X], epoxy equivalent
+weight 210 g/eq, [supplier]) and its polyamine curing agent (amine value
+280 mg KOH/g, resin-to-hardener mass ratio [X:Y]) were used as the modifier.
+Cationic emulsified asphalt (residue content 62 +/- 1%, penetration 68 dmm
+at 25 degC, conforming to JTG E20 T0651) served as the base binder.
+[Formulation design] Five formulations were prepared with epoxy contents of
+0, 5, 10, 15, and 20% by dry residue weight of the emulsified asphalt.
+[Specimen preparation] The epoxy resin and curing agent were pre-mixed,
+emulsified with [emulsifier type] at [X]% by mass using a high-shear mixer
+at 3000 rpm for 3 min at 25 degC, and blended with the emulsified asphalt.
+Pull-off bonding specimens were prepared by applying the modified emulsified
+asphalt at a spread rate of [X] L/m2 on [substrate] substrates (surface
+preparation: [sandblasting]). After curing at 25 degC / 50% RH for 7 days,
+the bonded assemblies were tested per [standard].
+```
+
+Quality bar: organize Methods by logical block: material -> formulation -> preparation -> conditioning -> testing. State standards, dosage basis, temperature, humidity, time, application rate, substrate, and loading protocol.
+
 ## Quality Bar
 
 - Each paragraph must label what is evidence, interpretation, and boundary.

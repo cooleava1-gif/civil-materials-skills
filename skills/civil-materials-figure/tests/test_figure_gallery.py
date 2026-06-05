@@ -126,6 +126,21 @@ class FigureGalleryDemoScriptTest(unittest.TestCase):
             self.assertIn("<rect", svg)
             self.assertIn("<text", svg)
 
+    def test_characterization_figures_include_fluorescence_microscopy_plate(self):
+        reference = SKILL_ROOT / "references" / "characterization-figures.md"
+        text = reference.read_text(encoding="utf-8")
+
+        for phrase in [
+            "Fluorescence Microscopy Plate",
+            "excitation wavelength",
+            "emission",
+            "Scale bar",
+            "representative",
+            "ImageJ",
+            "FTIR, DSC, rheology",
+        ]:
+            self.assertIn(phrase, text)
+
     def test_gallery_demo_generates_all_svg_examples(self):
         script = SKILL_ROOT / "scripts" / "gallery_demo.py"
         self.assertTrue(script.exists(), "gallery_demo.py should exist")

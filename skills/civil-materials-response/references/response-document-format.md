@@ -52,25 +52,14 @@ Sincerely,
 
 ## Conflicting Reviewer Requests
 
-Do not frame reviewers as opposing each other. Use:
+See [response-patterns.md](response-patterns.md) Pattern 11 for the strategy, diplomatic wording, and a ready-to-use example response.
 
-```text
-Reviewer 1 requested a more detailed explanation of [x], whereas Reviewer 2
-cautioned against overinterpretation. We addressed both concerns by adding the
-available evidence for [x] and revising the claim strength to distinguish
-direct observations from interpretation.
-```
+Key format rule: in the response document, present both reviewer concerns side by side, then state the single compromise action with manuscript locations for each reviewer's satisfaction.
 
 ## When Requested Experiments Are Beyond Scope
 
-Use:
+See [response-patterns.md](response-patterns.md) Pattern 12 for the strategy and example response.
 
-```text
-We acknowledge that [additional experiment] would further strengthen the
-evidence. Because the current study focuses on [scope] and does not include
-[required facility/sample/time], we have not added this experiment. Instead,
-we revised the relevant claim to be more cautious and added [experiment] as
-future work.
-```
+Key format rule: always add the limitation to the manuscript's Limitations or Future Work section and point the reviewer to the exact location in the revised manuscript.
 
 Never promise an experiment unless it has been completed or the user explicitly chooses that revision path.

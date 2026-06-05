@@ -50,6 +50,15 @@ class ResponseExamplesTest(unittest.TestCase):
         for phrase in ["Author Response", "tracked", "cover letter", "Page X", "Lines Y-Z", "conflicting reviewer"]:
             self.assertIn(phrase.lower(), document_text.lower())
 
+    def test_response_document_format_links_to_patterns_instead_of_duplicating_strategy_examples(self):
+        document_text = (SKILL_ROOT / "references" / "response-document-format.md").read_text(encoding="utf-8")
+
+        self.assertIn("response-patterns.md", document_text)
+        self.assertIn("Pattern 11", document_text)
+        self.assertIn("Pattern 12", document_text)
+        self.assertIn("Key format rule", document_text)
+        self.assertNotIn("Reviewer 1 requested a more detailed explanation", document_text)
+
 
 if __name__ == "__main__":
     unittest.main()

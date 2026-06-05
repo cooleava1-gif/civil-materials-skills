@@ -142,6 +142,23 @@ class AllModulePressureSuiteTest(unittest.TestCase):
                 for phrase in phrases:
                     self.assertIn(phrase, text)
 
+    def test_minor_optimization_references_are_cross_linked_and_methods_ready(self):
+        statistical = (SKILL_ROOT / "references" / "statistical-methods.md").read_text(encoding="utf-8")
+        standards = (SKILL_ROOT / "references" / "standards-mapping.md").read_text(encoding="utf-8")
+        test_standards = (SKILL_ROOT / "references" / "test-standards-mapping.md").read_text(encoding="utf-8")
+        examples = (SKILL_ROOT / "examples" / "library" / "manuscript-paragraph-examples.md").read_text(
+            encoding="utf-8"
+        )
+
+        for phrase in ["Kruskal-Wallis + Dunn", "Bonferroni", "Post-hoc Dunn"]:
+            self.assertIn(phrase, statistical)
+        self.assertIn("Companion reference", standards)
+        self.assertIn("test-standards-mapping.md", standards)
+        self.assertIn("Companion reference", test_standards)
+        self.assertIn("standards-mapping.md", test_standards)
+        for phrase in ["Methods paragraph", "Material specification", "Formulation design", "Specimen preparation"]:
+            self.assertIn(phrase, examples)
+
 
 if __name__ == "__main__":
     unittest.main()

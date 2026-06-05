@@ -31,7 +31,7 @@ Decision tree:
 | Two independent groups | Welch t-test if variance may differ; Student t-test only if assumptions are justified | `The modified group showed a higher mean value; statistical significance was assessed using ...` |
 | More than two dosages or mixtures | One-way ANOVA plus Tukey HSD | `Differences among dosage groups were screened by ANOVA and separated by Tukey HSD.` |
 | Two factors, such as dosage and curing time | Two-way ANOVA | `The effects of dosage, curing time, and their interaction were evaluated.` |
-| Non-normal or very small samples | Mann-Whitney U, Kruskal-Wallis, or descriptive statistics with caution | `The trend is reported descriptively because the sample size is too small for robust inference.` |
+| Non-normal or very small samples | Mann-Whitney U; Kruskal-Wallis + Dunn post-hoc test with Bonferroni correction; or descriptive statistics with caution | `The trend is reported descriptively unless a valid non-parametric post-hoc comparison is reported.` |
 | Before/after aging retention | Paired test if same specimens; independent test if different specimens | `Retention was calculated as aged/unaged performance and tested according to specimen pairing.` |
 | Repeated temperature/frequency rheology | Repeated-measures model or separate curves with cautious interpretation | `Curve-level behavior is shown; pointwise comparisons should not be overinterpreted.` |
 | Correlation between continuous variables | Pearson or Spearman | `The association was evaluated using [Pearson/Spearman] correlation; correlation is not treated as causation.` |
@@ -89,6 +89,16 @@ Correlation statement:
 The relationship between viscosity and pull-off strength was evaluated using
 Spearman correlation because the dosage-response trend was monotonic but not
 strictly linear. The correlation is used to describe association, not causality.
+```
+
+Post-hoc Dunn statement:
+
+```text
+Kruskal-Wallis + Dunn analysis indicated a statistically significant
+difference in [property] across [X] groups (H([df]) = [value], p < 0.05).
+Post-hoc Dunn tests with Bonferroni correction revealed that the [A]% group
+differed significantly from the [B]% group (p < 0.01) and the [C]% group
+(p < 0.05).
 ```
 
 ## Waterborne Epoxy Emulsified Asphalt Notes
