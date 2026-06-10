@@ -33,6 +33,15 @@ system already does, instead of what it merely claims to do.
 - [Paper to presentation demo](../workflows/paper-to-presentation.md):
   outline-first slide production with PPTX handoff
 
+## Outcome Showcases
+
+- [Submission package](../showcases/submission-package.md):
+  templates, gate report, and journal-fit proof before final submission
+- [Reviewer response](../showcases/reviewer-response.md):
+  point-by-point reply patterns tied to actual manuscript changes
+- [FAIR data package](../showcases/fair-data-package.md):
+  metadata, availability statement, and dataset-organization proof
+
 ## Artifact Deep Dives
 
 - Reader-package sample:
@@ -41,6 +50,8 @@ system already does, instead of what it merely claims to do.
   [library-index.md](../../skills/civil-materials-research/examples/library/library-index.md)
 - Skills index:
   [docs/skills-index.md](../skills-index.md)
+- Outcome showcase hub:
+  [docs/showcases/README.md](../showcases/README.md)
 - Figure atlas output folder:
   `skills/civil-materials-figure/assets/wer-ea-atlas/generated/`
 

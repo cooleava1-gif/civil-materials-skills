@@ -39,6 +39,18 @@ WORKFLOW_README_SECTIONS = [
     "## Expected Artifacts",
     "## What Good Looks Like",
 ]
+OUTCOME_SHOWCASES = {
+    "submission-package": "Submission package",
+    "reviewer-response": "Reviewer response",
+    "fair-data-package": "FAIR data package",
+}
+OUTCOME_SHOWCASE_SECTIONS = [
+    "## Outcome Snapshot",
+    "## Demo Prompt",
+    "## Proof Assets",
+    "## Build Path",
+    "## When To Use This Route",
+]
 
 
 class ProductDocsContractTests(unittest.TestCase):
@@ -54,6 +66,7 @@ class ProductDocsContractTests(unittest.TestCase):
             "## Skill Status Index",
             "## Guided Demos",
             "## Visual Gallery",
+            "## Outcome Showcases",
         ]:
             self.assertIn(marker, readme_text)
 
@@ -65,6 +78,7 @@ class ProductDocsContractTests(unittest.TestCase):
             "## Verify The Install",
             "## Five-Minute Walkthrough",
             "## Guided Demo Routes",
+            "## Showcase Shortcuts",
         ]:
             self.assertIn(marker, install_text)
 
@@ -93,6 +107,7 @@ class ProductDocsContractTests(unittest.TestCase):
             "## Screenshot Gallery",
             "## Workflow Proof",
             "## Artifact Deep Dives",
+            "## Outcome Showcases",
         ]:
             self.assertIn(marker, gallery_text)
 
@@ -103,6 +118,21 @@ class ProductDocsContractTests(unittest.TestCase):
             "contact_sheet.png",
         ]:
             self.assertIn(asset, gallery_text)
+
+    def test_outcome_showcase_docs_exist_with_real_proof_assets(self):
+        showcase_index = ROOT / "docs" / "showcases" / "README.md"
+        self.assertTrue(showcase_index.is_file(), "docs/showcases/README.md must exist")
+        index_text = showcase_index.read_text(encoding="utf-8")
+        self.assertIn("# Outcome Showcases", index_text)
+        self.assertIn("## Outcome Index", index_text)
+
+        for slug, title in OUTCOME_SHOWCASES.items():
+            path = ROOT / "docs" / "showcases" / f"{slug}.md"
+            self.assertTrue(path.is_file(), f"{path} must exist")
+            text = path.read_text(encoding="utf-8")
+            self.assertIn(f"# {title}", text)
+            for marker in OUTCOME_SHOWCASE_SECTIONS:
+                self.assertIn(marker, text, f"{slug} missing section {marker}")
 
     def test_every_skill_has_a_human_readme_with_core_sections(self):
         for skill in SKILLS:

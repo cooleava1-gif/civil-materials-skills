@@ -89,10 +89,23 @@ GALLERY_MARKERS = [
     "## Screenshot Gallery",
     "## Workflow Proof",
     "## Artifact Deep Dives",
+    "## Outcome Showcases",
     "wer_ea_mechanism_map.png",
     "wer_ea_evidence_heatmap.png",
     "wer_ea_dosage_window.png",
     "contact_sheet.png",
+]
+SHOWCASE_DOCS = {
+    "submission-package.md": "Submission package",
+    "reviewer-response.md": "Reviewer response",
+    "fair-data-package.md": "FAIR data package",
+}
+SHOWCASE_DOC_REQUIRED_MARKERS = [
+    "## Outcome Snapshot",
+    "## Demo Prompt",
+    "## Proof Assets",
+    "## Build Path",
+    "## When To Use This Route",
 ]
 SKILL_README_REQUIRED_HEADINGS = [
     "## When To Use",
@@ -686,6 +699,28 @@ def collect_skills_index_issues(root: Path, issues: dict[str, list[str]]) -> Non
         for marker in GALLERY_MARKERS:
             if marker not in gallery_text:
                 issues["skills_index"].append(f"docs/gallery/README.md missing marker {marker!r}")
+
+    showcase_root = root / "docs" / "showcases"
+    showcase_index = showcase_root / "README.md"
+    if not showcase_index.is_file():
+        issues["skills_index"].append("docs/showcases/README.md is missing")
+    else:
+        showcase_index_text = showcase_index.read_text(encoding="utf-8", errors="ignore")
+        for marker in ["# Outcome Showcases", "## Outcome Index"]:
+            if marker not in showcase_index_text:
+                issues["skills_index"].append(f"docs/showcases/README.md missing marker {marker!r}")
+
+    for filename, title in SHOWCASE_DOCS.items():
+        showcase_path = showcase_root / filename
+        if not showcase_path.is_file():
+            issues["skills_index"].append(f"docs/showcases/{filename} is missing")
+            continue
+        showcase_text = showcase_path.read_text(encoding="utf-8", errors="ignore")
+        if f"# {title}" not in showcase_text:
+            issues["skills_index"].append(f"docs/showcases/{filename} missing title {title!r}")
+        for marker in SHOWCASE_DOC_REQUIRED_MARKERS:
+            if marker not in showcase_text:
+                issues["skills_index"].append(f"docs/showcases/{filename} missing marker {marker!r}")
 
     if not index_path.is_file():
         issues["skills_index"].append(f"{SKILLS_INDEX_PATH.as_posix()} is missing")

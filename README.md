@@ -124,6 +124,17 @@ If you want to see the system before reading every skill:
 - The gallery links back to the four guided demos so the visuals and the route
   logic stay connected.
 
+## Outcome Showcases
+
+If the deliverable is already clear and you want to jump straight into a result
+shape:
+
+- [Submission package](docs/showcases/submission-package.md)
+- [Reviewer response](docs/showcases/reviewer-response.md)
+- [FAIR data package](docs/showcases/fair-data-package.md)
+
+The hub page is [docs/showcases/README.md](docs/showcases/README.md).
+
 ## Product Proof
 
 - The research router already supports `task`, `domain`, `journal`,

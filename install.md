@@ -140,6 +140,14 @@ If you want a curated first-use path instead of jumping in cold, start here:
 
 To see the visual proof side first, open [docs/gallery/README.md](docs/gallery/README.md).
 
+## Showcase Shortcuts
+
+If you already know the outcome you want, jump straight to:
+
+1. [Submission package](docs/showcases/submission-package.md)
+2. [Reviewer response](docs/showcases/reviewer-response.md)
+3. [FAIR data package](docs/showcases/fair-data-package.md)
+
 ## Recommended Reading Order
 
 If this is your first time with the bundle, open these in order:
