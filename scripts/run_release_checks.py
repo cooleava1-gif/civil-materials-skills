@@ -55,6 +55,27 @@ README_STATUS_COLUMNS = [
     "Typical input",
     "Typical product",
 ]
+ROOT_README_PRODUCT_MARKERS = [
+    "## Quick Start",
+    "## Four Workflow Entry Points",
+    "## Installation Paths",
+    "## Skill Status Index",
+]
+INSTALL_GUIDE_MARKERS = [
+    "# Install Civil Materials Skills",
+    "## Option 1: Codex Plugin",
+    "## Option 2: Manual Skills Install",
+    "## Verify The Install",
+    "## Five-Minute Walkthrough",
+]
+SKILL_README_REQUIRED_HEADINGS = [
+    "## When To Use",
+    "## Inputs",
+    "## Outputs",
+    "## Example",
+    "## Validation",
+    "## Boundaries",
+]
 
 WER_EA_REQUIRED_TERMS = [
     "wer-ea",
@@ -586,6 +607,7 @@ def iter_skill_roots(root: Path) -> list[tuple[str, Path]]:
 def collect_skills_index_issues(root: Path, issues: dict[str, list[str]]) -> None:
     readme_path = root / "README.md"
     index_path = root / SKILLS_INDEX_PATH
+    install_path = root / "install.md"
     if not readme_path.is_file():
         issues["skills_index"].append("README.md is missing")
         readme_text = ""
@@ -596,6 +618,17 @@ def collect_skills_index_issues(root: Path, issues: dict[str, list[str]]) -> Non
         for column in README_STATUS_COLUMNS:
             if column not in readme_text:
                 issues["skills_index"].append(f"README.md status table missing column {column!r}")
+        for marker in ROOT_README_PRODUCT_MARKERS:
+            if marker not in readme_text:
+                issues["skills_index"].append(f"README.md missing product marker {marker!r}")
+
+    if not install_path.is_file():
+        issues["skills_index"].append("install.md is missing")
+    else:
+        install_text = install_path.read_text(encoding="utf-8", errors="ignore")
+        for marker in INSTALL_GUIDE_MARKERS:
+            if marker not in install_text:
+                issues["skills_index"].append(f"install.md missing marker {marker!r}")
 
     if not index_path.is_file():
         issues["skills_index"].append(f"{SKILLS_INDEX_PATH.as_posix()} is missing")
@@ -611,6 +644,22 @@ def collect_skills_index_issues(root: Path, issues: dict[str, list[str]]) -> Non
             issues["skills_index"].append(f"README.md status table missing {skill}")
         if marker not in index_text:
             issues["skills_index"].append(f"{SKILLS_INDEX_PATH.as_posix()} missing {skill}")
+
+    for label, skills_root in iter_skill_roots(root):
+        for skill in REQUIRED_SKILLS:
+            skill_readme = skills_root / skill / "README.md"
+            if not skill_readme.is_file():
+                issues["skills_index"].append(f"{label}: missing {skill_readme.relative_to(root)}")
+                continue
+            skill_text = skill_readme.read_text(encoding="utf-8", errors="ignore")
+            title = f"# {skill}"
+            if title not in skill_text:
+                issues["skills_index"].append(f"{label}: {skill_readme.relative_to(root)} missing title {title!r}")
+            for heading in SKILL_README_REQUIRED_HEADINGS:
+                if heading not in skill_text:
+                    issues["skills_index"].append(
+                        f"{label}: {skill_readme.relative_to(root)} missing section {heading!r}"
+                    )
 
 
 def collect_wer_ea_pipeline_issues(root: Path, issues: dict[str, list[str]]) -> None:
@@ -1100,6 +1149,22 @@ def collect_plugin_issues(root: Path, issues: dict[str, list[str]]) -> None:
             prompts = interface.get("defaultPrompt")
             if not isinstance(prompts, list) or len(prompts) != 3 or not all(isinstance(item, str) and item for item in prompts):
                 issues["plugin_wrapper"].append("plugin.json interface.defaultPrompt must contain three non-empty strings")
+            screenshots = interface.get("screenshots")
+            if not isinstance(screenshots, list) or len(screenshots) < 3:
+                issues["plugin_wrapper"].append("plugin.json interface.screenshots must contain at least three png paths")
+            else:
+                for entry in screenshots:
+                    if not isinstance(entry, str) or not entry.endswith(".png"):
+                        issues["plugin_wrapper"].append(
+                            "plugin.json interface.screenshots entries must be .png strings"
+                        )
+                        continue
+                    relative = entry[2:] if entry.startswith("./") else entry
+                    screenshot_path = plugin_root / relative
+                    if not screenshot_path.is_file():
+                        issues["plugin_wrapper"].append(
+                            f"plugin.json screenshot path is missing: {screenshot_path.relative_to(root)}"
+                        )
 
     mcp_json = read_json(plugin_mcp_path, issues["plugin_wrapper"], "plugin_wrapper")
     if mcp_json is not None:

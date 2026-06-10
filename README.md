@@ -1,22 +1,71 @@
 # Civil Materials Skills
 
-Civil Materials Skills is a Codex skill bundle for civil engineering and construction-materials research. It is adapted for asphalt pavement materials, waterborne epoxy modified emulsified asphalt, cement/concrete, durability, sustainability, journal targeting, literature work, manuscript writing, figures, PPTX, data/FAIR packaging, and reviewer responses.
+Civil Materials Skills is a full-cycle Codex skill bundle for civil engineering
+and construction-materials research. It is built for researchers who need more
+than isolated prompts: they need routed workflows, evidence-grounded handoffs,
+release-checked skill packaging, and outputs they can use immediately for WER-EA
+mini-reviews, experimental manuscripts, figures, reviewer responses, and PPTX
+decks.
 
-## Included Skills
+The bundle is strongest where civil-materials work is usually fragile: source
+anchoring, claim boundaries, paper-production routing, and reviewer-risk
+control. WER-EA remains the first-class route, but the architecture also covers
+asphalt pavement materials, cement/concrete, durability, sustainability, and
+broader construction-materials manuscripts.
 
-| Skill | Purpose |
-|---|---|
-| `civil-materials-research` | Research router, topic positioning, manuscript strategy, journal fit, pressure tests, example library |
-| `civil-materials-reader` | Evidence-chain reading, source-map anchors, citation/figure handoffs |
-| `civil-materials-citation` | Literature search planning, WER-EA source screening, citation matrices, expanded academic-search MCP |
-| `civil-materials-writing` | From-scratch manuscript drafting, argument chains, section writing, and review-paper outlines |
-| `civil-materials-polishing` | English polishing, Chinese-to-English academic rewriting, claim-strength control |
-| `civil-materials-response` | Reviewer response packages and point-by-point rebuttal drafting |
-| `civil-materials-reviewer` | Simulated peer review reports and pre-submission referee-risk audits |
-| `civil-materials-paper2ppt` | Paper-to-PPT outlines and slide-ready Markdown |
-| `civil-materials-pptx` | Real `.pptx` generation from structured outlines |
-| `civil-materials-figure` | Figure planning, review-figure intake, WER-EA atlas, SVG demos, caption boundaries |
-| `civil-materials-data` | Dataset packages, metadata, FAIR audits, data availability statements |
+![WER-EA mechanism map](skills/civil-materials-figure/assets/wer-ea-atlas/generated/wer_ea_mechanism_map.png)
+
+## Why This Bundle Feels Like A System
+
+- It routes work across research, citation, reader, writing, figure, data,
+  polishing, reviewer, response, paper-to-PPT, and real PPTX generation.
+- It uses standard intermediate artifacts such as `reader-package`,
+  `citation_handoff.csv`, `figure_handoff.csv`, and gate reports so later
+  skills do not draft from memory.
+- It ships with tests, release checks, plugin packaging, and a mirrored plugin
+  skill tree so the installed experience stays aligned with the source repo.
+
+## Four Workflow Entry Points
+
+| Workflow | Start With | Core Handoffs | Final Product |
+|---|---|---|---|
+| WER-EA mini-review | `civil-materials-research` | citation -> reader -> writing -> figure -> reviewer | Review-ready package with screening, evidence chain, outline, figures, and risk notes |
+| Experimental manuscript | `civil-materials-research` | data -> writing -> figure -> polishing -> reviewer | Draft-ready manuscript package with figure/data boundaries |
+| Revision loop | `civil-materials-reviewer` or `civil-materials-response` | reviewer -> weakness routing -> writing/polishing/figure/data -> response | Point-by-point response plus routed manuscript fixes |
+| Paper to presentation | `civil-materials-paper2ppt` | paper2ppt -> pptx | Chinese slide outline or real `.pptx` deck |
+
+## Quick Start
+
+1. Install the plugin or copy the skills locally. Full instructions live in
+   [install.md](install.md).
+2. Start broad work with `civil-materials-research` when you need routing,
+   paper-stage judgment, or a multi-skill plan.
+3. Jump straight to the production skill when the deliverable is already clear,
+   such as citation screening, reader packaging, manuscript drafting, figure
+   work, response writing, or PPTX generation.
+4. Run the release checks before calling the bundle updated or released:
+
+   ```powershell
+   python .\scripts\run_release_checks.py --json
+   ```
+
+Starter prompts:
+
+- `Help me run a WER-EA mini-review workflow from screening to figure planning.`
+- `Audit this experimental manuscript for evidence gaps before I draft the discussion.`
+- `Turn this paper package into a journal-club slide outline and then a real PPTX.`
+
+## Installation Paths
+
+- Codex plugin:
+  `codex plugin marketplace add https://github.com/cooleava1-gif/civil-materials-skills.git --ref main`
+  then `codex plugin add civil-materials-skills@civil-materials-skills`
+- Manual skills install:
+  run `.\scripts\install.ps1` from the repository root
+- Installed-state verification:
+  rerun `.\scripts\install.ps1` after skill changes, then compare source,
+  plugin mirror, and installed skill behavior through
+  `.\scripts\run_release_checks.py --json`
 
 ## Skill Status Index
 
@@ -24,109 +73,64 @@ For fuller human-readable routing notes, see [docs/skills-index.md](docs/skills-
 
 | Module | Maturity | Scripts | Tests | Typical input | Typical product |
 |---|---|---|---|---|---|
-| `civil-materials-research` | Stable router | Yes | Yes | Research idea, journal target, manuscript task | Route, topic angle, risk map, workflow plan |
-| `civil-materials-reader` | Stable production skill | Yes | Yes | PDF/text, paper notes, figure caption | Standard reader package, evidence-chain matrix, citation/figure handoff |
-| `civil-materials-citation` | Stable MCP-backed skill | Yes | Yes | Topic, claim list, candidate sources | Search plan, screened citation matrix, reference gaps, ID/citation conversion |
+| `civil-materials-research` | Stable paper-production router | Yes | Yes | Research idea, journal target, manuscript task | Route, topic angle, workflow package, gate/risk map |
+| `civil-materials-reader` | Stable production skill | Yes | Yes | PDF/text, paper notes, figure caption | Reader package, evidence-chain matrix, citation/figure handoff |
+| `civil-materials-citation` | Stable MCP-backed skill | Yes | Yes | Topic, claim list, candidate sources | Search plan, screened citation matrix, normalized IDs, reference gaps |
 | `civil-materials-writing` | Stable production skill | Yes | Yes | Claims, results, outline, Chinese draft | Manuscript section, review outline, argument chain |
 | `civil-materials-polishing` | Stable production skill | Yes | Yes | English draft, Chinese academic paragraph | Polished text, claim-strength audit |
 | `civil-materials-response` | Stable production skill | Yes | Yes | Reviewer comments, revision notes | Point-by-point response, rebuttal package |
 | `civil-materials-reviewer` | Stable audit skill | Yes | Yes | Manuscript draft, abstract, figures | Simulated review, desk-reject risk report |
 | `civil-materials-paper2ppt` | Stable handoff skill | Yes | Yes | Paper notes, review matrix, outline | Slide-ready Markdown, talk structure |
 | `civil-materials-pptx` | Stable generation skill | Yes | Yes | PPTX-ready Markdown or JSON | Real `.pptx` deck |
-| `civil-materials-figure` | Stable production skill | Yes | Yes | Data table, reader/citation handoff, figure idea | Figure plan, review-figure intake, WER-EA atlas, SVG/PNG package, caption boundary |
+| `civil-materials-figure` | Stable production skill | Yes | Yes | Data table, reader/citation handoff, figure idea | Figure plan, WER-EA atlas output, caption boundary, figure package |
 | `civil-materials-data` | Stable FAIR skill | Yes | Yes | Raw/processed data, metadata needs | FAIR package, data availability statement |
 
-## Install
+## What You Can Open Immediately
 
-### Codex plugin
+- Human-readable skill guide:
+  [docs/skills-index.md](docs/skills-index.md)
+- Paper-production system PRD:
+  [docs/superpowers/specs/2026-06-09-civil-materials-paper-production-prd.md](docs/superpowers/specs/2026-06-09-civil-materials-paper-production-prd.md)
+- WER-EA sample output package:
+  [outputs/wer-ea-30-reading-sample/README.md](outputs/wer-ea-30-reading-sample/README.md)
+- Figure atlas examples:
+  `skills/civil-materials-figure/assets/wer-ea-atlas/generated/`
+- Per-skill README files:
+  `skills/civil-materials-*/README.md`
 
-Install the repo-local marketplace:
+## Product Proof
 
-```powershell
-codex plugin marketplace add https://github.com/cooleava1-gif/civil-materials-skills.git --ref main
-codex plugin add civil-materials-skills@civil-materials-skills
-```
+- The research router already supports `task`, `domain`, `journal`,
+  `paper_stage`, `workflow_mode`, and `output_package` routing for
+  paper-production workflows.
+- The reader and citation path already produces structured handoff artifacts
+  instead of loose summaries.
+- The figure skill already ships real WER-EA atlas assets, figure package QA,
+  and export expectations for SVG/PDF/PNG/TIFF bundles.
+- Release checks already validate architecture, mirror identity, examples,
+  scripts, tests, and paper-production surfaces.
 
-The plugin package includes the `civil-materials-*` skills, the required `_shared` folder, and the academic-search MCP config.
+## Architecture And Verification
 
-### Manual skills install
+- Architecture contract:
+  [docs/architecture/skill-architecture.md](docs/architecture/skill-architecture.md)
+- Release-gate contract:
+  [docs/architecture/release-gate-contract.md](docs/architecture/release-gate-contract.md)
+- Main verification command:
 
-Run the local installer:
+  ```powershell
+  python .\scripts\run_release_checks.py --json
+  ```
 
-```powershell
-.\scripts\install.ps1
-```
+- Local installer:
 
-The installer copies both the `civil-materials-*` skill folders and the required `_shared` folder. If `CODEX_HOME` is not set, it installs to `~\.codex\skills`.
-
-Manual install:
-
-```powershell
-$skillsDir = if ($env:CODEX_HOME) { Join-Path $env:CODEX_HOME "skills" } else { Join-Path $HOME ".codex\skills" }
-New-Item -ItemType Directory -Force $skillsDir | Out-Null
-Copy-Item -Recurse -Force .\skills\civil-materials-* $skillsDir
-Copy-Item -Recurse -Force .\skills\_shared $skillsDir
-```
-
-The `_shared` directory is required because multiple skill manifests load shared stance, ethics, evidence-contract, claim-strength, terminology, and journal-format files through `../_shared/...` paths.
-
-## Optional Academic Search MCP
-
-The citation skill includes a local academic-search MCP server.
-
-Install the Python dependency first:
-
-```powershell
-python -m pip install -r .\requirements.txt
-```
-
-Example Codex config:
-
-```toml
-[mcp_servers."civil-materials-academic-search"]
-command = "python"
-args = ["$CODEX_HOME/skills/civil-materials-citation/mcp/academic_search/server.py"]
-```
-
-Optional environment variables:
-
-- `OPENALEX_API_KEY`
-- `SEMANTIC_SCHOLAR_API_KEY`
-- `CIVIL_MATERIALS_CONTACT_EMAIL`
-- `NCBI_API_KEY`
-
-The MCP can search Crossref, PubMed, OpenAlex, and Semantic Scholar. It also exposes `lookup_mesh` for PubMed MeSH term checks.
-
-The expanded MCP layer also includes optional arXiv, Scopus, and ScienceDirect adapters, plus DOI/PMID/PMCID/arXiv/OpenAlex/Semantic Scholar/Scopus EID/PII normalization and RIS/BibTeX/NBIB/CSV conversion to RIS, BibTeX, GB/T 7714, CSL JSON, or JSONL. Scopus and ScienceDirect are disabled with warnings unless the relevant API keys are configured.
-
-## Architecture
-
-The final skill architecture is documented in [docs/architecture/skill-architecture.md](docs/architecture/skill-architecture.md), and release gate coverage is documented in [docs/architecture/release-gate-contract.md](docs/architecture/release-gate-contract.md).
-
-## Evidence-To-Review Pipeline
-
-The upgraded reader-citation-figure path supports WER-EA mini-review work:
-
-1. `civil-materials-reader` creates a standard reader package with source anchors, citation handoff rows, figure handoff rows, QA report, and optional Obsidian note.
-2. `civil-materials-citation` screens candidate sources by WER-EA evidence layer, source role, source quality, reviewer risk, and normalized scholarly IDs.
-3. `civil-materials-figure` consumes handoff rows for review-figure intake and WER-EA atlas templates, keeping measured, inferred, speculative, and missing evidence visually separate.
-
-No secrets or local Codex config files are included in this repository.
-
-## Verify
-
-Run the release check script:
-
-```powershell
-python .\scripts\run_release_checks.py
-```
-
-The script checks core tests, pressure-test coverage, generated-artifact cleanup, and accidental local-path or secret leakage.
+  ```powershell
+  .\scripts\install.ps1
+  ```
 
 ## Scope
 
-This bundle helps structure research work. It does not replace deep reading, experimental evidence, supervisor/co-author judgment, official journal instructions, or ethical/institutional requirements.
-
-## License
-
-MIT License. See [LICENSE](LICENSE).
+This bundle helps structure civil-materials research work with stronger
+evidence, routing, and packaging discipline. It does not replace deep reading,
+real experimental evidence, supervisor or co-author judgment, official journal
+instructions, or institutional requirements.

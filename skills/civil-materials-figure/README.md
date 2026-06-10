@@ -1,33 +1,51 @@
-# civil-materials-figure skill
+# civil-materials-figure
 
-Nature-style hard workflow for civil engineering and construction-materials manuscript figures, especially WER-EA review figures, mechanism maps, evidence heatmaps, dosage-window figures, characterization panels, and journal-ready SVG/PDF/PNG/TIFF figure packages.
+Nature-style figure production and audit for civil-materials manuscripts. The
+skill treats figures as evidence packages with source data, caption boundaries,
+backend discipline, and export QA instead of as loose images.
 
-The skill starts from a figure contract: core conclusion, evidence chain, source-data anchor, archetype, backend, journal/export constraints, statistics or image-integrity needs, WER-EA boundary, and reviewer risk. Plotting starts only after that contract is explicit.
+## When To Use
 
----
+Use this skill when you need figure planning, mechanism maps, evidence
+heatmaps, dosage-window plots, characterization panels, review figures, or a
+full figure package for civil-materials research, especially WER-EA workflows.
+
+## Inputs
+
+- source data, reader-package figure handoff rows, or citation-screening inputs
+- target figure archetype such as mechanism map, evidence heatmap, graphical
+  abstract, or characterization panel
+- export constraints and journal expectations
+- backend choice: Python or R
+
+## Outputs
+
+- figure contract and panel logic
+- figure package with script, source data, exports, caption, QA report, and
+  asset manifest
+- WER-EA atlas assets and review-figure planning surfaces
+- reviewer-safer caption boundaries that separate measured from inferred claims
 
 ## Backend and contract rules
 
-Ask the user to choose **Python or R?** unless the backend is already specified by the user or by a clearly backend-specific file such as `plot.py` or `plot.R`.
+Ask the user `Python or R?` unless the backend is already fixed by the request
+or file context. Once the backend is chosen, keep the workflow exclusive to that
+backend for plotting, preview, export, and QA. If the runtime or packages are
+missing, stop and report the blocker instead of silently falling back.
 
-After a backend is selected, use it exclusively for plotting, previews, exports, and visual QA. If the selected runtime or packages are missing, stop and report the blocker; do not render a fallback preview with the other language.
+Before plotting, make the figure contract explicit:
 
-Before plotting, write or infer:
-
-- core conclusion,
-- evidence chain and source-data anchor,
-- panel map and figure archetype,
-- target journal/export bundle,
-- statistics, units, scale bars, or image provenance,
-- claim boundary and reviewer risk.
-
-The figure must serve the scientific logic first. Gallery style, palette polish, and layout inspiration are secondary.
-
----
+- core conclusion
+- evidence chain and source-data anchor
+- panel map and figure archetype
+- target journal or export bundle
+- statistics, units, scale bars, or image provenance
+- claim boundary and reviewer risk
 
 ## Figure package structure
 
-Production and review figures should be delivered as a package, not as a loose image:
+Every serious output should be delivered as a figure package, not as a loose
+image:
 
 ```text
 figure-package/
@@ -43,46 +61,41 @@ figure-package/
   asset_manifest.md
 ```
 
-Use `scripts/audit_figure_package.py --package-dir <package> --json` before calling a package journal-ready. The audit checks required text files, source data or source-map anchors, selected-backend scripts, SVG/PDF/PNG/TIFF exports, caption boundary, QA status, and raster image readability.
+Audit the package with
+`skills/civil-materials-figure/scripts/audit_figure_package.py` before calling
+it journal-ready.
 
----
+## Example
 
-## WER-EA figure types
+- Figure package example:
+  `skills/civil-materials-figure/examples/figure-packages/wer-ea-dosage-window/`
+- Additional package:
+  `skills/civil-materials-figure/examples/figure-packages/wer-ea-evidence-heatmap/`
+- Atlas gallery:
+  `skills/civil-materials-figure/assets/wer-ea-atlas/generated/`
 
-For waterborne epoxy resin modified emulsified asphalt work, prefer figures that separate performance evidence from mechanism evidence:
+## Validation
 
-| Figure | Use |
-| --- | --- |
-| Mechanism map | Shows hypothesized interaction, curing, interface, and emulsion-epoxy-asphalt links with explicit uncertainty. |
-| Evidence heatmap | Maps papers, tests, material variables, and evidence strength without pretending every claim is equally proven. |
-| Dosage-window figure | Connects WER dosage, epoxy dosage, curing/aging conditions, bonding, rheology, water resistance, and workability trade-offs. |
-| Characterization panel | FTIR/XRD/TG/SEM/fluorescence/rheology panels with scale bars, units, and claim boundaries. |
-| Literature-screening flow | Shows how the review corpus was filtered and classified. |
-
-Template-only examples live under `examples/figure-packages/`. They demonstrate package structure and QA expectations, not experimental evidence.
-
----
-
-## WER-EA atlas
-
-The WER-EA figure atlas lives under `assets/wer-ea-atlas/` and defines reusable review-figure templates for mechanism maps, evidence heatmaps, material-system maps, performance-mechanism boundary figures, literature-screening flows, graphical abstracts, dosage windows, durability maps, characterization panels, construction workflows, LCA boundary cards, and research-gap matrices.
-
-```powershell
-python skills\civil-materials-figure\scripts\wer_ea_atlas\generate_atlas.py --output-dir skills\civil-materials-figure\assets\wer-ea-atlas\generated --json
-```
-
-The generated SVG/PNG examples are template-only. They show visual structure and certainty encoding, not experimental evidence.
-
----
+- Audit script:
+  `skills/civil-materials-figure/scripts/audit_figure_package.py`
+- Core tests live under `skills/civil-materials-figure/tests/`
+- Bundle verification:
+  `python .\scripts\run_release_checks.py --json`
 
 ## Reproduction checklist
 
-- [ ] Backend resolved as Python or R.
-- [ ] No cross-backend fallback was used.
-- [ ] `figure_contract.md` states core conclusion and evidence chain before plotting.
-- [ ] Source data, table row, source-map anchor, or PDF asset metadata is present.
-- [ ] Export bundle includes SVG, PDF, PNG, and TIFF when possible.
-- [ ] Caption says what the figure supports and what it does not prove.
-- [ ] QA report covers backend exclusivity, export check, source-data check, statistics check, image-integrity check, caption-boundary check, and QA Status.
-- [ ] WER-EA mechanism claims are bounded by actual mechanism evidence.
-- [ ] `audit_figure_package.py` reports `status: pass`.
+- backend resolved as `Python or R?`
+- no cross-backend fallback used
+- figure contract written before plotting
+- source data or source-map anchor present
+- export bundle includes SVG, PDF, PNG, and TIFF when possible
+- caption states what the figure supports and what it does not prove
+- QA report covers backend exclusivity, export checks, and caption boundary
+- WER-EA mechanism claims stay bounded by real evidence
+
+## Boundaries
+
+This skill does not let pretty visuals overrule the scientific logic. If the
+evidence chain or source data anchor is weak, the correct response is to flag
+the risk or route back to reader, citation, writing, or data work before
+polishing the image.

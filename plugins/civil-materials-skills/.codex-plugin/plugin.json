@@ -23,8 +23,8 @@
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Civil Materials Skills",
-    "shortDescription": "Research workflows for civil materials manuscripts.",
-    "longDescription": "Use Civil Materials Skills to route civil engineering and construction-materials research tasks across literature reading, citation mapping, manuscript drafting, English polishing, figures, PPTX decks, FAIR data packages, reviewer simulation, and reviewer-response workflows.",
+    "shortDescription": "Paper-production workflows for civil materials research.",
+    "longDescription": "Use Civil Materials Skills to run routed civil-materials paper-production workflows across research planning, citation screening, reader packages, manuscript drafting, English polishing, figure packages, FAIR data organization, reviewer simulation, reviewer responses, and PPTX generation.",
     "developerName": "Civil Materials Skills contributors",
     "category": "Research",
     "capabilities": [
@@ -33,11 +33,15 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Route this civil materials research task and check the evidence chain.",
-      "Build a source-grounded literature matrix for this manuscript topic.",
-      "Audit my figures, claims, and journal-fit risks before submission."
+      "Help me run a WER-EA mini-review workflow from screening to figure planning.",
+      "Audit this experimental manuscript for evidence gaps before I draft the discussion.",
+      "Turn this paper package into a journal-club slide outline and then a real PPTX."
     ],
     "brandColor": "#3F6F5E",
-    "screenshots": []
+    "screenshots": [
+      "./skills/civil-materials-figure/assets/wer-ea-atlas/generated/wer_ea_mechanism_map.png",
+      "./skills/civil-materials-figure/assets/wer-ea-atlas/generated/wer_ea_evidence_heatmap.png",
+      "./skills/civil-materials-figure/assets/wer-ea-atlas/generated/wer_ea_dosage_window.png"
+    ]
   }
 }
