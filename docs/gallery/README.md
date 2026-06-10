@@ -1,9 +1,9 @@
 # Civil Materials Gallery
 
-This gallery is the visual proof layer for the bundle. It uses content-bearing
-boards assembled from real reader-package outputs and extracted paper figures,
-so the product surface shows what the system already does instead of what it
-merely claims to do.
+This gallery is the visual proof layer for the bundle. It uses editorial
+multi-panel boards assembled from real reader-package outputs and extracted
+paper figures, so the product surface shows what the system already does
+instead of what it merely claims to do.
 
 Template-only atlas cards and style demos still live inside the figure skill as
 internal references, but they no longer serve as the front-door proof surface.
@@ -14,17 +14,17 @@ internal references, but they no longer serve as the front-door proof surface.
 
 ![Reader-package proof wall](../../skills/civil-materials-figure/assets/showcase-proof/reader_package_proof_wall.png)
 
-### WER-EA figure proof board
+### WER-EA review evidence board
 
-![WER-EA figure proof board](../../skills/civil-materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
+![WER-EA review evidence board](../../skills/civil-materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
 
-### SBR-WER performance proof board
+### SBR-WER performance editorial board
 
-![SBR-WER performance proof board](../../skills/civil-materials-figure/assets/showcase-proof/sbr_wer_performance_proof_board.png)
+![SBR-WER performance editorial board](../../skills/civil-materials-figure/assets/showcase-proof/sbr_wer_performance_proof_board.png)
 
-### Interlayer fatigue proof board
+### Interlayer fatigue editorial board
 
-![Interlayer fatigue proof board](../../skills/civil-materials-figure/assets/showcase-proof/interlayer_fatigue_proof_board.png)
+![Interlayer fatigue editorial board](../../skills/civil-materials-figure/assets/showcase-proof/interlayer_fatigue_proof_board.png)
 
 ## Workflow Proof
 
@@ -52,6 +52,8 @@ internal references, but they no longer serve as the front-door proof surface.
   [outputs/wer-ea-30-reading-sample/README.md](../../outputs/wer-ea-30-reading-sample/README.md)
 - Front-door proof board assets:
   `skills/civil-materials-figure/assets/showcase-proof/`
+- Front-door board manifest:
+  `skills/civil-materials-figure/assets/showcase-proof/showcase_manifest.json`
 - Example library:
   [library-index.md](../../skills/civil-materials-research/examples/library/library-index.md)
 - Skills index:
@@ -68,9 +70,13 @@ internal references, but they no longer serve as the front-door proof surface.
 
 - The proof-wall board shows that reader-package outputs preserve figure
   context, asset lineage, and multi-paper reading scale.
+- Each board follows `overview -> deviation -> relationship`, borrowing the
+  strongest editorial rhythm from a product front door rather than from a
+  template gallery.
 - The WER-EA and SBR-WER boards show real mechanism, rheology, FTIR, table,
-  and morphology density instead of template placeholders.
-- The fatigue board shows method, chart, and table evidence on one surface.
+  morphology, and adhesion density instead of template placeholders.
+- The fatigue board shows method, chart, fitting-curve, and table evidence on
+  one surface.
 - The workflow links show where each visual surface fits inside the production
   loop.
 - Nothing here should be treated as publishable evidence without checking the

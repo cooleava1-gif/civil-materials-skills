@@ -59,6 +59,7 @@ GALLERY_PROOF_ASSETS = {
     "sbr_wer_performance_proof_board.png": "SBR-WER performance proof board",
     "interlayer_fatigue_proof_board.png": "Interlayer fatigue proof board",
 }
+SHOWCASE_MANIFEST = "showcase_manifest.json"
 LEGACY_PLACEHOLDER_ASSETS = [
     "wer_ea_mechanism_map.png",
     "wer_ea_evidence_heatmap.png",
@@ -142,6 +143,11 @@ class ProductDocsContractTests(unittest.TestCase):
             asset_path = showcase_root / asset
             self.assertTrue(asset_path.is_file(), f"{asset_path} must exist")
             self.assertTrue(image_has_visual_signal(asset_path), f"{asset_path} should be a content-bearing image")
+        manifest_path = showcase_root / SHOWCASE_MANIFEST
+        self.assertTrue(manifest_path.is_file(), "showcase manifest should exist")
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(manifest["visual_language"], "editorial-proof-boards")
+        self.assertEqual(len(manifest["boards"]), len(GALLERY_PROOF_ASSETS))
         for legacy in LEGACY_PLACEHOLDER_ASSETS:
             self.assertNotIn(legacy, gallery_text)
 

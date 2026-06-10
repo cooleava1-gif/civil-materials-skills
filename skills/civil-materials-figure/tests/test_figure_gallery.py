@@ -1,3 +1,4 @@
+import json
 import subprocess
 import sys
 import tempfile
@@ -14,6 +15,7 @@ SHOWCASE_PROOF_ASSETS = [
     "sbr_wer_performance_proof_board.png",
     "interlayer_fatigue_proof_board.png",
 ]
+SHOWCASE_MANIFEST = "showcase_manifest.json"
 
 
 def has_visual_signal(path: Path) -> bool:
@@ -23,6 +25,10 @@ def has_visual_signal(path: Path) -> bool:
         return rgba.width >= 1200 and rgba.height >= 700 and any(
             (high - low) >= 40 for low, high in extrema[:3]
         )
+
+
+def read_showcase_manifest(path: Path) -> dict:
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 class FigureGalleryAssetsTest(unittest.TestCase):
@@ -93,6 +99,33 @@ class FigureGalleryAssetsTest(unittest.TestCase):
             path = showcase_root / filename
             self.assertTrue(path.exists(), f"{filename} should exist")
             self.assertTrue(has_visual_signal(path), f"{filename} should be content-bearing, not a flat placeholder")
+            with Image.open(path) as image:
+                self.assertGreaterEqual(image.width, 1800, f"{filename} should use a high-resolution editorial canvas")
+                self.assertGreaterEqual(image.height, 1100, f"{filename} should use a high-resolution editorial canvas")
+
+    def test_showcase_manifest_records_editorial_narrative_and_source_tiles(self):
+        manifest_path = SKILL_ROOT / "assets" / "showcase-proof" / SHOWCASE_MANIFEST
+        self.assertTrue(manifest_path.exists(), "showcase manifest should exist")
+
+        manifest = read_showcase_manifest(manifest_path)
+        self.assertEqual(manifest["visual_language"], "editorial-proof-boards")
+        self.assertEqual(manifest["narrative_layers"], ["overview", "deviation", "relationship"])
+
+        boards = manifest["boards"]
+        self.assertEqual(sorted(board["filename"] for board in boards), sorted(SHOWCASE_PROOF_ASSETS))
+        for board in boards:
+            self.assertIn(board["layout_family"], {"editorial_mosaic", "editorial_triptych"})
+            self.assertGreaterEqual(len(board["tiles"]), 3, f'{board["filename"]} should expose multiple evidence tiles')
+
+            roles = {tile["role"] for tile in board["tiles"]}
+            self.assertIn("overview", roles, f'{board["filename"]} should include an overview tile')
+            self.assertIn("deviation", roles, f'{board["filename"]} should include a deviation tile')
+            self.assertIn("relationship", roles, f'{board["filename"]} should include a relationship tile')
+
+            for tile in board["tiles"]:
+                self.assertIn("source_path", tile)
+                self.assertIn("crop", tile)
+                self.assertEqual(sorted(tile["crop"].keys()), ["bottom", "left", "right", "top"])
 
 
 class FigureGalleryDemoScriptTest(unittest.TestCase):
@@ -210,7 +243,17 @@ class FigureGalleryDemoScriptTest(unittest.TestCase):
             )
             for filename in SHOWCASE_PROOF_ASSETS:
                 self.assertIn(filename, result.stdout)
-                self.assertTrue(has_visual_signal(Path(tmp) / filename))
+                output_path = Path(tmp) / filename
+                self.assertTrue(has_visual_signal(output_path))
+                with Image.open(output_path) as image:
+                    self.assertGreaterEqual(image.width, 1800)
+                    self.assertGreaterEqual(image.height, 1100)
+
+            manifest_path = Path(tmp) / SHOWCASE_MANIFEST
+            self.assertTrue(manifest_path.exists(), "showcase builder should emit a manifest")
+            manifest = read_showcase_manifest(manifest_path)
+            self.assertEqual(len(manifest["boards"]), len(SHOWCASE_PROOF_ASSETS))
+            self.assertEqual(manifest["narrative_layers"], ["overview", "deviation", "relationship"])
 
 
 if __name__ == "__main__":

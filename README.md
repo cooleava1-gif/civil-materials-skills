@@ -13,7 +13,7 @@ control. WER-EA remains the first-class route, but the architecture also covers
 asphalt pavement materials, cement/concrete, durability, sustainability, and
 broader construction-materials manuscripts.
 
-![WER-EA figure proof board](skills/civil-materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
+![WER-EA review evidence board](skills/civil-materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
 
 ## Why This Bundle Feels Like A System
 
@@ -110,8 +110,10 @@ For fuller human-readable routing notes, see [docs/skills-index.md](docs/skills-
   [docs/superpowers/specs/2026-06-09-civil-materials-paper-production-prd.md](docs/superpowers/specs/2026-06-09-civil-materials-paper-production-prd.md)
 - WER-EA sample output package:
   [outputs/wer-ea-30-reading-sample/README.md](outputs/wer-ea-30-reading-sample/README.md)
-- Figure proof boards:
+- Editorial proof boards:
   `skills/civil-materials-figure/assets/showcase-proof/`
+- Board manifest:
+  `skills/civil-materials-figure/assets/showcase-proof/showcase_manifest.json`
 - Figure atlas templates:
   `skills/civil-materials-figure/assets/wer-ea-atlas/generated/`
 - Per-skill README files:
@@ -121,8 +123,11 @@ For fuller human-readable routing notes, see [docs/skills-index.md](docs/skills-
 
 If you want to see the system before reading every skill:
 
-- [Civil Materials Gallery](docs/gallery/README.md) collects real screenshots
-  from reader-package outputs and extracted paper figures.
+- [Civil Materials Gallery](docs/gallery/README.md) collects editorial multi-panel
+  boards built from reader-package outputs and extracted paper figures.
+- The front-door boards follow an `overview -> deviation -> relationship`
+  narrative so the gallery reads like a product surface instead of a pile of
+  screenshots.
 - The gallery links back to the four guided demos so the visuals and the route
   logic stay connected.
 
@@ -144,9 +149,9 @@ The hub page is [docs/showcases/README.md](docs/showcases/README.md).
   paper-production workflows.
 - The reader and citation path already produces structured handoff artifacts
   instead of loose summaries.
-- The figure skill already ships real showcase proof boards, WER-EA atlas
-  templates, figure package QA, and export expectations for SVG/PDF/PNG/TIFF
-  bundles.
+- The figure skill already ships real editorial proof boards, a board manifest,
+  WER-EA atlas templates, figure package QA, and export expectations for
+  SVG/PDF/PNG/TIFF bundles.
 - Release checks already validate architecture, mirror identity, examples,
   scripts, tests, and paper-production surfaces.
 
