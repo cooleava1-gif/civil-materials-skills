@@ -11,6 +11,14 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 SKILLS_ROOT = REPO_ROOT / "skills"
 RESEARCH_ROOT = SKILLS_ROOT / "civil-materials-research"
 SHARED_ROOT = SKILLS_ROOT / "_shared" / "paper-production"
+WEAKNESS_EXAMPLE = SHARED_ROOT / "examples" / "wer-ea-mini-review-weakness-routing.csv"
+GATE_EXAMPLE = SHARED_ROOT / "examples" / "wer-ea-mini-review-gate-report.md"
+ROUTE_EXAMPLE = (
+    RESEARCH_ROOT
+    / "examples"
+    / "library"
+    / "paper-production-mini-review-example.md"
+)
 
 
 WEAKNESS_FIELDS = [
@@ -117,6 +125,21 @@ class PaperProductionOrchestratorTest(unittest.TestCase):
             "civil-materials-response",
         ]:
             self.assertIn(skill, routing_text)
+
+    def test_filled_paper_production_examples_exist_and_are_linked(self):
+        self.assertTrue(WEAKNESS_EXAMPLE.exists())
+        self.assertTrue(GATE_EXAMPLE.exists())
+        self.assertTrue(ROUTE_EXAMPLE.exists())
+
+        route_doc = (RESEARCH_ROOT / "references" / "paper-production-orchestrator.md").read_text(
+            encoding="utf-8"
+        )
+        for phrase in [
+            "paper-production-mini-review-example.md",
+            "wer-ea-mini-review-weakness-routing.csv",
+            "wer-ea-mini-review-gate-report.md",
+        ]:
+            self.assertIn(phrase, route_doc)
 
     def test_audit_script_accepts_valid_files_and_rejects_missing_fields(self):
         audit = load_audit_module()
