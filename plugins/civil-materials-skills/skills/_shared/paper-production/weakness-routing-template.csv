@@ -1,0 +1,3 @@
+weakness_id,source,severity,weakness_type,evidence_gap,route_to,required_fix,expected_artifact,status,regression_check
+W001,reviewer-simulation,major,mechanism evidence too speculative,"Performance data are used as mechanism proof without FTIR/SEM/rheology anchors","civil-materials-reader; civil-materials-citation","Rebuild claim-evidence-mechanism-boundary rows and mark unsupported links","mechanism evidence table",routed,"Re-run Mechanism Boundary gate after fix"
+W002,figure-gate,major,figure caption overclaims mechanism,"caption_boundary is missing or stronger than source_anchor supports",civil-materials-figure,"Rewrite caption_boundary and map each panel to source_anchor and figure_handoff rows","revised figure contract",open,"Re-run Figure And Table Integrity gate"

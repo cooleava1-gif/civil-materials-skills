@@ -7,15 +7,15 @@ Civil Materials Skills is a Codex skill bundle for civil engineering and constru
 | Skill | Purpose |
 |---|---|
 | `civil-materials-research` | Research router, topic positioning, manuscript strategy, journal fit, pressure tests, example library |
-| `civil-materials-reader` | Evidence-chain reading, paper notes, claim-evidence-mechanism-boundary audits |
-| `civil-materials-citation` | Literature search planning, citation matrices, reference gap audits, academic-search MCP |
+| `civil-materials-reader` | Evidence-chain reading, source-map anchors, citation/figure handoffs |
+| `civil-materials-citation` | Literature search planning, WER-EA source screening, citation matrices, expanded academic-search MCP |
 | `civil-materials-writing` | From-scratch manuscript drafting, argument chains, section writing, and review-paper outlines |
 | `civil-materials-polishing` | English polishing, Chinese-to-English academic rewriting, claim-strength control |
 | `civil-materials-response` | Reviewer response packages and point-by-point rebuttal drafting |
 | `civil-materials-reviewer` | Simulated peer review reports and pre-submission referee-risk audits |
 | `civil-materials-paper2ppt` | Paper-to-PPT outlines and slide-ready Markdown |
 | `civil-materials-pptx` | Real `.pptx` generation from structured outlines |
-| `civil-materials-figure` | Figure planning, gallery examples, SVG demos, caption boundaries |
+| `civil-materials-figure` | Figure planning, review-figure intake, WER-EA atlas, SVG demos, caption boundaries |
 | `civil-materials-data` | Dataset packages, metadata, FAIR audits, data availability statements |
 
 ## Skill Status Index
@@ -25,15 +25,15 @@ For fuller human-readable routing notes, see [docs/skills-index.md](docs/skills-
 | Module | Maturity | Scripts | Tests | Typical input | Typical product |
 |---|---|---|---|---|---|
 | `civil-materials-research` | Stable router | Yes | Yes | Research idea, journal target, manuscript task | Route, topic angle, risk map, workflow plan |
-| `civil-materials-reader` | Stable production skill | Yes | Yes | PDF/text, paper notes, figure caption | Source-grounded reader, evidence-chain matrix |
-| `civil-materials-citation` | Stable MCP-backed skill | Yes | Yes | Topic, claim list, candidate sources | Search plan, citation matrix, reference gaps |
+| `civil-materials-reader` | Stable production skill | Yes | Yes | PDF/text, paper notes, figure caption | Standard reader package, evidence-chain matrix, citation/figure handoff |
+| `civil-materials-citation` | Stable MCP-backed skill | Yes | Yes | Topic, claim list, candidate sources | Search plan, screened citation matrix, reference gaps, ID/citation conversion |
 | `civil-materials-writing` | Stable production skill | Yes | Yes | Claims, results, outline, Chinese draft | Manuscript section, review outline, argument chain |
 | `civil-materials-polishing` | Stable production skill | Yes | Yes | English draft, Chinese academic paragraph | Polished text, claim-strength audit |
 | `civil-materials-response` | Stable production skill | Yes | Yes | Reviewer comments, revision notes | Point-by-point response, rebuttal package |
 | `civil-materials-reviewer` | Stable audit skill | Yes | Yes | Manuscript draft, abstract, figures | Simulated review, desk-reject risk report |
-| `civil-materials-paper2ppt` | Stable handoff skill | Yes | No | Paper notes, review matrix, outline | Slide-ready Markdown, talk structure |
-| `civil-materials-pptx` | Stable generation skill | Yes | No | PPTX-ready Markdown or JSON | Real `.pptx` deck |
-| `civil-materials-figure` | Stable production skill | Yes | Yes | Data table, figure idea, caption | Figure plan, SVG/PNG examples, caption boundary |
+| `civil-materials-paper2ppt` | Stable handoff skill | Yes | Yes | Paper notes, review matrix, outline | Slide-ready Markdown, talk structure |
+| `civil-materials-pptx` | Stable generation skill | Yes | Yes | PPTX-ready Markdown or JSON | Real `.pptx` deck |
+| `civil-materials-figure` | Stable production skill | Yes | Yes | Data table, reader/citation handoff, figure idea | Figure plan, review-figure intake, WER-EA atlas, SVG/PNG package, caption boundary |
 | `civil-materials-data` | Stable FAIR skill | Yes | Yes | Raw/processed data, metadata needs | FAIR package, data availability statement |
 
 ## Install
@@ -96,6 +96,20 @@ Optional environment variables:
 - `NCBI_API_KEY`
 
 The MCP can search Crossref, PubMed, OpenAlex, and Semantic Scholar. It also exposes `lookup_mesh` for PubMed MeSH term checks.
+
+The expanded MCP layer also includes optional arXiv, Scopus, and ScienceDirect adapters, plus DOI/PMID/PMCID/arXiv/OpenAlex/Semantic Scholar/Scopus EID/PII normalization and RIS/BibTeX/NBIB/CSV conversion to RIS, BibTeX, GB/T 7714, CSL JSON, or JSONL. Scopus and ScienceDirect are disabled with warnings unless the relevant API keys are configured.
+
+## Architecture
+
+The final skill architecture is documented in [docs/architecture/skill-architecture.md](docs/architecture/skill-architecture.md), and release gate coverage is documented in [docs/architecture/release-gate-contract.md](docs/architecture/release-gate-contract.md).
+
+## Evidence-To-Review Pipeline
+
+The upgraded reader-citation-figure path supports WER-EA mini-review work:
+
+1. `civil-materials-reader` creates a standard reader package with source anchors, citation handoff rows, figure handoff rows, QA report, and optional Obsidian note.
+2. `civil-materials-citation` screens candidate sources by WER-EA evidence layer, source role, source quality, reviewer risk, and normalized scholarly IDs.
+3. `civil-materials-figure` consumes handoff rows for review-figure intake and WER-EA atlas templates, keeping measured, inferred, speculative, and missing evidence visually separate.
 
 No secrets or local Codex config files are included in this repository.
 

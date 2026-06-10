@@ -39,9 +39,10 @@ When the backend is selected, the selected backend is exclusive for plotting, pr
 2. Resolve the backend gate using `axes.backend`.
 3. Load only the selected backend fragment: `static/fragments/backend/python.md` or `static/fragments/backend/r.md`.
 4. Detect `figure_type` and `domain`, then load only the matching fragments and references.
-5. Before plotting, build a `figure_contract.md`: core conclusion, evidence chain, source data, archetype, backend, journal/export contract, WER-EA boundary, and reviewer risk.
-6. Create a complete figure package, not a loose image, when the user asks for a journal-ready figure or review figure.
-7. Run visual QA using `references/figure-qa-contract.md` and `scripts/audit_figure_package.py` before claiming a package is ready.
+5. For review-figure intake from reader handoff rows or citation matrices, load `references/review-figure-intake.md` and `assets/templates/review-figure-intake-template.csv` before panel decisions.
+6. Before plotting, build a `figure_contract.md`: core conclusion, evidence chain, source data, archetype, backend, journal/export contract, WER-EA boundary, and reviewer risk.
+7. Create a complete figure package, not a loose image, when the user asks for a journal-ready figure or review figure.
+8. Run visual QA using `references/figure-qa-contract.md` and `scripts/audit_figure_package.py` before claiming a package is ready.
 
 ## Default Output
 
@@ -69,6 +70,10 @@ Use `references/figure-package-protocol.md` and `assets/templates/figure-package
 
 Use `references/wer-ea-review-figure-contract.md` and `assets/templates/wer-ea-figure-contract-template.md` for WER-EA mini-review figures, mechanism maps, evidence heatmaps, material-system maps, dosage-window figures, performance-mechanism boundary figures, literature-screening flows, and graphical abstracts.
 
+Use `references/wer-ea-figure-atlas.md`, `assets/wer-ea-atlas/asset-specs.csv`, and `scripts/wer_ea_atlas/generate_atlas.py` when the task asks for a reusable WER-EA figure atlas, review-figure library, or template SVG/PNG assets.
+
+Use `references/review-figure-intake.md` when WER-EA review figures consume reader/citation handoff tables.
+
 For table-driven figures, load `references/table-system.md` and use `assets/templates/table-system-template.md` so panels remain linked to literature-screening-table, mechanism-evidence-table, test-method-table, performance-comparison-table, durability-evidence-table, and journal-positioning-table rows.
 
 ## Gallery And Examples
@@ -78,5 +83,6 @@ Use the gallery only after the figure contract is known. Gallery demos and revie
 - Load `references/figure-gallery.md` and `examples/gallery/` for visual direction.
 - Load `references/chart-atlas.md`, `references/figure-design-theory.md`, and `references/figure-qa-contract.md` for production figures.
 - Load `references/paper-derived-visual-patterns.md`, `assets/review-first/asset-specs.csv`, and `scripts/review_gallery_demo.py` for review-style visual patterns.
+- Load `references/wer-ea-figure-atlas.md`, `assets/wer-ea-atlas/`, and `scripts/wer_ea_atlas/generate_atlas.py` for the WER-EA atlas. Atlas examples are template-only and must keep measured, inferred, speculative, and missing evidence visually separated.
 
 Never treat performance improvement alone as mechanism proof. Never make a mechanism schematic look more certain than the source evidence.

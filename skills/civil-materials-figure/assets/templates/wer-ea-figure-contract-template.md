@@ -18,17 +18,19 @@
 
 ## Evidence Boundary
 
-| Visual element | Evidence basis | Direct or inferred | Boundary |
-|---|---|---|---|
-|  |  |  |  |
+Use certainty tiers: `measured`, `inferred`, `speculative`, `missing`.
+
+| Visual element | Intake row / source anchor | Evidence basis | Certainty tier | Boundary |
+|---|---|---|---|---|
+|  |  |  | measured / inferred / speculative / missing |  |
 
 ## Panel Plan
 
-| Panel | Content | Data/source | Visual encoding | Reviewer risk |
-|---|---|---|---|---|
-| A |  |  |  |  |
-| B |  |  |  |  |
-| C |  |  |  |  |
+| Panel | Content | Data/source | Certainty tiers shown | Visual encoding | Reviewer risk |
+|---|---|---|---|---|---|
+| A |  |  | measured / inferred / speculative / missing |  |  |
+| B |  |  | measured / inferred / speculative / missing |  |  |
+| C |  |  | measured / inferred / speculative / missing |  |  |
 
 ## WER-EA Review Figure Types
 

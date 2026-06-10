@@ -1,10 +1,12 @@
 version: "1.0.0"
 
 always_load:
+  - static/core/contract.md
   - ../_shared/core/stance.md
   - ../_shared/core/evidence-contract.md
   - ../_shared/core/claim-strength-ladder.md
   - ../_shared/core/ethics.md
+  - ../_shared/paper-production/weakness-routing.md
   - static/core/reviewer-stance.md
   - static/core/workflow.md
 
@@ -50,3 +52,19 @@ axes:
       mechanism:
         path: references/mechanism-evidence-checklist.md
         triggers: ["mechanism", "FTIR", "SEM", "fluorescence", "rheology", "XRD", "TG"]
+assets: []
+scripts:
+  - scripts
+tests:
+  - tests
+quality_gates:
+  - release gate must report no issues for this skill
+  - claims must stay inside the skill evidence contract
+handoffs:
+  - civil-materials-research
+  - civil-materials-reader
+  - civil-materials-citation
+  - civil-materials-figure
+release_checks:
+  - scripts/run_release_checks.py --json
+  - scripts/check_skill_architecture.py --json

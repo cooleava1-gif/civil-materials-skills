@@ -36,6 +36,18 @@ class StubService:
         fmt = args.get("format", "ris")
         return {"format": fmt, "count": 1, "content": f"Formatted citation for {doi}", "warnings": []}
 
+    def list_academic_sources(self, args):
+        return {"sources": [{"name": "Crossref", "enabled": True}], "warnings": []}
+
+    def resolve_paper_ids(self, args):
+        return {"external_ids": {"doi": "10.1000/example"}}
+
+    def convert_citation_records(self, args):
+        return {"count": 1, "content": "[]", "records": []}
+
+    def deduplicate_citation_records(self, args):
+        return {"count": 1, "input_count": 2, "records": []}
+
 
 class McpContractTest(unittest.TestCase):
     def test_initialize_response_advertises_tools_capability(self):
@@ -67,6 +79,10 @@ class McpContractTest(unittest.TestCase):
                 "export_citation_matrix",
                 "lookup_mesh",
                 "get_formatted_citation",
+                "list_academic_sources",
+                "resolve_paper_ids",
+                "convert_citation_records",
+                "deduplicate_citation_records",
             },
         )
 
@@ -100,6 +116,14 @@ class McpContractTest(unittest.TestCase):
             ("export_citation_matrix", {"claims": ["bonding strength improves"]}, "rows"),
             ("lookup_mesh", {"topic": "epoxy resin"}, "mesh_terms"),
             ("get_formatted_citation", {"doi": "10.1000/example", "format": "ris"}, "content"),
+            ("list_academic_sources", {}, "sources"),
+            ("resolve_paper_ids", {"doi": "10.1000/example"}, "external_ids"),
+            (
+                "convert_citation_records",
+                {"content": "title,doi\nExample,10.1000/example\n", "input_format": "csv"},
+                "content",
+            ),
+            ("deduplicate_citation_records", {"records": [{"title": "Example"}]}, "records"),
         ]
 
         for index, (tool_name, arguments, expected_key) in enumerate(calls, start=10):

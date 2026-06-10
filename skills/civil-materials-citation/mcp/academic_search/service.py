@@ -13,23 +13,55 @@ from .adapters import (
     AcademicSourceAdapter,
     AdapterDisabled,
     AdapterError,
+    ArxivAdapter,
     CrossrefAdapter,
     OpenAlexAdapter,
     PubMedAdapter,
+    ScienceDirectAdapter,
+    ScopusAdapter,
     SemanticScholarAdapter,
     normalize_doi,
     normalize_title,
 )
 from .adapters.base import get_response_with_retries
 from .export.formats import export_citations
-from .domain.classifier import DURABILITY_LAYERS, MECHANISM_LAYERS, PERFORMANCE_LAYERS, classify_evidence_layers, evidence_type_for_claim
+from .importers.citation_files import parse_citation_records
+from .domain.classifier import (
+    DURABILITY_LAYERS,
+    MECHANISM_LAYERS,
+    PERFORMANCE_LAYERS,
+    canonical_evidence_layer,
+    classify_evidence_layers,
+    evidence_type_for_claim,
+)
+from .domain.identifiers import (
+    deduplicate_records,
+    merge_external_ids,
+    normalize_arxiv_id,
+    normalize_openalex_id,
+    normalize_pii,
+    normalize_pmcid,
+    normalize_pmid,
+    normalize_scopus_eid,
+    normalize_semantic_scholar_id,
+)
 from .domain.journals import expand_journal_terms, normalize_to_list
 from .domain.queries import suggest_queries
 
 
 CSV_FIELDS = [
+    "claim_id",
     "priority",
     "claim_or_need",
+    "evidence_layer",
+    "source_role",
+    "source_quality",
+    "mechanism_directness",
+    "durability_relevance",
+    "service_relevance",
+    "reader_anchor",
+    "figure_handoff",
+    "reviewer_risk",
     "search_query",
     "target_journals",
     "evidence_type",
@@ -58,9 +90,70 @@ class AcademicSearchService:
         self.adapters = adapters if adapters is not None else [
             CrossrefAdapter(),
             PubMedAdapter(),
+            ArxivAdapter(),
             OpenAlexAdapter(),
             SemanticScholarAdapter(),
+            *_optional_adapters(),
         ]
+
+    def list_academic_sources(self, args: dict[str, Any] | None = None) -> dict[str, Any]:
+        sources = []
+        warnings = []
+        for adapter in self.adapters:
+            sources.append({"name": adapter.name, "enabled": True, "optional": adapter.name in {"scopus", "sciencedirect"}})
+        for adapter_cls in (ScopusAdapter, ScienceDirectAdapter):
+            if any(isinstance(adapter, adapter_cls) for adapter in self.adapters):
+                continue
+            try:
+                adapter_cls()
+            except AdapterDisabled as exc:
+                warnings.append(str(exc))
+                sources.append({"name": adapter_cls.name, "enabled": False, "optional": True, "warning": str(exc)})
+        return {"sources": sources, "warnings": warnings}
+
+    def resolve_paper_ids(self, args: dict[str, Any]) -> dict[str, Any]:
+        record = dict(args.get("record") or {})
+        if args.get("doi"):
+            record["doi"] = args.get("doi")
+        external_ids = dict(record.get("external_ids") or {})
+        for key, normalizer in (
+            ("pmid", normalize_pmid),
+            ("pmcid", normalize_pmcid),
+            ("arxiv", normalize_arxiv_id),
+            ("openalex", normalize_openalex_id),
+            ("semantic_scholar", normalize_semantic_scholar_id),
+            ("scopus_eid", normalize_scopus_eid),
+            ("pii", normalize_pii),
+        ):
+            value = args.get(key) or args.get(f"{key}_id")
+            if value and (normalized := normalizer(value)):
+                external_ids[key] = normalized
+        record["external_ids"] = external_ids
+        ids = merge_external_ids([record])
+        return {"external_ids": ids}
+
+    def convert_citation_records(self, args: dict[str, Any]) -> dict[str, Any]:
+        content = _required(args, "content")
+        input_format = (args.get("input_format") or "ris").lower().strip()
+        output_format = (args.get("output_format") or "csl-json").lower().strip()
+        records = parse_citation_records(content, input_format)
+        records = deduplicate_records(records) if args.get("deduplicate", True) else records
+        output = export_citations(records, output_format)
+        return {
+            "input_format": input_format,
+            "output_format": output_format,
+            "count": len(records),
+            "records": records,
+            "content": output,
+            "warnings": [],
+        }
+
+    def deduplicate_citation_records(self, args: dict[str, Any]) -> dict[str, Any]:
+        records = list(args.get("records") or [])
+        if args.get("content"):
+            records.extend(parse_citation_records(str(args["content"]), args.get("input_format") or "ris"))
+        deduplicated = deduplicate_records(records)
+        return {"records": deduplicated, "count": len(deduplicated), "input_count": len(records)}
 
     def search_civil_materials(self, args: dict[str, Any]) -> dict[str, Any]:
         topic = _required(args, "topic")
@@ -296,9 +389,9 @@ class AcademicSearchService:
             risk_flags = list(row.get("risk_flags") or [])
             if not records:
                 risk_flags.append("No confirmed source mapped to this claim.")
-            if evidence_type == "mechanism" and not _records_have_layer(records, "ftir_sem_fluorescence_rheology"):
+            if evidence_type == "mechanism" and not _records_have_layer(records, "microstructure_chemistry"):
                 risk_flags.append("Mechanism claim lacks FTIR/SEM/fluorescence/rheology evidence.")
-            if evidence_type == "durability" and not _records_have_layer(records, "moisture_aging_service"):
+            if evidence_type == "durability" and not _records_have_layer(records, "moisture_aging_durability"):
                 risk_flags.append("Durability claim lacks moisture, aging, or service-condition evidence.")
             if risk_flags:
                 gaps.append({"claim": row.get("claim"), "evidence_type": evidence_type, "risk_flags": _unique(risk_flags)})
@@ -312,18 +405,30 @@ class AcademicSearchService:
 
         for index, claim in enumerate(claims, 1):
             evidence_type = evidence_type_for_claim(claim)
+            evidence_layers = classify_evidence_layers(claim)
+            evidence_layer = evidence_layers[0] if evidence_layers else _default_layer_for_evidence_type(evidence_type)
             query = suggest_queries(
                 topic=topic,
                 journal_family=journals,
                 material_domain=args.get("material_domain") or "asphalt",
-                evidence_layer=(classify_evidence_layers(claim) or [None])[0],
+                evidence_layer=evidence_layer,
                 year_range=args.get("year_range"),
                 limit=1,
             )[0]["query"]
             rows.append(
                 {
+                    "claim_id": f"CIT-{index:03d}",
                     "priority": "must-fix" if index <= 2 else "strengthen",
                     "claim_or_need": claim,
+                    "evidence_layer": evidence_layer,
+                    "source_role": _source_role_for_evidence_type(evidence_type),
+                    "source_quality": "screening needed",
+                    "mechanism_directness": _mechanism_directness(evidence_type),
+                    "durability_relevance": _durability_relevance(evidence_type, evidence_layer),
+                    "service_relevance": _service_relevance(evidence_layer),
+                    "reader_anchor": args.get("reader_anchor") or "[reader anchor needed]",
+                    "figure_handoff": args.get("figure_handoff") or "not assessed",
+                    "reviewer_risk": "must-fix" if index <= 2 else "strengthen",
                     "search_query": query,
                     "target_journals": ";".join(journals),
                     "evidence_type": evidence_type,
@@ -378,6 +483,16 @@ class AcademicSearchService:
         return {"format": fmt, "count": len(records), "content": content, "warnings": warnings}
 
 
+def _optional_adapters() -> list[AcademicSourceAdapter]:
+    adapters: list[AcademicSourceAdapter] = []
+    for adapter_cls in (ScopusAdapter, ScienceDirectAdapter):
+        try:
+            adapters.append(adapter_cls())
+        except AdapterDisabled as exc:
+            logger.warning("Optional academic source disabled: %s", exc)
+    return adapters
+
+
 def _crossref_content_negotiation(doi: str, style: str = "apa") -> str:
     """Get a pre-formatted citation from CrossRef content negotiation."""
     url = f"https://api.crossref.org/works/{doi}/transform"
@@ -414,8 +529,9 @@ def _normalized_record(raw: dict[str, Any], *, fallback_evidence_layer: str | No
     abstract = raw.get("abstract") or ""
     doi = normalize_doi(raw.get("doi"))
     layers = classify_evidence_layers(" ".join([title, abstract]))
-    if fallback_evidence_layer and fallback_evidence_layer not in layers:
-        layers.append(fallback_evidence_layer)
+    fallback_layer = canonical_evidence_layer(fallback_evidence_layer)
+    if fallback_layer and fallback_layer not in layers:
+        layers.append(fallback_layer)
     record = {
         "title": title,
         "doi": doi,
@@ -528,17 +644,19 @@ def _matching_records(records: list[dict[str, Any]], layers: list[str], evidence
     if not records:
         return []
     matches = []
+    canonical_layers = _canonical_layer_set(layers)
     for record in records:
-        record_layers = set(record.get("evidence_layers") or classify_evidence_layers(record.get("title", "")))
-        if set(layers) & record_layers:
+        record_layers = _canonical_layer_set(record.get("evidence_layers") or classify_evidence_layers(record.get("title", "")))
+        if canonical_layers & record_layers:
             matches.append(record)
-        elif not layers and evidence_type == _evidence_type_from_layers(record_layers):
+        elif not canonical_layers and evidence_type == _evidence_type_from_layers(record_layers):
             matches.append(record)
     return matches
 
 
 def _records_have_layer(records: list[dict[str, Any]], layer: str) -> bool:
-    return any(layer in (record.get("evidence_layers") or []) for record in records)
+    canonical = canonical_evidence_layer(layer)
+    return any(canonical in _canonical_layer_set(record.get("evidence_layers") or []) for record in records)
 
 
 def _risk_flags_for_claim(claim: str, evidence_type: str, records: list[dict[str, Any]]) -> list[str]:
@@ -551,15 +669,60 @@ def _risk_flags_for_claim(claim: str, evidence_type: str, records: list[dict[str
 
 
 def _evidence_type_from_layers(layers: set[str]) -> str:
+    layers = _canonical_layer_set(layers)
     if layers & MECHANISM_LAYERS:
         return "mechanism"
     if layers & DURABILITY_LAYERS:
         return "durability"
     if layers & PERFORMANCE_LAYERS:
         return "performance"
-    if "review_positioning" in layers:
+    if "review_background" in layers:
         return "review/positioning"
     return "primary evidence"
+
+
+def _canonical_layer_set(layers: Iterable[Any]) -> set[str]:
+    return {
+        canonical
+        for layer in layers
+        if (canonical := canonical_evidence_layer(str(layer)))
+    }
+
+
+def _default_layer_for_evidence_type(evidence_type: str) -> str:
+    if evidence_type == "mechanism":
+        return "microstructure_chemistry"
+    if evidence_type == "durability":
+        return "moisture_aging_durability"
+    if evidence_type == "review/positioning":
+        return "review_background"
+    if evidence_type == "performance":
+        return "bonding_interface_performance"
+    return "material_formulation"
+
+
+def _source_role_for_evidence_type(evidence_type: str) -> str:
+    if evidence_type == "review/positioning":
+        return "review evidence"
+    return "primary experimental evidence"
+
+
+def _mechanism_directness(evidence_type: str) -> str:
+    if evidence_type == "mechanism":
+        return "direct mechanism evidence needed"
+    return "not a mechanism claim"
+
+
+def _durability_relevance(evidence_type: str, evidence_layer: str) -> str:
+    if evidence_type == "durability" or evidence_layer in DURABILITY_LAYERS:
+        return "direct durability evidence needed"
+    return "not a durability claim"
+
+
+def _service_relevance(evidence_layer: str) -> str:
+    if evidence_layer == "service_field_relevance":
+        return "direct service or field evidence needed"
+    return "lab-scale unless field evidence is mapped"
 
 
 def _csv_safe_row(row: dict[str, Any]) -> dict[str, Any]:

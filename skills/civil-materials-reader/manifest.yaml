@@ -1,6 +1,7 @@
 version: "1.1.0"
 
 always_load:
+  - static/core/contract.md
   - ../_shared/core/terminology-ledger.md
   - ../_shared/core/ethics.md
   - static/core/reader-contract.md
@@ -37,6 +38,9 @@ axes:
       wer-ea-intensive-reading-package:
         path: references/wer-ea-intensive-reading-package.md
         triggers: ["WER-EA reading package", "waterborne epoxy reading package", "30-paper", "translation_notes", "mechanism_evidence_table", "dosage_window_table", "review_handoff", "obsidian_note", "assets", "精读样例包", "水性环氧乳化沥青"]
+      evidence-to-review-handoff:
+        path: references/evidence-to-review-handoff.md
+        triggers: ["source-map-first", "evidence-to-review", "citation handoff", "figure handoff", "citation_handoff", "figure_handoff", "source_anchor_checklist", "review package", "mini-review extraction", "综述交接", "引用交接", "图件交接"]
       pdf-visual-asset-extraction:
         path: references/pdf-visual-asset-extraction.md
         triggers: ["PDF visual assets", "asset_manifest", "contact_sheet", "rendered_pages", "visual_asset_spec", "crop figure", "crop table", "图页核验", "真图裁切"]
@@ -46,3 +50,20 @@ axes:
       journal-club:
         path: references/journal-club-reading.md
         triggers: ["journal club", "group meeting", "组会", "汇报"]
+assets:
+  - assets
+scripts:
+  - scripts
+tests:
+  - tests
+quality_gates:
+  - release gate must report no issues for this skill
+  - claims must stay inside the skill evidence contract
+handoffs:
+  - civil-materials-research
+  - civil-materials-reader
+  - civil-materials-citation
+  - civil-materials-figure
+release_checks:
+  - scripts/run_release_checks.py --json
+  - scripts/check_skill_architecture.py --json

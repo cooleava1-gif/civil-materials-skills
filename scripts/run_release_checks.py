@@ -32,6 +32,10 @@ REQUIRED_SHARED_FILES = [
     "core/ethics.md",
     "core/claim-strength-ladder.md",
     "core/terminology-ledger.md",
+    "paper-production/weakness-routing.md",
+    "paper-production/weakness-routing-template.csv",
+    "paper-production/paper-gate-report-template.md",
+    "paper-production/audit_paper_production.py",
     "journal-formats/cbm.md",
     "journal-formats/ccc.md",
     "journal-formats/jbe.md",
@@ -65,12 +69,16 @@ READER_FULLTEXT_ANCHOR_FILES = [
     Path("civil-materials-reader") / "references" / "fulltext-figure-anchored-reading.md",
     Path("civil-materials-reader") / "references" / "wer-ea-intensive-reading-package.md",
     Path("civil-materials-reader") / "references" / "pdf-visual-asset-extraction.md",
+    Path("civil-materials-reader") / "references" / "evidence-to-review-handoff.md",
     Path("civil-materials-reader") / "assets" / "templates" / "paper-md-template.md",
     Path("civil-materials-reader") / "assets" / "templates" / "source-map-template.json",
+    Path("civil-materials-reader") / "assets" / "templates" / "source-anchor-checklist.md",
     Path("civil-materials-reader") / "assets" / "templates" / "translation-notes-template.md",
     Path("civil-materials-reader") / "assets" / "templates" / "figure-table-card-template.md",
     Path("civil-materials-reader") / "assets" / "templates" / "mechanism-evidence-table-template.md",
     Path("civil-materials-reader") / "assets" / "templates" / "dosage-window-table-template.md",
+    Path("civil-materials-reader") / "assets" / "templates" / "citation-handoff-template.csv",
+    Path("civil-materials-reader") / "assets" / "templates" / "figure-handoff-template.csv",
     Path("civil-materials-reader") / "assets" / "templates" / "review-handoff-template.md",
     Path("civil-materials-reader") / "assets" / "templates" / "obsidian-note-template.md",
     Path("civil-materials-reader") / "scripts" / "extract_pdf_visual_assets.py",
@@ -78,7 +86,10 @@ READER_FULLTEXT_ANCHOR_FILES = [
 READER_FULLTEXT_ANCHOR_TERMS = [
     "paper.md",
     "source_map.json",
+    "source_anchor_checklist.md",
     "translation_notes.md",
+    "citation_handoff.csv",
+    "figure_handoff.csv",
     "assets/",
     "original excerpt",
     "chinese understanding",
@@ -102,6 +113,46 @@ READER_FULLTEXT_ANCHOR_TERMS = [
     "asset_file",
     "crop_status",
     "qa_status",
+    "source_anchor",
+    "citation_role",
+    "figure_archetype",
+    "handoff_target",
+]
+
+CITATION_REVIEW_HANDOFF_FILES = [
+    Path("civil-materials-citation") / "SKILL.md",
+    Path("civil-materials-citation") / "manifest.yaml",
+    Path("civil-materials-citation") / "assets" / "templates" / "citation-matrix-template.csv",
+    Path("civil-materials-citation") / "references" / "claim-citation-mapping.md",
+    Path("civil-materials-citation") / "references" / "reference-gap-audit.md",
+    Path("civil-materials-citation") / "references" / "wer-ea-screening-and-source-quality.md",
+    Path("civil-materials-citation") / "scripts" / "build_citation_matrix.py",
+    Path("civil-materials-citation") / "mcp" / "academic_search" / "domain" / "classifier.py",
+    Path("civil-materials-citation") / "mcp" / "academic_search" / "service.py",
+]
+CITATION_REVIEW_HANDOFF_TERMS = [
+    "wer-ea-screening",
+    "source-quality",
+    "reviewer-safe-package",
+    "claim_id",
+    "evidence_layer",
+    "source_role",
+    "source_quality",
+    "mechanism_directness",
+    "durability_relevance",
+    "service_relevance",
+    "reader_anchor",
+    "figure_handoff",
+    "reviewer_risk",
+    "material_formulation",
+    "emulsion_stability",
+    "bonding_interface_performance",
+    "rheology",
+    "curing_demulsification",
+    "microstructure_chemistry",
+    "moisture_aging_durability",
+    "service_field_relevance",
+    "review_background",
 ]
 
 SAMPLE_VISUAL_ASSET_ROOT = Path("outputs") / "wer-ea-30-reading-sample"
@@ -128,7 +179,9 @@ WER_EA_REVIEW_PIPELINE_TERMS = [
 
 FIGURE_REVIEW_MAP_FILES = [
     Path("civil-materials-figure") / "references" / "wer-ea-review-figure-contract.md",
+    Path("civil-materials-figure") / "references" / "review-figure-intake.md",
     Path("civil-materials-figure") / "assets" / "templates" / "wer-ea-figure-contract-template.md",
+    Path("civil-materials-figure") / "assets" / "templates" / "review-figure-intake-template.csv",
 ]
 FIGURE_REVIEW_MAP_TERMS = [
     "figure contract",
@@ -138,6 +191,133 @@ FIGURE_REVIEW_MAP_TERMS = [
     "performance-mechanism boundary",
     "literature-screening flow",
     "graphical abstract",
+    "review-figure intake",
+    "certainty_tier",
+    "caption_boundary",
+    "missing_evidence_marker",
+    "measured",
+    "inferred",
+    "speculative",
+    "missing",
+]
+
+READER_STANDARD_PACKAGE_FILES = [
+    Path("civil-materials-reader") / "references" / "standard-output-package.md",
+    Path("civil-materials-reader") / "assets" / "schemas" / "source-map.schema.json",
+    Path("civil-materials-reader") / "assets" / "schemas" / "visual-asset-spec.schema.json",
+    Path("civil-materials-reader") / "assets" / "schemas" / "visual-asset-report.schema.json",
+    Path("civil-materials-reader") / "assets" / "schemas" / "reader-package-manifest.schema.json",
+    Path("civil-materials-reader") / "assets" / "templates" / "package-manifest-template.json",
+    Path("civil-materials-reader") / "assets" / "templates" / "qa-report-template.md",
+    Path("civil-materials-reader") / "scripts" / "build_reader_package.py",
+    Path("civil-materials-reader") / "scripts" / "audit_reader_package.py",
+    Path("civil-materials-reader") / "scripts" / "validate_reader_package.py",
+]
+READER_STANDARD_PACKAGE_TERMS = [
+    "package_manifest.json",
+    "source_map.json",
+    "citation_handoff.csv",
+    "figure_handoff.csv",
+    "review_handoff.md",
+    "qa_report.md",
+    "civil-materials-reader-package",
+    "source_anchor",
+    "caption_boundary",
+    "reviewer_risk",
+]
+
+ACADEMIC_SEARCH_EXPANDED_FILES = [
+    Path("civil-materials-citation") / "mcp" / "academic_search" / "adapters" / "arxiv.py",
+    Path("civil-materials-citation") / "mcp" / "academic_search" / "adapters" / "elsevier_common.py",
+    Path("civil-materials-citation") / "mcp" / "academic_search" / "adapters" / "scopus.py",
+    Path("civil-materials-citation") / "mcp" / "academic_search" / "adapters" / "sciencedirect.py",
+    Path("civil-materials-citation") / "mcp" / "academic_search" / "domain" / "identifiers.py",
+    Path("civil-materials-citation") / "mcp" / "academic_search" / "importers" / "citation_files.py",
+    Path("civil-materials-citation") / "mcp" / "academic_search" / "export" / "csl_json.py",
+    Path("civil-materials-citation") / "mcp" / "academic_search" / "export" / "jsonl.py",
+    Path("civil-materials-citation") / "mcp" / "academic_search" / "server.py",
+    Path("civil-materials-citation") / "mcp" / "academic_search" / "service.py",
+]
+ACADEMIC_SEARCH_EXPANDED_TERMS = [
+    "ArxivAdapter",
+    "ScopusAdapter",
+    "ScienceDirectAdapter",
+    "AdapterDisabled",
+    "resolve_paper_ids",
+    "list_academic_sources",
+    "convert_citation_records",
+    "deduplicate_citation_records",
+    "csl-json",
+    "jsonl",
+]
+
+WER_EA_ATLAS_FILES = [
+    Path("civil-materials-figure") / "references" / "wer-ea-figure-atlas.md",
+    Path("civil-materials-figure") / "assets" / "wer-ea-atlas" / "asset-specs.csv",
+    Path("civil-materials-figure") / "assets" / "wer-ea-atlas" / "data" / "mechanism_edges.csv",
+    Path("civil-materials-figure") / "assets" / "wer-ea-atlas" / "data" / "evidence_heatmap.csv",
+    Path("civil-materials-figure") / "assets" / "wer-ea-atlas" / "data" / "material_systems.csv",
+    Path("civil-materials-figure") / "assets" / "wer-ea-atlas" / "data" / "performance_boundary.csv",
+    Path("civil-materials-figure") / "assets" / "wer-ea-atlas" / "data" / "screening_flow.csv",
+    Path("civil-materials-figure") / "assets" / "wer-ea-atlas" / "data" / "dosage_window.csv",
+    Path("civil-materials-figure") / "assets" / "wer-ea-atlas" / "data" / "durability_retention.csv",
+    Path("civil-materials-figure") / "assets" / "wer-ea-atlas" / "data" / "characterization_panel.csv",
+    Path("civil-materials-figure") / "assets" / "wer-ea-atlas" / "data" / "construction_workflow.csv",
+    Path("civil-materials-figure") / "assets" / "wer-ea-atlas" / "data" / "lca_boundary.csv",
+    Path("civil-materials-figure") / "assets" / "wer-ea-atlas" / "data" / "research_gap_matrix.csv",
+    Path("civil-materials-figure") / "scripts" / "wer_ea_atlas" / "generate_atlas.py",
+]
+WER_EA_ATLAS_TERMS = [
+    "wer-ea-mechanism-map",
+    "evidence-heatmap",
+    "material-system-map",
+    "performance-mechanism-boundary",
+    "literature-screening-flow",
+    "graphical-abstract",
+    "dosage-workability-window",
+    "sustainability-lca-boundary-card",
+    "template only",
+    "measured",
+    "inferred",
+    "speculative",
+    "missing",
+]
+
+PAPER_PRODUCTION_ORCHESTRATOR_FILES = [
+    Path("civil-materials-research") / "SKILL.md",
+    Path("civil-materials-research") / "manifest.yaml",
+    Path("civil-materials-research") / "references" / "paper-production-orchestrator.md",
+    Path("_shared") / "paper-production" / "weakness-routing.md",
+    Path("_shared") / "paper-production" / "weakness-routing-template.csv",
+    Path("_shared") / "paper-production" / "paper-gate-report-template.md",
+    Path("_shared") / "paper-production" / "audit_paper_production.py",
+    Path("civil-materials-writing") / "static" / "core" / "contract.md",
+    Path("civil-materials-polishing") / "static" / "core" / "contract.md",
+    Path("civil-materials-reviewer") / "static" / "core" / "contract.md",
+    Path("civil-materials-response") / "static" / "core" / "contract.md",
+    Path("civil-materials-figure") / "static" / "core" / "contract.md",
+]
+PAPER_PRODUCTION_ORCHESTRATOR_TERMS = [
+    "paper-production",
+    "paper_stage",
+    "workflow_mode",
+    "output_package",
+    "WER-EA mini-review",
+    "experimental manuscript",
+    "weakness_id",
+    "route_to",
+    "regression_check",
+    "Literature Coverage",
+    "Source Anchoring",
+    "Mechanism Boundary",
+    "Figure And Table Integrity",
+    "Manuscript Logic",
+    "Reviewer Simulation",
+    "Submission Fit",
+    "reader-package",
+    "gate report",
+    "weakness-routing rows",
+    "figure_handoff",
 ]
 
 FIGURE_HARD_WORKFLOW_FILES = [
@@ -206,6 +386,7 @@ TABLE_SYSTEM_TERMS = [
 
 MOJIBAKE_TARGET_SKILLS = [
     "civil-materials-reader",
+    "civil-materials-citation",
     "civil-materials-writing",
     "civil-materials-figure",
 ]
@@ -306,8 +487,14 @@ def collect_release_issues(root: Path) -> dict[str, list[str]]:
         "skills_index": [],
         "wer_ea_pipeline": [],
         "reader_fulltext_anchor": [],
+        "citation_review_handoff": [],
         "wer_ea_review_pipeline": [],
         "figure_review_maps": [],
+        "reader_standard_package": [],
+        "academic_search_expanded_sources": [],
+        "wer_ea_asset_library": [],
+        "paper_production_orchestrator": [],
+        "skill_architecture": [],
         "figure_hard_workflow": [],
         "sample_visual_assets": [],
         "table_system": [],
@@ -342,6 +529,10 @@ def collect_release_issues(root: Path) -> dict[str, list[str]]:
     collect_advanced_skill_upgrade_issues(root, issues)
     collect_sample_visual_asset_issues(root, issues)
     collect_mojibake_issues(root, issues)
+
+    # Runtime smoke checks import helper scripts and can create bytecode caches.
+    # Clean once more before scanning for generated artifacts in the release tree.
+    clean_generated_artifacts(root)
 
     for path in root.rglob("*"):
         if path.is_dir() and path.name == "__pycache__":
@@ -469,6 +660,14 @@ def collect_advanced_skill_upgrade_issues(root: Path, issues: dict[str, list[str
             root,
             label,
             skills_root,
+            CITATION_REVIEW_HANDOFF_FILES,
+            CITATION_REVIEW_HANDOFF_TERMS,
+            issues["citation_review_handoff"],
+        )
+        collect_required_file_terms(
+            root,
+            label,
+            skills_root,
             WER_EA_REVIEW_PIPELINE_FILES,
             WER_EA_REVIEW_PIPELINE_TERMS,
             issues["wer_ea_review_pipeline"],
@@ -481,8 +680,44 @@ def collect_advanced_skill_upgrade_issues(root: Path, issues: dict[str, list[str
             FIGURE_REVIEW_MAP_TERMS,
             issues["figure_review_maps"],
         )
+        collect_required_file_terms(
+            root,
+            label,
+            skills_root,
+            READER_STANDARD_PACKAGE_FILES,
+            READER_STANDARD_PACKAGE_TERMS,
+            issues["reader_standard_package"],
+        )
+        collect_required_file_terms(
+            root,
+            label,
+            skills_root,
+            ACADEMIC_SEARCH_EXPANDED_FILES,
+            ACADEMIC_SEARCH_EXPANDED_TERMS,
+            issues["academic_search_expanded_sources"],
+        )
+        collect_required_file_terms(
+            root,
+            label,
+            skills_root,
+            WER_EA_ATLAS_FILES,
+            WER_EA_ATLAS_TERMS,
+            issues["wer_ea_asset_library"],
+        )
+        collect_required_file_terms(
+            root,
+            label,
+            skills_root,
+            PAPER_PRODUCTION_ORCHESTRATOR_FILES,
+            PAPER_PRODUCTION_ORCHESTRATOR_TERMS,
+            issues["paper_production_orchestrator"],
+        )
+        collect_reader_standard_package_runtime_issues(root, label, skills_root, issues["reader_standard_package"])
+        collect_wer_ea_atlas_runtime_issues(root, label, skills_root, issues["wer_ea_asset_library"])
+        collect_paper_production_orchestrator_issues(root, label, skills_root, issues["paper_production_orchestrator"])
         collect_figure_hard_workflow_issues(root, label, skills_root, issues["figure_hard_workflow"])
         collect_table_system_issues(root, label, skills_root, issues["table_system"])
+    collect_skill_architecture_issues(root, issues["skill_architecture"])
 
 
 def collect_required_file_terms(
@@ -596,6 +831,185 @@ def collect_figure_hard_workflow_issues(root: Path, label: str, skills_root: Pat
         if result.returncode != 0:
             detail = result.stdout.strip() or result.stderr.strip()
             issue_list.append(f"{label}: {sample_name} failed audit_figure_package.py: {detail}")
+
+
+def collect_reader_standard_package_runtime_issues(
+    root: Path,
+    label: str,
+    skills_root: Path,
+    issue_list: list[str],
+) -> None:
+    reader_root = skills_root / "civil-materials-reader"
+    build_script = reader_root / "scripts" / "build_reader_package.py"
+    validate_script = reader_root / "scripts" / "validate_reader_package.py"
+    if not build_script.is_file() or not validate_script.is_file():
+        return
+
+    import tempfile
+
+    with tempfile.TemporaryDirectory() as tmp:
+        package_dir = Path(tmp) / "reader-package"
+        build_result = subprocess.run(
+            [
+                sys.executable,
+                str(build_script),
+                "--output-dir",
+                str(package_dir),
+                "--source-type",
+                "pasted-text",
+                "--title",
+                "Release Gate Smoke",
+                "--doi",
+                "10.0000/release-gate",
+                "--json",
+            ],
+            cwd=str(root),
+            check=False,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+        if build_result.returncode != 0:
+            detail = build_result.stdout.strip() or build_result.stderr.strip()
+            issue_list.append(f"{label}: build_reader_package.py smoke failed: {detail}")
+            return
+        validate_result = subprocess.run(
+            [
+                sys.executable,
+                str(validate_script),
+                str(package_dir),
+                "--json",
+            ],
+            cwd=str(root),
+            check=False,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+        if validate_result.returncode != 0:
+            detail = validate_result.stdout.strip() or validate_result.stderr.strip()
+            issue_list.append(f"{label}: validate_reader_package.py smoke failed: {detail}")
+
+
+def collect_wer_ea_atlas_runtime_issues(
+    root: Path,
+    label: str,
+    skills_root: Path,
+    issue_list: list[str],
+) -> None:
+    figure_root = skills_root / "civil-materials-figure"
+    script = figure_root / "scripts" / "wer_ea_atlas" / "generate_atlas.py"
+    if not script.is_file():
+        return
+
+    import tempfile
+
+    with tempfile.TemporaryDirectory() as tmp:
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(script),
+                "--output-dir",
+                tmp,
+                "--json",
+            ],
+            cwd=str(root),
+            check=False,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+        if result.returncode != 0:
+            detail = result.stdout.strip() or result.stderr.strip()
+            issue_list.append(f"{label}: generate_atlas.py smoke failed: {detail}")
+            return
+        try:
+            payload = json.loads(result.stdout)
+        except json.JSONDecodeError as exc:
+            issue_list.append(f"{label}: generate_atlas.py returned invalid JSON: {exc}")
+            return
+        generated = payload.get("generated")
+        if payload.get("status") != "pass" or not isinstance(generated, list) or len(generated) < 20:
+            issue_list.append(f"{label}: generate_atlas.py expected at least 20 generated assets")
+            return
+        for row in generated[:3]:
+            svg = Path(row.get("svg", ""))
+            png = Path(row.get("png", ""))
+            if not svg.is_file() or not png.is_file():
+                issue_list.append(f"{label}: generate_atlas.py missing generated svg/png for {row.get('asset_id')}")
+
+
+def collect_paper_production_orchestrator_issues(
+    root: Path,
+    label: str,
+    skills_root: Path,
+    issue_list: list[str],
+) -> None:
+    shared_root = skills_root / "_shared" / "paper-production"
+    script = shared_root / "audit_paper_production.py"
+    weakness = shared_root / "weakness-routing-template.csv"
+    gate = shared_root / "paper-gate-report-template.md"
+    if not script.is_file():
+        issue_list.append(f"{label}: missing {script.relative_to(root)}")
+        return
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(script),
+            "--weakness-routing",
+            str(weakness),
+            "--gate-report",
+            str(gate),
+            "--json",
+        ],
+        cwd=str(root),
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+    if result.returncode != 0:
+        detail = result.stdout.strip() or result.stderr.strip()
+        issue_list.append(f"{label}: audit_paper_production.py failed: {detail}")
+        return
+    try:
+        payload = json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        issue_list.append(f"{label}: audit_paper_production.py returned invalid JSON: {exc}")
+        return
+    if payload.get("status") != "pass":
+        issue_list.append(f"{label}: audit_paper_production.py status is {payload.get('status')!r}")
+
+
+def collect_skill_architecture_issues(root: Path, issue_list: list[str]) -> None:
+    checker = root / "scripts" / "check_skill_architecture.py"
+    if not checker.is_file():
+        issue_list.append("missing scripts/check_skill_architecture.py")
+        return
+    result = subprocess.run(
+        [sys.executable, str(checker), "--json"],
+        cwd=str(root),
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+    if result.returncode != 0:
+        detail = result.stdout.strip() or result.stderr.strip()
+        issue_list.append(f"check_skill_architecture.py failed: {detail}")
+        return
+    try:
+        payload = json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        issue_list.append(f"check_skill_architecture.py returned invalid JSON: {exc}")
+        return
+    if payload.get("status") != "pass":
+        issue_list.append(f"check_skill_architecture.py status is {payload.get('status')!r}")
 
 
 def collect_sample_visual_asset_issues(root: Path, issues: dict[str, list[str]]) -> None:
@@ -753,6 +1167,8 @@ def run_tests(root: Path) -> None:
         root / "skills" / "civil-materials-reader" / "tests",
         root / "skills" / "civil-materials-data" / "tests",
         root / "skills" / "civil-materials-writing" / "tests",
+        root / "skills" / "civil-materials-paper2ppt" / "tests",
+        root / "skills" / "civil-materials-pptx" / "tests",
         root / "skills" / "civil-materials-figure" / "tests",
         root / "skills" / "civil-materials-polishing" / "tests",
         root / "skills" / "civil-materials-response" / "tests",

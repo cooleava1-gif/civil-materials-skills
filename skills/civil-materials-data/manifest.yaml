@@ -1,6 +1,7 @@
 version: "1.1.0"
 
 always_load:
+  - static/core/contract.md
   - ../_shared/core/stance.md
   - ../_shared/core/ethics.md
   - static/core/data-contract.md
@@ -55,3 +56,20 @@ axes:
       generic:
         path: references/data-availability-statements.md
         triggers: ["journal", "submission", "SCI"]
+assets:
+  - assets
+scripts:
+  - scripts
+tests:
+  - tests
+quality_gates:
+  - release gate must report no issues for this skill
+  - claims must stay inside the skill evidence contract
+handoffs:
+  - civil-materials-research
+  - civil-materials-reader
+  - civil-materials-citation
+  - civil-materials-figure
+release_checks:
+  - scripts/run_release_checks.py --json
+  - scripts/check_skill_architecture.py --json

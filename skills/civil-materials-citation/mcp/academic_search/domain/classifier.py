@@ -6,41 +6,28 @@ import re
 
 
 EVIDENCE_LAYER_KEYWORDS: dict[str, tuple[str, ...]] = {
-    "demulsification": (
-        "demulsification",
-        "demulsify",
-        "breaking behavior",
-        "breaking rate",
-        "emulsion breaking",
+    "material_formulation": (
+        "waterborne epoxy",
+        "epoxy resin",
+        "epoxy dosage",
+        "resin dosage",
+        "formulation",
+        "modifier content",
+        "emulsifier",
+        "mix design",
+        "material design",
+    ),
+    "emulsion_stability": (
         "emulsion stability",
+        "storage stability",
         "zeta potential",
         "particle size",
-    ),
-    "epoxy_curing": (
-        "epoxy curing",
-        "curing reaction",
-        "crosslink",
-        "cross-link",
-        "amine",
-        "epoxy network",
-        "gel time",
-        "phase compatibility",
-    ),
-    "storage_stability": (
-        "storage stability",
         "settlement",
         "segregation",
         "sieve residue",
         "stability test",
     ),
-    "viscosity": (
-        "viscosity",
-        "brookfield",
-        "flow curve",
-        "shear rate",
-        "rheological property",
-    ),
-    "bonding_interface": (
+    "bonding_interface_performance": (
         "bonding",
         "bond strength",
         "pull-off",
@@ -53,32 +40,67 @@ EVIDENCE_LAYER_KEYWORDS: dict[str, tuple[str, ...]] = {
         "shear strength",
         "direct tension",
     ),
-    "ftir_sem_fluorescence_rheology": (
+    "rheology": (
+        "rheology",
+        "rheological property",
+        "viscosity",
+        "brookfield",
+        "flow curve",
+        "shear rate",
+        "dsr",
+        "dynamic shear rheometer",
+    ),
+    "curing_demulsification": (
+        "demulsification",
+        "demulsify",
+        "breaking behavior",
+        "breaking rate",
+        "emulsion breaking",
+        "epoxy curing",
+        "curing reaction",
+        "crosslink",
+        "cross-link",
+        "amine",
+        "epoxy network",
+        "gel time",
+        "phase compatibility",
+    ),
+    "microstructure_chemistry": (
         "ftir",
         "fourier transform infrared",
         "sem",
         "scanning electron microscopy",
         "fluorescence",
         "microscopy",
-        "rheology",
-        "dsr",
-        "dynamic shear rheometer",
         "afm",
+        "chemical bond",
+        "functional group",
+        "microstructure",
+        "phase morphology",
     ),
-    "moisture_aging_service": (
+    "moisture_aging_durability": (
         "moisture",
         "water damage",
         "aging",
         "ageing",
         "freeze-thaw",
         "freeze thaw",
-        "service condition",
-        "field performance",
-        "traffic",
+        "durability",
         "fatigue",
         "rutting",
     ),
-    "review_positioning": (
+    "service_field_relevance": (
+        "service condition",
+        "field performance",
+        "field trial",
+        "road construction",
+        "pavement construction",
+        "field construction",
+        "traffic",
+        "pavement section",
+        "in situ",
+    ),
+    "review_background": (
         "review",
         "recent progress",
         "state of the art",
@@ -88,9 +110,26 @@ EVIDENCE_LAYER_KEYWORDS: dict[str, tuple[str, ...]] = {
     ),
 }
 
-MECHANISM_LAYERS = {"epoxy_curing", "ftir_sem_fluorescence_rheology"}
-PERFORMANCE_LAYERS = {"bonding_interface", "storage_stability", "viscosity", "demulsification"}
-DURABILITY_LAYERS = {"moisture_aging_service"}
+EVIDENCE_LAYER_ALIASES: dict[str, str] = {
+    "bonding_interface": "bonding_interface_performance",
+    "demulsification": "curing_demulsification",
+    "epoxy_curing": "curing_demulsification",
+    "ftir_sem_fluorescence_rheology": "microstructure_chemistry",
+    "moisture_aging_service": "moisture_aging_durability",
+    "review_positioning": "review_background",
+    "storage_stability": "emulsion_stability",
+    "viscosity": "rheology",
+}
+
+MECHANISM_LAYERS = {"curing_demulsification", "microstructure_chemistry"}
+PERFORMANCE_LAYERS = {
+    "bonding_interface_performance",
+    "emulsion_stability",
+    "rheology",
+    "curing_demulsification",
+    "material_formulation",
+}
+DURABILITY_LAYERS = {"moisture_aging_durability", "service_field_relevance"}
 
 
 def _normalize(text: str | None) -> str:
@@ -107,6 +146,15 @@ def _contains_keyword(text: str, keyword: str) -> bool:
 
 def _contains_any(text: str, keywords: tuple[str, ...]) -> bool:
     return any(_contains_keyword(text, keyword) for keyword in keywords)
+
+
+def canonical_evidence_layer(layer: str | None) -> str | None:
+    """Return the current WER-EA evidence layer name for legacy aliases."""
+
+    normalized = _normalize(layer).replace(" ", "_")
+    if not normalized:
+        return None
+    return EVIDENCE_LAYER_ALIASES.get(normalized, normalized)
 
 
 def classify_evidence_layers(text: str | None) -> list[str]:

@@ -21,14 +21,17 @@ Build source-grounded civil materials reading artifacts, not shallow summaries.
 
 Use `assets/templates/literature-reading-template.md` as the base structure unless the user requests another format.
 
-For full-text intensive reading, PDF/text-to-`paper.md`, figure/table anchoring, source mapping, or WER-EA mini-review extraction, load `references/fulltext-figure-anchored-reading.md` and use:
+For full-text intensive reading, PDF/text-to-`paper.md`, figure/table anchoring, source mapping, or WER-EA mini-review extraction, load `references/fulltext-figure-anchored-reading.md` and `references/evidence-to-review-handoff.md`, then use:
 
 - `assets/templates/paper-md-template.md`,
 - `assets/templates/source-map-template.json`,
+- `assets/templates/source-anchor-checklist.md`,
 - `assets/templates/translation-notes-template.md`,
 - `assets/templates/figure-table-card-template.md`,
 - `assets/templates/mechanism-evidence-table-template.md`,
 - `assets/templates/dosage-window-table-template.md`,
+- `assets/templates/citation-handoff-template.csv`,
+- `assets/templates/figure-handoff-template.csv`,
 - `assets/templates/review-handoff-template.md`,
 - `assets/templates/obsidian-note-template.md`.
 
@@ -40,6 +43,9 @@ For WER-EA 30-paper intensive-reading packages, also load `references/wer-ea-int
 - `figure_table_cards.md`,
 - `mechanism_evidence_table.md`,
 - `dosage_window_table.md`,
+- `citation_handoff.csv`,
+- `figure_handoff.csv`,
+- `source_anchor_checklist.md`,
 - `review_handoff.md`,
 - `obsidian_note.md`,
 - `visual_asset_spec.json`,
@@ -58,7 +64,7 @@ The output should include:
 - limitations,
 - what the user can borrow for their own topic.
 - claim-evidence-mechanism-boundary audit when the paper will inform a manuscript or review.
-- paper.md, source_map.json, translation_notes.md, assets/, visual_asset_spec.json, asset_manifest.md, contact_sheet.png, original excerpt, Chinese understanding, figure card, table card, mechanism_evidence_table.md, dosage_window_table.md, review_handoff.md, obsidian_note.md, and borrowable writing when full-text anchoring is requested.
+- paper.md, source_map.json, source_anchor_checklist.md, translation_notes.md, assets/, visual_asset_spec.json, asset_manifest.md, contact_sheet.png, original excerpt, Chinese understanding, figure card, table card, mechanism_evidence_table.md, dosage_window_table.md, citation_handoff.csv, figure_handoff.csv, review_handoff.md, obsidian_note.md, and borrowable writing when full-text anchoring is requested.
 
 ## Civil Materials Reading Rules
 
@@ -84,7 +90,8 @@ Use this protocol for WER-EA, waterborne epoxy resin modified emulsified asphalt
 - Literature screening: tag each source by material system, WER dosage, curing agent, emulsifier, asphalt/emulsion type, substrate/interface, and whether it is experimental, review, field, or method evidence.
 - Mechanism evidence chain: extract claim -> evidence -> mechanism -> boundary rows for bonding strength, rheology, storage stability, demulsification/curing behavior, FTIR, fluorescence microscopy, SEM/AFM, thermal analysis, moisture/aging durability, and service-condition evidence.
 - Review outline handoff: summarize each paper's borrowable role as background, mechanism support, performance comparison, method reference, durability gap, or reviewer-risk caution.
-- Figure planning handoff: mark which rows can support a mechanism map, evidence heatmap, study-selection flow, test-method comparison, or performance-mechanism boundary figure.
+- Citation handoff: write `citation_handoff.csv` rows with source anchors, citation role, evidence type, confidence label, and missing-evidence flags for `civil-materials-citation`.
+- Figure planning handoff: write `figure_handoff.csv` rows with source anchors, figure archetype, visual-asset status, reviewer-risk boundary, and review-figure support for `civil-materials-figure`.
 - PDF visual asset handoff: when the PDF is available, render source pages, crop key figures/tables, record `visual_checked`, `asset_file`, `crop_status`, `defects`, and `qa_status`, and keep local PDF paths out of release artifacts.
 - Submission route handoff: flag whether the paper supports pavement/asphalt journals, construction-materials journals, or only background context.
 - Obsidian handoff: produce a three-layer `obsidian_note.md` with `1 快读判断`, `2 实验证据层`, `3 写作转化层`, and concept links centered on WER-EA knowledge nodes rather than paper-title chains.

@@ -21,11 +21,35 @@ class DomainRulesTest(unittest.TestCase):
 
         layers = classify_evidence_layers(text)
 
-        self.assertIn("demulsification", layers)
-        self.assertIn("epoxy_curing", layers)
-        self.assertIn("bonding_interface", layers)
-        self.assertIn("ftir_sem_fluorescence_rheology", layers)
-        self.assertIn("moisture_aging_service", layers)
+        self.assertIn("curing_demulsification", layers)
+        self.assertIn("microstructure_chemistry", layers)
+        self.assertIn("bonding_interface_performance", layers)
+        self.assertIn("moisture_aging_durability", layers)
+
+    def test_classifies_full_wer_ea_screening_taxonomy(self):
+        text = (
+            "A waterborne epoxy resin dosage and emulsifier formulation study measured "
+            "storage stability, particle size, pull-off bonding interface performance, "
+            "Brookfield viscosity, demulsification and epoxy curing, FTIR/SEM chemistry, "
+            "moisture aging durability, field trial traffic relevance, and review gaps."
+        )
+
+        layers = classify_evidence_layers(text)
+
+        self.assertEqual(
+            [
+                "material_formulation",
+                "emulsion_stability",
+                "bonding_interface_performance",
+                "rheology",
+                "curing_demulsification",
+                "microstructure_chemistry",
+                "moisture_aging_durability",
+                "service_field_relevance",
+                "review_background",
+            ],
+            layers,
+        )
 
     def test_claim_evidence_type_separates_mechanism_performance_and_durability(self):
         self.assertEqual(evidence_type_for_claim("FTIR explains the curing mechanism"), "mechanism")
@@ -52,18 +76,30 @@ class DomainRulesTest(unittest.TestCase):
         self.assertIn("Case Studies in Construction Materials", terms)
 
     def test_evidence_classifier_uses_word_boundaries_for_short_terms(self):
-        text = "Managing semantic packaging during a semester is not microstructural evidence."
+        text = (
+            "Managing semantic packaging during a semester seminar and reporting a "
+            "short-term 24 h strength value alone should remain a screening note, "
+            "not proof of chemistry, weather exposure, or road use."
+        )
 
         layers = classify_evidence_layers(text)
 
-        self.assertNotIn("moisture_aging_service", layers)
-        self.assertNotIn("ftir_sem_fluorescence_rheology", layers)
+        self.assertNotIn("moisture_aging_durability", layers)
+        self.assertNotIn("microstructure_chemistry", layers)
+        self.assertNotIn("service_field_relevance", layers)
+
+    def test_construction_materials_phrase_does_not_imply_field_service(self):
+        layers = classify_evidence_layers(
+            "Construction materials review for laboratory emulsified asphalt bonding tests."
+        )
+
+        self.assertNotIn("service_field_relevance", layers)
 
     def test_query_suggestions_include_topic_evidence_and_journal_terms(self):
         queries = suggest_queries(
             topic="waterborne epoxy modified emulsified asphalt",
             journal_family=["CBM", "RMPD"],
-            evidence_layer="bonding_interface",
+            evidence_layer="bonding_interface_performance",
             year_range="2020-2026",
         )
 
@@ -85,6 +121,7 @@ class DomainRulesTest(unittest.TestCase):
         query = queries[0]["query"]
 
         self.assertIn('"waterborne epoxy \\"fast setting\\" OR fabricated"', query)
+        self.assertEqual(queries[0]["evidence_layer"], "bonding_interface_performance")
 
     def test_build_pubmed_query_adds_journal_and_publication_date_filters(self):
         query = build_pubmed_query(

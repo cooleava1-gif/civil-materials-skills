@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
-from .classifier import EVIDENCE_LAYER_KEYWORDS
+from .classifier import EVIDENCE_LAYER_KEYWORDS, canonical_evidence_layer
 from .journals import expand_journal_terms, normalize_to_list
 
 
@@ -63,15 +63,19 @@ def suggest_queries(
     if not topic or not topic.strip():
         raise ValueError("topic is required")
 
-    selected_layers = normalize_to_list(evidence_layer)
+    selected_layers = [
+        canonical
+        for layer in normalize_to_list(evidence_layer)
+        if (canonical := canonical_evidence_layer(layer))
+    ]
     if not selected_layers:
         selected_layers = [
-            "bonding_interface",
-            "ftir_sem_fluorescence_rheology",
-            "moisture_aging_service",
-            "storage_stability",
-            "epoxy_curing",
-            "review_positioning",
+            "bonding_interface_performance",
+            "microstructure_chemistry",
+            "moisture_aging_durability",
+            "emulsion_stability",
+            "curing_demulsification",
+            "review_background",
         ]
 
     journals = expand_journal_terms(journal_family)

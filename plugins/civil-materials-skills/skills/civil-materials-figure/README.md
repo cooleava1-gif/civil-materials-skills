@@ -63,6 +63,18 @@ Template-only examples live under `examples/figure-packages/`. They demonstrate 
 
 ---
 
+## WER-EA atlas
+
+The WER-EA figure atlas lives under `assets/wer-ea-atlas/` and defines reusable review-figure templates for mechanism maps, evidence heatmaps, material-system maps, performance-mechanism boundary figures, literature-screening flows, graphical abstracts, dosage windows, durability maps, characterization panels, construction workflows, LCA boundary cards, and research-gap matrices.
+
+```powershell
+python skills\civil-materials-figure\scripts\wer_ea_atlas\generate_atlas.py --output-dir skills\civil-materials-figure\assets\wer-ea-atlas\generated --json
+```
+
+The generated SVG/PNG examples are template-only. They show visual structure and certainty encoding, not experimental evidence.
+
+---
+
 ## Reproduction checklist
 
 - [ ] Backend resolved as Python or R.
@@ -74,4 +86,3 @@ Template-only examples live under `examples/figure-packages/`. They demonstrate 
 - [ ] QA report covers backend exclusivity, export check, source-data check, statistics check, image-integrity check, caption-boundary check, and QA Status.
 - [ ] WER-EA mechanism claims are bounded by actual mechanism evidence.
 - [ ] `audit_figure_package.py` reports `status: pass`.
-

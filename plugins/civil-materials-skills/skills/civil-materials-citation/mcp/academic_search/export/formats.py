@@ -10,9 +10,11 @@ import re
 from typing import Any
 
 from .bibtex import build_bibtex_file
+from .csl_json import build_csl_json
+from .jsonl import build_jsonl
 from .ris import build_ris_file
 
-SUPPORTED_FORMATS = ("ris", "bibtex", "gbt7714")
+SUPPORTED_FORMATS = ("ris", "bibtex", "gbt7714", "csl-json", "jsonl")
 
 
 def export_citations(records: list[dict[str, Any]], fmt: str) -> str:
@@ -25,7 +27,7 @@ def export_citations(records: list[dict[str, Any]], fmt: str) -> str:
         Optional: ``doi``, ``journal``, ``year``, ``volume``, ``issue``,
         ``pages``, ``issn``.
     fmt : str
-        One of ``ris``, ``bibtex``, ``gbt7714``.
+        One of ``ris``, ``bibtex``, ``gbt7714``, ``csl-json``, or ``jsonl``.
 
     Returns
     -------
@@ -39,6 +41,10 @@ def export_citations(records: list[dict[str, Any]], fmt: str) -> str:
         return build_bibtex_file(records)
     if fmt == "gbt7714":
         return build_gbt7714_file(records)
+    if fmt == "csl-json":
+        return build_csl_json(records)
+    if fmt == "jsonl":
+        return build_jsonl(records)
     raise ValueError(f"Unsupported format: {fmt!r}. Use one of {SUPPORTED_FORMATS}")
 
 

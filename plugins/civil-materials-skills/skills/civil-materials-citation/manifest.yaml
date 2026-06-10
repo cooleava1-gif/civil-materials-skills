@@ -1,6 +1,7 @@
 version: "1.1.0"
 
 always_load:
+  - static/core/contract.md
   - static/core/citation-contract.md
   - static/core/workflow.md
 
@@ -17,6 +18,15 @@ axes:
       reference-gap:
         path: references/reference-gap-audit.md
         triggers: ["gap", "missing citation", "weak reference", "引用不足", "文献缺口"]
+      wer-ea-screening:
+        path: references/wer-ea-screening-and-source-quality.md
+        triggers: ["WER-EA screening", "waterborne epoxy emulsified asphalt screening", "evidence layer", "source role", "source quality", "水性环氧乳化沥青筛选", "证据层"]
+      source-quality:
+        path: references/wer-ea-screening-and-source-quality.md
+        triggers: ["source quality", "primary experimental evidence", "weak background", "exclusion flag", "文献质量", "来源角色"]
+      reviewer-safe-package:
+        path: references/reference-gap-audit.md
+        triggers: ["reviewer-safe citation package", "reviewer risk", "citation package", "审稿安全", "引用风险"]
       academic-search-mcp:
         path: references/academic-search-mcp.md
         triggers: ["academic-search MCP", "MCP", "automatic search", "自动检索", "文献检索MCP", "学术检索"]
@@ -36,8 +46,25 @@ axes:
     default: civil-materials
     values:
       asphalt:
-        path: references/claim-citation-mapping.md
+        path: references/wer-ea-screening-and-source-quality.md
         triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "bitumen", "pavement", "沥青", "乳化沥青", "水性环氧"]
       cement-concrete:
         path: references/claim-citation-mapping.md
         triggers: ["cement", "concrete", "hydration", "mortar", "水泥", "混凝土"]
+assets:
+  - assets
+scripts:
+  - scripts
+tests:
+  - mcp/academic_search/tests
+quality_gates:
+  - release gate must report no issues for this skill
+  - claims must stay inside the skill evidence contract
+handoffs:
+  - civil-materials-research
+  - civil-materials-reader
+  - civil-materials-citation
+  - civil-materials-figure
+release_checks:
+  - scripts/run_release_checks.py --json
+  - scripts/check_skill_architecture.py --json

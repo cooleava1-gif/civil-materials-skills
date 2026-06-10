@@ -25,6 +25,55 @@ logger = logging.getLogger(SERVER_NAME)
 
 TOOL_DEFINITIONS: list[dict[str, Any]] = [
     {
+        "name": "list_academic_sources",
+        "description": "List enabled and disabled academic metadata sources, including optional API-key gated sources.",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "resolve_paper_ids",
+        "description": "Normalize DOI, PMID, PMCID, arXiv, OpenAlex, Semantic Scholar, Scopus EID, and ScienceDirect PII identifiers.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "record": {"type": "object"},
+                "doi": {"type": "string"},
+                "pmid": {"type": "string"},
+                "pmcid": {"type": "string"},
+                "arxiv": {"type": "string"},
+                "openalex": {"type": "string"},
+                "semantic_scholar": {"type": "string"},
+                "scopus_eid": {"type": "string"},
+                "pii": {"type": "string"},
+            },
+        },
+    },
+    {
+        "name": "convert_citation_records",
+        "description": "Parse RIS, BibTeX, NBIB, or CSV records and export RIS, BibTeX, GB/T 7714, CSL JSON, or JSONL.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "content": {"type": "string"},
+                "input_format": {"type": "string", "enum": ["ris", "bibtex", "nbib", "csv"], "default": "ris"},
+                "output_format": {"type": "string", "enum": ["ris", "bibtex", "gbt7714", "csl-json", "jsonl"], "default": "csl-json"},
+                "deduplicate": {"type": "boolean", "default": True},
+            },
+            "required": ["content"],
+        },
+    },
+    {
+        "name": "deduplicate_citation_records",
+        "description": "Deduplicate citation records by DOI, external IDs, then normalized title and year.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "records": {"type": "array", "items": {"type": "object"}},
+                "content": {"type": "string"},
+                "input_format": {"type": "string", "enum": ["ris", "bibtex", "nbib", "csv"], "default": "ris"},
+            },
+        },
+    },
+    {
         "name": "search_civil_materials",
         "description": "Search scholarly sources for civil engineering and construction-materials papers with journal and evidence-layer filters.",
         "inputSchema": {
@@ -137,7 +186,7 @@ TOOL_DEFINITIONS: list[dict[str, Any]] = [
                 "dois": {"type": "array", "items": {"type": "string"}, "description": "Multiple DOIs for batch export"},
                 "format": {
                     "type": "string",
-                    "enum": ["ris", "bibtex", "gbt7714", "apa", "nature", "ieee"],
+                    "enum": ["ris", "bibtex", "gbt7714", "csl-json", "jsonl", "apa", "nature", "ieee"],
                     "default": "ris",
                     "description": "Export format. ris/bibtex/gbt7714 are client-side; apa/nature/ieee use CrossRef content negotiation.",
                 },
@@ -190,6 +239,14 @@ def handle_message(message: dict[str, Any], *, service: AcademicSearchService | 
 
 
 def _call_tool(service: AcademicSearchService, name: str | None, args: dict[str, Any]) -> dict[str, Any]:
+    if name == "list_academic_sources":
+        return service.list_academic_sources(args)
+    if name == "resolve_paper_ids":
+        return service.resolve_paper_ids(args)
+    if name == "convert_citation_records":
+        return service.convert_citation_records(args)
+    if name == "deduplicate_citation_records":
+        return service.deduplicate_citation_records(args)
     if name == "search_civil_materials":
         return _run_async_or_sync(service, "search_civil_materials", "search_civil_materials_async", args)
     if name == "fetch_paper_metadata":

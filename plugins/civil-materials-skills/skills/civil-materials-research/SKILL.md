@@ -9,11 +9,12 @@ description: Use when working on civil engineering and construction materials re
 
 This skill is a civil-engineering adaptation of the `nature-skills` style:
 
-- A short router decides the task, material domain, and journal target.
+- A short router decides the task, paper-production stage, material domain, and journal target.
 - Stable rules live in `static/`.
 - Detailed journal and topic notes live in `references/`.
 - Output must be usable immediately: a topic angle, review outline, experiment matrix, data interpretation, manuscript section, journal fit table, submission package, figure plan, PPT structure, data/FAIR package, or reviewer-risk audit.
 - Dedicated companion skills handle deep reading, from-scratch manuscript drafting, polishing, citation mapping, reviewer responses, simulated peer review, PPT/PPTX, figures, and data/FAIR packaging.
+- For full paper-production workflows, this skill becomes the orchestrator and routes gates, weakness rows, and handoff artifacts across companion skills.
 
 Do not answer from this router alone. Always load the manifest and the relevant fragments.
 
@@ -32,6 +33,9 @@ These files define the operating stance, evidence contract, and workflow shared 
 Detect these values from the user request:
 
 - `task`: research-positioning, reading, literature-review, citation-mapping, experiment-design, data-analysis, manuscript-writing, journal-targeting, submission-package, reviewer-response, figure-table, presentation, data-fair, reviewer-audit.
+- `paper_stage`: idea, screening, reading, drafting, revision, submission.
+- `workflow_mode`: single-task, paper-production, review-loop.
+- `output_package`: note, matrix, reader-package, manuscript, figure-package, gate-report, submission-package.
 - `domain`: asphalt-pavement, cement-concrete, construction-materials, steel-metal, geotechnical-materials, timber-masonry, waterproofing-sealants, sustainability-durability, civil-generic.
 - `journal`: cbm, cbm-transportation, ccc, cscm, jbe, rmpd-ijpe, jre, generic.
 
@@ -43,9 +47,16 @@ State the detected route in one short line before producing the main output, for
 
 ### 3. Load matching fragments only
 
-Read the mapped files for the detected `task`, `domain`, and `journal`. Do not read every file in `static/`.
+Read the mapped files for the detected `task`, `paper_stage`, `workflow_mode`, `output_package`, `domain`, and `journal`. Do not read every file in `static/`.
 
 Load multiple task fragments only if the user explicitly asks for a combined output, such as "make a review outline and PPT". If a request spans the full research cycle, load `research-positioning` first, then the specific downstream task.
+
+For paper-production requests, load `references/paper-production-orchestrator.md`,
+`../_shared/paper-production/weakness-routing.md`, and the gate/weakness
+templates before naming the next skill. Use this route for WER-EA mini-review
+production, experimental manuscript planning, reviewer-risk loops, or requests
+that ask to move from idea/search/reading/draft to a manuscript or submission
+package.
 
 ### 3.5. Use companion modules for deep production work
 
@@ -94,6 +105,7 @@ Open `references/` files only when the request needs deeper help:
 - Sustainability, low-carbon, LCA, recycled-material, waste-utilization, or service-life environmental claims -> `references/sustainability-claims-guide.md`.
 - Master's thesis roadmap, semester planning, review-to-experiment timeline, or paper pipeline planning -> `references/thesis-timeline.md`.
 - Companion skill coordination, including citation, response, data/FAIR, and PPTX handoff -> `references/companion-modules.md`.
+- Paper-production orchestration, WER-EA mini-review route, experimental manuscript route, paper-level gates, and weakness routing -> `references/paper-production-orchestrator.md`.
 - Full-module pressure testing and failure-mode validation -> `references/pressure-test-suite.md`.
 - Concrete module examples and output shapes -> `examples/library/library-index.md`.
 

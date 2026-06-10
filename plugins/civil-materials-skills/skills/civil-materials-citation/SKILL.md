@@ -19,7 +19,7 @@ Build source-grounded literature search plans and claim-citation maps for civil 
 
 ## Default Output
 
-Use `assets/templates/citation-matrix-template.csv` as the matrix schema and `assets/templates/search-plan-template.md` for search planning.
+Use `assets/templates/citation-matrix-template.csv` as the matrix schema and `assets/templates/search-plan-template.md` for search planning. For WER-EA screening, source-quality, or reviewer-safe package requests, also load `references/wer-ea-screening-and-source-quality.md`.
 
 For each claim, include:
 
@@ -30,6 +30,7 @@ For each claim, include:
 - candidate source status,
 - manuscript location,
 - risk if uncited or weakly cited.
+- WER-EA evidence layer, source role, source quality, reader anchor, figure handoff, and reviewer risk when a screening matrix is requested.
 
 ## Civil Materials Citation Rules
 

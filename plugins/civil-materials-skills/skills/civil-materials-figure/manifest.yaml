@@ -1,9 +1,11 @@
 version: "2.0.0"
 
 always_load:
+  - static/core/contract.md
   - static/core/figure-contract.md
   - static/core/stance.md
   - static/core/workflow.md
+  - ../_shared/paper-production/weakness-routing.md
 
 axes:
   backend:
@@ -53,9 +55,22 @@ axes:
       wer-ea-review:
         path: references/wer-ea-review-figure-contract.md
         triggers: ["WER-EA", "figure contract", "mechanism map", "evidence heatmap", "material-system map", "performance-mechanism boundary", "literature-screening flow", "graphical abstract"]
+      wer-ea-atlas:
+        path: references/wer-ea-figure-atlas.md
+        triggers: ["WER-EA atlas", "figure atlas", "WER-EA figure library", "mechanism map library", "evidence heatmap library", "dosage window library", "durability map library", "review figure asset library"]
       figure-package:
         path: references/figure-package-protocol.md
         triggers: ["figure package", "figure_contract.md", "qa_report.md", "asset_manifest.md", "journal-ready package", "图包"]
+
+  handoff_intake:
+    default: none
+    values:
+      review-figure:
+        path: references/review-figure-intake.md
+        triggers: ["reader handoff", "citation matrix", "review figure intake", "figure handoff", "evidence heatmap", "mechanism map", "certainty_tier", "caption_boundary"]
+      none:
+        path: references/figure-package-protocol.md
+        triggers: ["direct plotting", "source_data.csv", "plot.py", "plot.R"]
 
   domain:
     default: civil-materials
@@ -82,7 +97,28 @@ references:
       path: references/figure-production-spec.md
     - condition: WER-EA review figures, mechanism map, evidence heatmap, dosage-window figure, or graphical abstract
       path: references/wer-ea-review-figure-contract.md
+    - condition: WER-EA figure atlas, reusable review-figure library, atlas data templates, or generated SVG/PNG examples
+      path: references/wer-ea-figure-atlas.md
+    - condition: review-figure intake from reader handoff rows, citation matrices, figure handoff CSVs, mechanism maps, or evidence heatmaps
+      path: references/review-figure-intake.md
     - condition: chart families, visual hierarchy, and civil materials plotting recipes
       path: references/chart-atlas.md
     - condition: review-first visual inspiration and paper-derived patterns
       path: references/paper-derived-visual-patterns.md
+assets:
+  - assets
+scripts:
+  - scripts
+tests:
+  - tests
+quality_gates:
+  - release gate must report no issues for this skill
+  - claims must stay inside the skill evidence contract
+handoffs:
+  - civil-materials-research
+  - civil-materials-reader
+  - civil-materials-citation
+  - civil-materials-figure
+release_checks:
+  - scripts/run_release_checks.py --json
+  - scripts/check_skill_architecture.py --json

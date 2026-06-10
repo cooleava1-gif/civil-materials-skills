@@ -17,6 +17,17 @@ Every review figure must declare:
 
 Do not create a figure that looks more certain than the evidence. A schematic mechanism map must distinguish measured evidence from inferred links.
 
+## Evidence Certainty Tiers
+
+All WER-EA review figures that consume reader handoff rows or citation matrices must use the review-figure intake fields in `references/review-figure-intake.md`.
+
+- `measured`: directly reported tests, observations, or quantitative values.
+- `inferred`: mechanism or relationship interpreted from measured evidence.
+- `speculative`: plausible schematic element that remains a hypothesis or open question.
+- `missing`: absent, untested, not comparable, or outside-scope evidence.
+
+For mechanism maps and evidence heatmaps, make these tiers visible through encoding, legend text, and caption boundary. Do not allow speculative or missing evidence to appear as measured support.
+
 ## Required WER-EA review figures
 
 ### Mechanism map
@@ -26,6 +37,7 @@ Purpose: show how waterborne epoxy resin, curing agent, emulsifier, asphalt phas
 Required boundaries:
 
 - mark direct FTIR/rheology/microscopy evidence separately from inferred curing or compatibility links,
+- label measured, inferred, speculative, and missing elements in the legend or callouts,
 - avoid presenting bonding performance alone as mechanism proof,
 - show missing chemical or microstructural evidence when absent.
 
@@ -34,6 +46,12 @@ Required boundaries:
 Purpose: compare papers by evidence layers.
 
 Rows should be papers or source groups. Columns should include bonding performance, emulsion stability, rheology, FTIR/chemistry, fluorescence/SEM morphology, durability, and field/service condition.
+
+Required boundaries:
+
+- encode measured, inferred, speculative, and missing cells differently,
+- treat unreported evidence as `missing`, not as a negative result,
+- keep caption wording tied to the intake `caption_boundary` fields.
 
 ### Material-system map
 
@@ -64,6 +82,7 @@ The graphical abstract draft should include problem, material modification, evid
 Before finalizing:
 
 - link every panel to a table-system row or source_map.json anchor,
+- confirm every included panel mark has a measured, inferred, speculative, or missing certainty tier,
 - keep uncertainty visible,
 - include units and test conditions for data panels,
 - include scale bars for microscopy panels,

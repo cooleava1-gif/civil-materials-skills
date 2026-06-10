@@ -98,8 +98,8 @@ class AcademicSearchServiceTest(unittest.TestCase):
         self.assertTrue(result["records"])
         record = result["records"][0]
         self.assertEqual(record["doi"], "10.1000/example")
-        self.assertIn("bonding_interface", record["evidence_layers"])
-        self.assertIn("ftir_sem_fluorescence_rheology", record["evidence_layers"])
+        self.assertIn("bonding_interface_performance", record["evidence_layers"])
+        self.assertIn("microstructure_chemistry", record["evidence_layers"])
         self.assertIn("metadata_conflicts", record)
         self.assertIn("year", record["metadata_conflicts"])
         self.assertIn("source_provenance", record)
@@ -187,11 +187,11 @@ class AcademicSearchServiceTest(unittest.TestCase):
                 "candidate_records": [
                     {
                         "title": "Storage stability only",
-                        "evidence_layers": ["storage_stability"],
+                        "evidence_layers": ["emulsion_stability"],
                     },
                     {
                         "title": "Pull-off bonding strength study",
-                        "evidence_layers": ["bonding_interface"],
+                        "evidence_layers": ["bonding_interface_performance"],
                     },
                 ],
             }
@@ -201,7 +201,7 @@ class AcademicSearchServiceTest(unittest.TestCase):
 
         self.assertEqual([record["title"] for record in candidates], ["Pull-off bonding strength study"])
 
-    def test_export_citation_matrix_matches_existing_csv_schema(self):
+    def test_export_citation_matrix_matches_expanded_csv_schema(self):
         service = AcademicSearchService(adapters=[])
 
         result = service.export_citation_matrix(
@@ -221,8 +221,18 @@ class AcademicSearchServiceTest(unittest.TestCase):
         self.assertEqual(
             reader.fieldnames,
             [
+                "claim_id",
                 "priority",
                 "claim_or_need",
+                "evidence_layer",
+                "source_role",
+                "source_quality",
+                "mechanism_directness",
+                "durability_relevance",
+                "service_relevance",
+                "reader_anchor",
+                "figure_handoff",
+                "reviewer_risk",
                 "search_query",
                 "target_journals",
                 "evidence_type",
@@ -232,9 +242,16 @@ class AcademicSearchServiceTest(unittest.TestCase):
                 "risk_note",
             ],
         )
+        self.assertEqual(rows[0]["claim_id"], "CIT-001")
         self.assertEqual(rows[0]["claim_or_need"], "Bond strength improvement")
+        self.assertEqual(rows[0]["evidence_layer"], "bonding_interface_performance")
+        self.assertEqual(rows[0]["source_role"], "primary experimental evidence")
+        self.assertEqual(rows[0]["source_quality"], "screening needed")
+        self.assertEqual(rows[0]["figure_handoff"], "not assessed")
+        self.assertEqual(rows[0]["reviewer_risk"], "must-fix")
         self.assertEqual(rows[0]["evidence_type"], "performance")
         self.assertEqual(rows[1]["evidence_type"], "mechanism")
+        self.assertEqual(rows[1]["mechanism_directness"], "direct mechanism evidence needed")
 
     def test_export_citation_matrix_escapes_excel_formula_cells(self):
         service = AcademicSearchService(adapters=[])

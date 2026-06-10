@@ -1,8 +1,10 @@
 version: "1.1.0"
 
 always_load:
+  - static/core/contract.md
   - ../_shared/core/stance.md
   - ../_shared/core/evidence-contract.md
+  - ../_shared/paper-production/weakness-routing.md
   - static/core/stance.md
   - static/core/evidence-contract.md
   - static/core/workflow.md
@@ -57,6 +59,69 @@ axes:
       reviewer-audit:
         path: static/fragments/task/reviewer-audit.md
         triggers: ["reviewer", "risk", "desk reject", "审稿", "拒稿风险", "预审"]
+
+  paper_stage:
+    detect: "Where is the manuscript or review workflow in the paper-production lifecycle?"
+    default: idea
+    values:
+      idea:
+        path: references/paper-production-orchestrator.md
+        triggers: ["idea", "topic", "scope", "angle", "research question", "选题", "研究问题"]
+      screening:
+        path: references/paper-production-orchestrator.md
+        triggers: ["screening", "literature search", "source quality", "citation matrix", "文献筛选", "检索"]
+      reading:
+        path: references/paper-production-orchestrator.md
+        triggers: ["reader-package", "source_map", "evidence chain", "精读", "证据链"]
+      drafting:
+        path: references/paper-production-orchestrator.md
+        triggers: ["draft", "manuscript", "review outline", "section draft", "初稿", "论文写作"]
+      revision:
+        path: references/paper-production-orchestrator.md
+        triggers: ["reviewer", "revision", "weakness route", "gate report", "返修", "审稿意见"]
+      submission:
+        path: references/paper-production-orchestrator.md
+        triggers: ["submission", "cover letter", "highlights", "declaration", "投稿", "投稿包"]
+
+  workflow_mode:
+    detect: "Whether the user needs one output, a full paper-production pipeline, or a reviewer-risk loop."
+    default: single-task
+    values:
+      single-task:
+        path: static/core/workflow.md
+        triggers: ["single task", "quick", "one section", "one table"]
+      paper-production:
+        path: references/paper-production-orchestrator.md
+        triggers: ["paper production", "full workflow", "mini-review", "experimental manuscript", "论文生产", "小综述", "实验论文"]
+      review-loop:
+        path: references/paper-production-orchestrator.md
+        triggers: ["review loop", "weakness routing", "regression check", "reviewer risk", "弱点路由", "回流"]
+
+  output_package:
+    detect: "What concrete package should the orchestrator produce or request from companion skills?"
+    default: note
+    values:
+      note:
+        path: static/core/workflow.md
+        triggers: ["note", "summary", "plan", "说明"]
+      matrix:
+        path: references/paper-production-orchestrator.md
+        triggers: ["matrix", "claim-source", "evidence table", "矩阵", "证据表"]
+      reader-package:
+        path: references/paper-production-orchestrator.md
+        triggers: ["reader-package", "source_map.json", "citation_handoff.csv", "figure_handoff.csv"]
+      manuscript:
+        path: references/paper-production-orchestrator.md
+        triggers: ["manuscript", "paper draft", "section draft", "论文初稿"]
+      figure-package:
+        path: references/paper-production-orchestrator.md
+        triggers: ["figure package", "figure_contract.md", "caption_boundary", "图包"]
+      gate-report:
+        path: ../_shared/paper-production/paper-gate-report-template.md
+        triggers: ["gate report", "quality gate", "paper gate", "质量门禁"]
+      submission-package:
+        path: references/paper-production-orchestrator.md
+        triggers: ["submission package", "cover letter", "highlights", "投稿包"]
 
   domain:
     detect: "Which civil materials field is central?"
@@ -157,6 +222,12 @@ references:
     companion-modules:
       path: references/companion-modules.md
       when: "The task should be handed off to civil-materials-reader, civil-materials-citation, civil-materials-writing, civil-materials-polishing, civil-materials-response, civil-materials-reviewer, civil-materials-paper2ppt, civil-materials-pptx, or civil-materials-figure."
+    paper-production-orchestrator:
+      path: references/paper-production-orchestrator.md
+      when: "The user asks for WER-EA mini-review production, experimental manuscript planning, paper gates, weakness routing, reviewer-risk loops, or end-to-end paper-production control."
+    shared-weakness-routing:
+      path: ../_shared/paper-production/weakness-routing.md
+      when: "A reviewer comment, self-review issue, or paper gate failure must be routed to a companion skill."
     pressure-test-suite:
       path: references/pressure-test-suite.md
       when: "The task asks for pressure tests, failure modes, regression coverage, skill validation, or reviewer-safe behavior checks across modules."
@@ -187,3 +258,19 @@ companion_skills:
   pptx: civil-materials-pptx
   figure: civil-materials-figure
   data: civil-materials-data
+assets: []
+scripts:
+  - scripts
+tests:
+  - tests
+quality_gates:
+  - release gate must report no issues for this skill
+  - claims must stay inside the skill evidence contract
+handoffs:
+  - civil-materials-research
+  - civil-materials-reader
+  - civil-materials-citation
+  - civil-materials-figure
+release_checks:
+  - scripts/run_release_checks.py --json
+  - scripts/check_skill_architecture.py --json

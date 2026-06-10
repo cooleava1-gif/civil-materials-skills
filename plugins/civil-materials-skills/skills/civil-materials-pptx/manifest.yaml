@@ -1,6 +1,7 @@
 version: "1.0.0"
 
 always_load:
+  - static/core/contract.md
   - static/core/pptx-contract.md
   - static/core/workflow.md
 
@@ -41,3 +42,20 @@ axes:
       data:
         path: references/pptx-generation.md
         triggers: ["data", "csv", "figure", "数据", "图表"]
+assets:
+  - assets
+scripts:
+  - scripts
+tests:
+  - tests
+quality_gates:
+  - release gate must report no issues for this skill
+  - claims must stay inside the skill evidence contract
+handoffs:
+  - civil-materials-research
+  - civil-materials-reader
+  - civil-materials-citation
+  - civil-materials-figure
+release_checks:
+  - scripts/run_release_checks.py --json
+  - scripts/check_skill_architecture.py --json

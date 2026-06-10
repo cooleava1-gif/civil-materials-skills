@@ -20,6 +20,10 @@
 - crop_box:
 - defects:
 - claim_boundary:
+- interpretation_boundary:
+- review_figure_support: yes / conditional / no
+- figure_archetype:
+- reviewer_risk:
 - qa_status: pass / partial / fail
 
 ## What It Shows
