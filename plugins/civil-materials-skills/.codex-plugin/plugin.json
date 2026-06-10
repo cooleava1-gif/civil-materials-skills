@@ -39,9 +39,9 @@
     ],
     "brandColor": "#3F6F5E",
     "screenshots": [
-      "./skills/civil-materials-figure/assets/wer-ea-atlas/generated/wer_ea_mechanism_map.png",
-      "./skills/civil-materials-figure/assets/wer-ea-atlas/generated/wer_ea_evidence_heatmap.png",
-      "./skills/civil-materials-figure/assets/wer-ea-atlas/generated/wer_ea_dosage_window.png"
+      "./skills/civil-materials-figure/assets/showcase-proof/reader_package_proof_wall.png",
+      "./skills/civil-materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png",
+      "./skills/civil-materials-figure/assets/showcase-proof/interlayer_fatigue_proof_board.png"
     ]
   }
 }

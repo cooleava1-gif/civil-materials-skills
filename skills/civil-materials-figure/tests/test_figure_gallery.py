@@ -4,8 +4,25 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from PIL import Image
+
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
+SHOWCASE_PROOF_ASSETS = [
+    "reader_package_proof_wall.png",
+    "wer_ea_figure_proof_board.png",
+    "sbr_wer_performance_proof_board.png",
+    "interlayer_fatigue_proof_board.png",
+]
+
+
+def has_visual_signal(path: Path) -> bool:
+    with Image.open(path) as image:
+        rgba = image.convert("RGBA")
+        extrema = rgba.getextrema()
+        return rgba.width >= 1200 and rgba.height >= 700 and any(
+            (high - low) >= 40 for low, high in extrema[:3]
+        )
 
 
 class FigureGalleryAssetsTest(unittest.TestCase):
@@ -68,6 +85,14 @@ class FigureGalleryAssetsTest(unittest.TestCase):
             self.assertTrue(path.exists(), f"{filename} should be generated and available")
             text = path.read_text(encoding="utf-8")
             self.assertIn("Civil Materials Figure Gallery", text)
+
+    def test_showcase_proof_assets_exist_and_have_visual_signal(self):
+        showcase_root = SKILL_ROOT / "assets" / "showcase-proof"
+        self.assertTrue(showcase_root.exists(), "showcase-proof assets should exist")
+        for filename in SHOWCASE_PROOF_ASSETS:
+            path = showcase_root / filename
+            self.assertTrue(path.exists(), f"{filename} should exist")
+            self.assertTrue(has_visual_signal(path), f"{filename} should be content-bearing, not a flat placeholder")
 
 
 class FigureGalleryDemoScriptTest(unittest.TestCase):
@@ -166,6 +191,26 @@ class FigureGalleryDemoScriptTest(unittest.TestCase):
                 text = svg.read_text(encoding="utf-8")
                 self.assertIn("<svg", text)
                 self.assertIn("Civil Materials Figure Gallery", text)
+
+    def test_showcase_builder_generates_real_png_proof_assets(self):
+        script = SKILL_ROOT / "scripts" / "build_showcase_proof_assets.py"
+        self.assertTrue(script.exists(), "build_showcase_proof_assets.py should exist")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(script),
+                    "--output-dir",
+                    tmp,
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            for filename in SHOWCASE_PROOF_ASSETS:
+                self.assertIn(filename, result.stdout)
+                self.assertTrue(has_visual_signal(Path(tmp) / filename))
 
 
 if __name__ == "__main__":

@@ -62,6 +62,7 @@ ROOT_README_PRODUCT_MARKERS = [
     "## Skill Status Index",
     "## Guided Demos",
     "## Visual Gallery",
+    "## Outcome Showcases",
 ]
 INSTALL_GUIDE_MARKERS = [
     "# Install Civil Materials Skills",
@@ -90,10 +91,15 @@ GALLERY_MARKERS = [
     "## Workflow Proof",
     "## Artifact Deep Dives",
     "## Outcome Showcases",
+    "reader_package_proof_wall.png",
+    "wer_ea_figure_proof_board.png",
+    "sbr_wer_performance_proof_board.png",
+    "interlayer_fatigue_proof_board.png",
+]
+LEGACY_GALLERY_PLACEHOLDERS = [
     "wer_ea_mechanism_map.png",
     "wer_ea_evidence_heatmap.png",
     "wer_ea_dosage_window.png",
-    "contact_sheet.png",
 ]
 SHOWCASE_DOCS = {
     "submission-package.md": "Submission package",
@@ -660,6 +666,9 @@ def collect_skills_index_issues(root: Path, issues: dict[str, list[str]]) -> Non
         for marker in ROOT_README_PRODUCT_MARKERS:
             if marker not in readme_text:
                 issues["skills_index"].append(f"README.md missing product marker {marker!r}")
+        for legacy in LEGACY_GALLERY_PLACEHOLDERS:
+            if legacy in readme_text:
+                issues["skills_index"].append(f"README.md still references legacy placeholder asset {legacy!r}")
 
     if not install_path.is_file():
         issues["skills_index"].append("install.md is missing")
@@ -699,6 +708,11 @@ def collect_skills_index_issues(root: Path, issues: dict[str, list[str]]) -> Non
         for marker in GALLERY_MARKERS:
             if marker not in gallery_text:
                 issues["skills_index"].append(f"docs/gallery/README.md missing marker {marker!r}")
+        for legacy in LEGACY_GALLERY_PLACEHOLDERS:
+            if legacy in gallery_text:
+                issues["skills_index"].append(
+                    f"docs/gallery/README.md still references legacy placeholder asset {legacy!r}"
+                )
 
     showcase_root = root / "docs" / "showcases"
     showcase_index = showcase_root / "README.md"
@@ -1319,6 +1333,7 @@ def collect_plugin_issues(root: Path, issues: dict[str, list[str]]) -> None:
 
 
 def run_tests(root: Path) -> None:
+    run([sys.executable, "-m", "unittest", "discover", "-s", str(root / "tests"), "-p", "test_*.py", "-v"], root)
     test_roots = [
         root / "skills" / "civil-materials-research" / "tests",
         root / "skills" / "civil-materials-reader" / "tests",

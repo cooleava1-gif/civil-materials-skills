@@ -2,6 +2,8 @@ import json
 import unittest
 from pathlib import Path
 
+from PIL import Image
+
 
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN_ROOT = ROOT / "plugins" / "civil-materials-skills"
@@ -51,6 +53,26 @@ OUTCOME_SHOWCASE_SECTIONS = [
     "## Build Path",
     "## When To Use This Route",
 ]
+GALLERY_PROOF_ASSETS = {
+    "reader_package_proof_wall.png": "Reader-package proof wall",
+    "wer_ea_figure_proof_board.png": "WER-EA figure proof board",
+    "sbr_wer_performance_proof_board.png": "SBR-WER performance proof board",
+    "interlayer_fatigue_proof_board.png": "Interlayer fatigue proof board",
+}
+LEGACY_PLACEHOLDER_ASSETS = [
+    "wer_ea_mechanism_map.png",
+    "wer_ea_evidence_heatmap.png",
+    "wer_ea_dosage_window.png",
+]
+
+
+def image_has_visual_signal(path: Path) -> bool:
+    with Image.open(path) as image:
+        rgba = image.convert("RGBA")
+        extrema = rgba.getextrema()
+        return rgba.width >= 1200 and rgba.height >= 700 and any(
+            (high - low) >= 40 for low, high in extrema[:3]
+        )
 
 
 class ProductDocsContractTests(unittest.TestCase):
@@ -69,6 +91,9 @@ class ProductDocsContractTests(unittest.TestCase):
             "## Outcome Showcases",
         ]:
             self.assertIn(marker, readme_text)
+        self.assertIn("wer_ea_figure_proof_board.png", readme_text)
+        for legacy in LEGACY_PLACEHOLDER_ASSETS:
+            self.assertNotIn(legacy, readme_text)
 
         install_text = install_path.read_text(encoding="utf-8")
         for marker in [
@@ -111,13 +136,14 @@ class ProductDocsContractTests(unittest.TestCase):
         ]:
             self.assertIn(marker, gallery_text)
 
-        for asset in [
-            "wer_ea_mechanism_map.png",
-            "wer_ea_evidence_heatmap.png",
-            "wer_ea_dosage_window.png",
-            "contact_sheet.png",
-        ]:
+        showcase_root = ROOT / "skills" / "civil-materials-figure" / "assets" / "showcase-proof"
+        for asset in GALLERY_PROOF_ASSETS:
             self.assertIn(asset, gallery_text)
+            asset_path = showcase_root / asset
+            self.assertTrue(asset_path.is_file(), f"{asset_path} must exist")
+            self.assertTrue(image_has_visual_signal(asset_path), f"{asset_path} should be a content-bearing image")
+        for legacy in LEGACY_PLACEHOLDER_ASSETS:
+            self.assertNotIn(legacy, gallery_text)
 
     def test_outcome_showcase_docs_exist_with_real_proof_assets(self):
         showcase_index = ROOT / "docs" / "showcases" / "README.md"
@@ -154,6 +180,7 @@ class ProductDocsContractTests(unittest.TestCase):
         for relative_path in screenshots:
             self.assertIsInstance(relative_path, str)
             self.assertTrue(relative_path.endswith(".png"))
+            self.assertIn("showcase-proof", relative_path)
             self.assertTrue((PLUGIN_ROOT / relative_path.removeprefix("./")).is_file(), relative_path)
 
         prompts = interface.get("defaultPrompt")

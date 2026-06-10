@@ -1,26 +1,30 @@
 # Civil Materials Gallery
 
-This gallery is the visual proof layer for the bundle. It uses real generated
-assets and real sample-package outputs so the product surface shows what the
-system already does, instead of what it merely claims to do.
+This gallery is the visual proof layer for the bundle. It uses content-bearing
+boards assembled from real reader-package outputs and extracted paper figures,
+so the product surface shows what the system already does instead of what it
+merely claims to do.
+
+Template-only atlas cards and style demos still live inside the figure skill as
+internal references, but they no longer serve as the front-door proof surface.
 
 ## Screenshot Gallery
 
-### WER-EA mechanism map
+### Reader-package proof wall
 
-![WER-EA mechanism map](../../skills/civil-materials-figure/assets/wer-ea-atlas/generated/wer_ea_mechanism_map.png)
+![Reader-package proof wall](../../skills/civil-materials-figure/assets/showcase-proof/reader_package_proof_wall.png)
 
-### WER-EA evidence heatmap
+### WER-EA figure proof board
 
-![WER-EA evidence heatmap](../../skills/civil-materials-figure/assets/wer-ea-atlas/generated/wer_ea_evidence_heatmap.png)
+![WER-EA figure proof board](../../skills/civil-materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
 
-### WER-EA dosage window
+### SBR-WER performance proof board
 
-![WER-EA dosage window](../../skills/civil-materials-figure/assets/wer-ea-atlas/generated/wer_ea_dosage_window.png)
+![SBR-WER performance proof board](../../skills/civil-materials-figure/assets/showcase-proof/sbr_wer_performance_proof_board.png)
 
-### Reader-package contact sheet
+### Interlayer fatigue proof board
 
-![Reader package contact sheet](../../outputs/wer-ea-30-reading-sample/015-curing-agent-structure-wer-ea/assets/contact_sheet.png)
+![Interlayer fatigue proof board](../../skills/civil-materials-figure/assets/showcase-proof/interlayer_fatigue_proof_board.png)
 
 ## Workflow Proof
 
@@ -46,20 +50,27 @@ system already does, instead of what it merely claims to do.
 
 - Reader-package sample:
   [outputs/wer-ea-30-reading-sample/README.md](../../outputs/wer-ea-30-reading-sample/README.md)
+- Front-door proof board assets:
+  `skills/civil-materials-figure/assets/showcase-proof/`
 - Example library:
   [library-index.md](../../skills/civil-materials-research/examples/library/library-index.md)
 - Skills index:
   [docs/skills-index.md](../skills-index.md)
 - Outcome showcase hub:
   [docs/showcases/README.md](../showcases/README.md)
-- Figure atlas output folder:
+- Template atlas output folder:
   `skills/civil-materials-figure/assets/wer-ea-atlas/generated/`
+- Internal layout references:
+  `skills/civil-materials-figure/assets/rich-gallery/generated/`
+  and `skills/civil-materials-figure/assets/review-first/generated/`
 
 ## How To Read This Gallery
 
-- The atlas images show visual structure and certainty encoding.
-- The contact-sheet screenshot shows that reader-package outputs can preserve
-  figure context and asset lineage.
+- The proof-wall board shows that reader-package outputs preserve figure
+  context, asset lineage, and multi-paper reading scale.
+- The WER-EA and SBR-WER boards show real mechanism, rheology, FTIR, table,
+  and morphology density instead of template placeholders.
+- The fatigue board shows method, chart, and table evidence on one surface.
 - The workflow links show where each visual surface fits inside the production
   loop.
 - Nothing here should be treated as publishable evidence without checking the
