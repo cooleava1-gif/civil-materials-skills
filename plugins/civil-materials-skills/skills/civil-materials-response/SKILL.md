@@ -2,50 +2,24 @@
 name: civil-materials-response
 version: "1.1.0"
 stability: stable
-description: Use when drafting, structuring, auditing, or polishing reviewer responses, rebuttal letters, revision summaries, point-by-point replies, response tables, or resubmission packages for civil engineering and construction materials manuscripts, especially CBM, CCC, JBE, RMPD, IJPE, asphalt pavement, emulsified asphalt, cement/concrete, durability, and mechanism-related reviewer comments.
+description: Use when drafting, auditing, or strengthening point-by-point reviewer response letters for civil engineering and construction materials manuscripts.
 ---
 
 # Civil Materials Response
 
-Build reviewer response packages that are respectful, evidence-first, and revision-verifiable.
+Draft reviewer response letters that are complete, factual, and professional.
 
 ## Protocol
 
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
 2. Detect `response_task`, `comment_type`, and `journal_family`.
-3. Load only the matching reference files.
-4. Produce a point-by-point response, revision action table, rebuttal strategy, or risk audit.
-5. Do not promise experiments, analyses, or manuscript changes unless the user has provided evidence or explicitly chooses that revision path.
+3. Load only the matching fragments.
+4. Assign stable IDs to each reviewer comment.
+5. Classify each comment and draft a point-by-point response.
+6. Map action: ACCEPT_TEXT, ACCEPT_ANALYSIS, SOFTEN_CLAIM, or AUTHOR_INPUT_NEEDED.
 
-## Default Output
+## Gates
 
-Use `assets/templates/response-package-template.md`.
-
-Each reviewer comment should become:
-
-- comment ID,
-- reviewer concern,
-- concern type,
-- response strategy,
-- manuscript action,
-- evidence or data needed,
-- polite response draft,
-- risk note.
-
-## Civil Materials Response Rules
-
-- Start with agreement or clarification when possible; avoid defensive language.
-- Keep "response to reviewer" and "change made in manuscript" separate.
-- For mechanism comments, tie the answer to FTIR, SEM, fluorescence, rheology, hydration, or other actual evidence.
-- For performance comments, cite test conditions, standards, repeatability, statistics, or limitations.
-- For journal fit comments, avoid arguing prestige; argue scope, evidence, and contribution.
-- If a reviewer is correct, fix the manuscript and say exactly where.
-- If a reviewer is partially mistaken, acknowledge the valid part, explain the boundary, and revise text to prevent misunderstanding.
-
-Use `scripts/build_response_package.py` to scaffold a point-by-point response package.
-
-Use `references/response-patterns.md` when the reviewer comment matches a high-frequency scenario such as language revision, more references, weak novelty, insufficient comparison, small sample size, missing error bars, raw data request, conflicting reviewers, or requested experiments beyond scope.
-
-Use `references/response-document-format.md` when the user needs a revision package format, tracked-changes handoff, author response layout, or revision cover letter.
-
-Use `examples/cbm-major-revision-response-example.md`, `examples/ccc-methodology-critique-response-example.md`, and `examples/rmpd-minor-revision-response-example.md` as concrete models. Use `tests/pressure-tests/aggressive-reviewer-mechanism-request.md` to check that responses stay respectful, evidence-bound, and honest about missing data.
+- Never invent data, experiments, or citations.
+- Do not fabricate added experiments or supplementary figures.
+- Responses must stand alone without the reviewer needing to re-read the manuscript.

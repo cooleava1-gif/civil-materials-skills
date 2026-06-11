@@ -52,10 +52,10 @@ axes:
         triggers: ["response to reviewer", "reviewer response", "rebuttal", "revision response", "审稿回复", "回复审稿人", "返修", "大修", "小修", "rebuttal letter"]
       presentation:
         path: static/fragments/task/presentation.md
-        triggers: ["PPT", "PPTX", ".pptx", "slides", "journal club", "PowerPoint", "组会", "汇报", "幻灯片"]
+        triggers: ["PPT", "slides", "journal club", "PowerPoint", "组会", "汇报", "幻灯片"]
       pptx-generation:
         path: static/fragments/task/pptx-generation.md
-        triggers: ["real pptx", "generate pptx", "PowerPoint file", ".pptx", "生成PPTX", "生成PPT", "制作PPT"]
+        triggers: ["real pptx", "generate pptx", "PowerPoint file", "生成PPTX", "生成PPT", "制作PPT"]
       reviewer-audit:
         path: static/fragments/task/reviewer-audit.md
         triggers: ["reviewer", "risk", "desk reject", "审稿", "拒稿风险", "预审"]
@@ -266,11 +266,29 @@ tests:
 quality_gates:
   - release gate must report no issues for this skill
   - claims must stay inside the skill evidence contract
+
 handoffs:
-  - civil-materials-research
-  - civil-materials-reader
-  - civil-materials-citation
-  - civil-materials-figure
+  provides:
+    gate-report:
+      description: "Stage gate report with weakness routing"
+      contract: ../../_shared/contracts/gate-report.yaml
+      version: "1.0"
+  consumes:
+    - handoff: citation-handoff
+      from: civil-materials-citation
+      optional: false
+    - handoff: reader-package
+      from: civil-materials-reader
+      optional: false
+    - handoff: figure-handoff
+      from: civil-materials-figure
+      optional: false
+    - handoff: data-package
+      from: civil-materials-data
+      optional: false
+    - handoff: gate-report
+      from: civil-materials-research
+      optional: true
 release_checks:
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

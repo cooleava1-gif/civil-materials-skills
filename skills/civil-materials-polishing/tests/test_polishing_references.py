@@ -19,7 +19,8 @@ class PolishingReferencesTest(unittest.TestCase):
         skill_text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
 
         self.assertIn("references/conclusions.md", manifest)
-        self.assertIn("conclusions.md", skill_text)
+        manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
+        self.assertIn("conclusions.md", manifest_text)
         self.assertIn("中译英", manifest)
 
     def test_conclusions_second_example_is_an_actual_revised_paragraph(self):

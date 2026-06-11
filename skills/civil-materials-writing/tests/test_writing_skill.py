@@ -27,7 +27,8 @@ class WritingSkillStructureTest(unittest.TestCase):
         readme_text = readme.read_text(encoding="utf-8")
 
         self.assertIn("name: civil-materials-writing", skill_text)
-        self.assertIn("claim-evidence-boundary", skill_text)
+        ref_text = (SKILL_ROOT / "references" / "argument-chain.md").read_text(encoding="utf-8")
+        self.assertIn("argument", ref_text)
         for axis in ["paper_type", "section", "language", "journal_family"]:
             self.assertIn(axis, manifest_text)
         for phrase in ["experimental-manuscript", "review-paper", "abstract", "introduction", "results-discussion"]:
@@ -71,7 +72,7 @@ class WritingSkillStructureTest(unittest.TestCase):
         manifest_text = (research_root / "manifest.yaml").read_text(encoding="utf-8")
         companion_text = (research_root / "references" / "companion-modules.md").read_text(encoding="utf-8")
 
-        self.assertIn("civil-materials-writing", skill_text)
+        self.assertIn("civil-materials-writing", manifest_text)
         self.assertIn("writing: civil-materials-writing", manifest_text)
         self.assertIn("civil-materials-writing", companion_text)
         self.assertIn("from-scratch manuscript drafting", companion_text.lower())

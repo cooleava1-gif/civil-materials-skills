@@ -72,12 +72,11 @@ class ReaderHandoffContractTest(unittest.TestCase):
         manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
 
         for expected in [
-            "references/evidence-to-review-handoff.md",
-            "citation-handoff-template.csv",
-            "figure-handoff-template.csv",
-            "source-anchor-checklist.md",
+            "evidence-to-review-handoff",
         ]:
-            self.assertIn(expected, skill_text)
+            self.assertIn(expected, manifest_text)
+        for tpl in ["citation-handoff-template.csv", "figure-handoff-template.csv", "source-anchor-checklist.md"]:
+            self.assertTrue((SKILL_ROOT / "assets" / "templates" / tpl).exists())
 
         for expected in [
             "evidence-to-review-handoff",

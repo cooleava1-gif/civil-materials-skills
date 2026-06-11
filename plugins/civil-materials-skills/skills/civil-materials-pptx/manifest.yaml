@@ -1,4 +1,4 @@
-version: "1.1.0"
+version: "1.0.0"
 
 always_load:
   - static/core/contract.md
@@ -14,7 +14,7 @@ axes:
         triggers: ["paper", "journal club", "literature", "文献汇报", "精读"]
       research-report:
         path: references/deck-structures.md
-        triggers: ["group meeting", "report", "thesis", "组会", "汇报", "开�?]
+        triggers: ["group meeting", "report", "thesis", "组会", "汇报", "开题"]
       mechanism:
         path: references/visual-style.md
         triggers: ["mechanism", "FTIR", "SEM", "fluorescence", "机理", "显微"]
@@ -26,10 +26,10 @@ axes:
     values:
       asphalt:
         path: references/deck-structures.md
-        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "pavement", "沥青", "乳化沥青", "水性环�?]
+        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "pavement", "沥青", "乳化沥青", "水性环氧"]
       cement-concrete:
         path: references/deck-structures.md
-        triggers: ["cement", "concrete", "hydration", "水泥", "混凝�?]
+        triggers: ["cement", "concrete", "hydration", "水泥", "混凝土"]
   source_type:
     default: outline
     values:
@@ -42,6 +42,19 @@ axes:
       data:
         path: references/pptx-generation.md
         triggers: ["data", "csv", "figure", "数据", "图表"]
+  template:
+    default: academic
+    values:
+      academic:
+        path: static/fragments/template/academic.md
+        triggers: ["academic", "conference talk", "group meeting", "conference", "学术", "组会", "会议"]
+      defense:
+        path: static/fragments/template/defense.md
+        triggers: ["defense", "thesis", "dissertation", "答辩", "毕业论文"]
+      journal-club:
+        path: static/fragments/template/journal-club.md
+        triggers: ["journal club", "literature", "paper reading", "文献汇报", "精读"]
+
 assets:
   - assets
 scripts:
@@ -51,11 +64,13 @@ tests:
 quality_gates:
   - release gate must report no issues for this skill
   - claims must stay inside the skill evidence contract
+
 handoffs:
-  - civil-materials-research
-  - civil-materials-reader
-  - civil-materials-citation
-  - civil-materials-figure
+  provides: {}
+  consumes:
+    - handoff: figure-handoff
+      from: civil-materials-figure
+      optional: true
 release_checks:
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

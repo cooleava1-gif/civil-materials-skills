@@ -33,6 +33,16 @@ axes:
       pptx-ready:
         path: references/pptx-handoff.md
         triggers: ["PPTX", ".pptx", "PowerPoint", "生成PPT", "制作PPT"]
+  task:
+    default: slide-outline
+    values:
+      slide-outline:
+        path: static/fragments/task/slide-outline.md
+        triggers: ["outline", "slide outline", "PPT outline", "presentation outline", "大纲", "PPT大纲"]
+      pptx-deck:
+        path: static/fragments/task/pptx-deck.md
+        triggers: ["PPTX", ".pptx", "PowerPoint", "real pptx", "生成PPT", "制作PPT"]
+
 assets:
   - assets
 scripts:
@@ -42,11 +52,13 @@ tests:
 quality_gates:
   - release gate must report no issues for this skill
   - claims must stay inside the skill evidence contract
+
 handoffs:
-  - civil-materials-research
-  - civil-materials-reader
-  - civil-materials-citation
-  - civil-materials-figure
+  provides: {}
+  consumes:
+    - handoff: figure-handoff
+      from: civil-materials-figure
+      optional: true
 release_checks:
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

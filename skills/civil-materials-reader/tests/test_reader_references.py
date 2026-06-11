@@ -12,7 +12,8 @@ class ReaderReferencesTest(unittest.TestCase):
         reference = SKILL_ROOT / "references" / "microstructure-interpretation.md"
 
         self.assertTrue(reference.exists(), "microstructure-interpretation.md should exist")
-        self.assertIn("references/microstructure-interpretation.md", skill_text)
+        manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
+        self.assertIn("microstructure-interpretation.md", manifest_text)
         self.assertIn("microstructure-interpretation", manifest_text)
 
         text = reference.read_text(encoding="utf-8")

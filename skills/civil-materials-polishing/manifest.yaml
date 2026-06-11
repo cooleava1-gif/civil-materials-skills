@@ -76,7 +76,22 @@ references:
       when: "The target journal is RMPD or IJPE."
     journal-jbe-facts:
       path: ../_shared/journal-formats/jbe.md
+    en-rules:
+      path: static/fragments/language/en.md
+      when: "The user needs English polishing rules."
+    zh-to-en-rules:
+      path: static/fragments/language/zh-to-en.md
+      when: "The user needs Chinese-to-English rules."
+    research-rules:
+      path: static/fragments/paper_type/research.md
+      when: "The user writes a research paper."
+    review-rules:
+      path: static/fragments/paper_type/review.md
+      when: "The user writes a review paper."
       when: "The target journal is JBE, Journal of Building Engineering."
+    claim-strength-local:
+      path: references/claim-strength-ladder.md
+      when: "The user needs a local copy of the claim strength ladder."
 assets:
   - assets
 scripts:
@@ -87,10 +102,8 @@ quality_gates:
   - release gate must report no issues for this skill
   - claims must stay inside the skill evidence contract
 handoffs:
-  - civil-materials-research
-  - civil-materials-reader
-  - civil-materials-citation
-  - civil-materials-figure
+  provides: {}
+  consumes: []
 release_checks:
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

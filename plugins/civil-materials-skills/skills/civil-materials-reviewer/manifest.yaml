@@ -1,4 +1,4 @@
-version: "1.1.0"
+version: "1.0.0"
 
 always_load:
   - static/core/contract.md
@@ -52,8 +52,20 @@ axes:
       mechanism:
         path: references/mechanism-evidence-checklist.md
         triggers: ["mechanism", "FTIR", "SEM", "fluorescence", "rheology", "XRD", "TG"]
-assets:
-  - assets
+  review_scope:
+    default: full-manuscript
+    values:
+      full-manuscript:
+        path: static/fragments/review_scope/full-manuscript.md
+        triggers: ["full review", "complete manuscript", "comprehensive", "全文审稿", "完整"]
+      figures-tables:
+        path: static/fragments/review_scope/figures-tables.md
+        triggers: ["figure review", "table review", "visual check", "图表审稿", "图片"]
+      methodology:
+        path: static/fragments/review_scope/methodology.md
+        triggers: ["method review", "experimental design", "statistical", "方法审稿", "实验设计"]
+
+assets: []
 scripts:
   - scripts
 tests:
@@ -61,11 +73,10 @@ tests:
 quality_gates:
   - release gate must report no issues for this skill
   - claims must stay inside the skill evidence contract
+
 handoffs:
-  - civil-materials-research
-  - civil-materials-reader
-  - civil-materials-citation
-  - civil-materials-figure
+  provides: {}
+  consumes: []
 release_checks:
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

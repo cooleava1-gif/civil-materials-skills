@@ -1,4 +1,4 @@
-version: "1.2.0"
+version: "1.1.0"
 
 always_load:
   - static/core/contract.md
@@ -16,7 +16,7 @@ axes:
     values:
       research-positioning:
         path: static/fragments/task/research-positioning.md
-        triggers: ["research topic", "novelty", "gap", "paper angle", "research question", "选题", "创新�?, "研究问题", "论文角度", "研究方向"]
+        triggers: ["research topic", "novelty", "gap", "paper angle", "research question", "选题", "创新点", "研究问题", "论文角度", "研究方向"]
       reading:
         path: static/fragments/task/reading.md
         triggers: ["read paper", "translate paper", "paper notes", "精读", "文献阅读", "文献翻译"]
@@ -25,7 +25,7 @@ axes:
         triggers: ["review", "综述", "literature review", "research progress", "研究进展"]
       citation-mapping:
         path: static/fragments/task/citation-mapping.md
-        triggers: ["citation", "reference", "citation matrix", "literature search", "claim-source", "引用", "参考文�?, "文献检�?, "引用矩阵", "证据映射"]
+        triggers: ["citation", "reference", "citation matrix", "literature search", "claim-source", "引用", "参考文献", "文献检索", "引用矩阵", "证据映射"]
       manuscript-writing:
         path: static/fragments/task/manuscript-writing.md
         triggers: ["abstract", "introduction", "discussion", "paper", "manuscript", "摘要", "引言", "讨论", "论文写作"]
@@ -37,25 +37,25 @@ axes:
         triggers: ["experiment", "test matrix", "实验方案", "实验矩阵", "试验设计"]
       data-analysis:
         path: static/fragments/task/data-analysis.md
-        triggers: ["data", "result", "interpret", "statistics", "数据", "结果分析", "数据分析", "强度", "粘度", "黏度", "储存稳定�?]
+        triggers: ["data", "result", "interpret", "statistics", "数据", "结果分析", "数据分析", "强度", "粘度", "黏度", "储存稳定性"]
       data-fair:
         path: static/fragments/task/data-analysis.md
         triggers: ["FAIR", "dataset package", "data availability", "metadata", "raw data", "processed data", "supplementary data"]
       figure-table:
         path: static/fragments/task/figure-table.md
-        triggers: ["figure", "table", "plot", "�?, "�?, "作图", "论文图表"]
+        triggers: ["figure", "table", "plot", "图", "表", "作图", "论文图表"]
       submission-package:
         path: static/fragments/task/submission-package.md
-        triggers: ["submission package", "cover letter", "highlights", "graphical abstract", "declaration", "投稿�?, "投稿�?, "亮点", "图文摘要", "声明"]
+        triggers: ["submission package", "cover letter", "highlights", "graphical abstract", "declaration", "投稿包", "投稿信", "亮点", "图文摘要", "声明"]
       reviewer-response:
         path: static/fragments/task/reviewer-response.md
-        triggers: ["response to reviewer", "reviewer response", "rebuttal", "revision response", "审稿回复", "回复审稿�?, "返修", "大修", "小修", "rebuttal letter"]
+        triggers: ["response to reviewer", "reviewer response", "rebuttal", "revision response", "审稿回复", "回复审稿人", "返修", "大修", "小修", "rebuttal letter"]
       presentation:
         path: static/fragments/task/presentation.md
-        triggers: ["PPT", "PPTX", ".pptx", "slides", "journal club", "PowerPoint", "组会", "汇报", "幻灯�?]
+        triggers: ["PPT", "slides", "journal club", "PowerPoint", "组会", "汇报", "幻灯片"]
       pptx-generation:
         path: static/fragments/task/pptx-generation.md
-        triggers: ["real pptx", "generate pptx", "PowerPoint file", ".pptx", "生成PPTX", "生成PPT", "制作PPT"]
+        triggers: ["real pptx", "generate pptx", "PowerPoint file", "生成PPTX", "生成PPT", "制作PPT"]
       reviewer-audit:
         path: static/fragments/task/reviewer-audit.md
         triggers: ["reviewer", "risk", "desk reject", "审稿", "拒稿风险", "预审"]
@@ -69,10 +69,10 @@ axes:
         triggers: ["idea", "topic", "scope", "angle", "research question", "选题", "研究问题"]
       screening:
         path: references/paper-production-orchestrator.md
-        triggers: ["screening", "literature search", "source quality", "citation matrix", "文献筛�?, "检�?]
+        triggers: ["screening", "literature search", "source quality", "citation matrix", "文献筛选", "检索"]
       reading:
         path: references/paper-production-orchestrator.md
-        triggers: ["reader-package", "source_map", "evidence chain", "精读", "证据�?]
+        triggers: ["reader-package", "source_map", "evidence chain", "精读", "证据链"]
       drafting:
         path: references/paper-production-orchestrator.md
         triggers: ["draft", "manuscript", "review outline", "section draft", "初稿", "论文写作"]
@@ -81,7 +81,7 @@ axes:
         triggers: ["reviewer", "revision", "weakness route", "gate report", "返修", "审稿意见"]
       submission:
         path: references/paper-production-orchestrator.md
-        triggers: ["submission", "cover letter", "highlights", "declaration", "投稿", "投稿�?]
+        triggers: ["submission", "cover letter", "highlights", "declaration", "投稿", "投稿包"]
 
   workflow_mode:
     detect: "Whether the user needs one output, a full paper-production pipeline, or a reviewer-risk loop."
@@ -92,7 +92,7 @@ axes:
         triggers: ["single task", "quick", "one section", "one table"]
       paper-production:
         path: references/paper-production-orchestrator.md
-        triggers: ["paper production", "full workflow", "mini-review", "experimental manuscript", "论文生产", "小综�?, "实验论文"]
+        triggers: ["paper production", "full workflow", "mini-review", "experimental manuscript", "论文生产", "小综述", "实验论文"]
       review-loop:
         path: references/paper-production-orchestrator.md
         triggers: ["review loop", "weakness routing", "regression check", "reviewer risk", "弱点路由", "回流"]
@@ -106,7 +106,7 @@ axes:
         triggers: ["note", "summary", "plan", "说明"]
       matrix:
         path: references/paper-production-orchestrator.md
-        triggers: ["matrix", "claim-source", "evidence table", "矩阵", "证据�?]
+        triggers: ["matrix", "claim-source", "evidence table", "矩阵", "证据表"]
       reader-package:
         path: references/paper-production-orchestrator.md
         triggers: ["reader-package", "source_map.json", "citation_handoff.csv", "figure_handoff.csv"]
@@ -121,7 +121,7 @@ axes:
         triggers: ["gate report", "quality gate", "paper gate", "质量门禁"]
       submission-package:
         path: references/paper-production-orchestrator.md
-        triggers: ["submission package", "cover letter", "highlights", "投稿�?]
+        triggers: ["submission package", "cover letter", "highlights", "投稿包"]
 
   domain:
     detect: "Which civil materials field is central?"
@@ -129,25 +129,25 @@ axes:
     values:
       asphalt-pavement:
         path: static/fragments/domain/asphalt-pavement.md
-        triggers: ["asphalt", "bitumen", "emulsion", "emulsified asphalt", "waterborne epoxy", "pavement", "乳化沥青", "水性环�?, "沥青", "路面"]
+        triggers: ["asphalt", "bitumen", "emulsion", "emulsified asphalt", "waterborne epoxy", "pavement", "乳化沥青", "水性环氧", "沥青", "路面"]
       cement-concrete:
         path: static/fragments/domain/cement-concrete.md
-        triggers: ["cement", "concrete", "mortar", "hydration", "UHPC", "geopolymer", "水泥", "混凝�?, "砂浆"]
+        triggers: ["cement", "concrete", "mortar", "hydration", "UHPC", "geopolymer", "水泥", "混凝土", "砂浆"]
       construction-materials:
         path: static/fragments/domain/construction-materials.md
         triggers: ["construction materials", "building materials", "composite", "repair material", "建筑材料", "土木材料", "复合材料"]
       steel-metal:
         path: static/fragments/domain/civil-generic.md
-        triggers: ["steel", "metal", "corrosion", "coating", "weld", "钢结�?, "金属", "腐蚀", "涂层"]
+        triggers: ["steel", "metal", "corrosion", "coating", "weld", "钢结构", "金属", "腐蚀", "涂层"]
       geotechnical-materials:
         path: static/fragments/domain/civil-generic.md
         triggers: ["soil", "rock", "geotechnical", "grouting", "stabilized soil", "岩土", "土体", "注浆", "地基"]
       timber-masonry:
         path: static/fragments/domain/civil-generic.md
-        triggers: ["timber", "wood", "bamboo", "masonry", "brick", "木材", "竹材", "砌体", "�?]
+        triggers: ["timber", "wood", "bamboo", "masonry", "brick", "木材", "竹材", "砌体", "砖"]
       waterproofing-sealants:
         path: static/fragments/domain/civil-generic.md
-        triggers: ["waterproofing", "sealant", "membrane", "防水", "密封�?, "卷材"]
+        triggers: ["waterproofing", "sealant", "membrane", "防水", "密封胶", "卷材"]
       sustainability-durability:
         path: static/fragments/domain/sustainability-durability.md
         triggers: ["durability", "sustainability", "recycling", "LCA", "carbon", "耐久", "低碳", "再生", "固废"]
@@ -258,8 +258,7 @@ companion_skills:
   pptx: civil-materials-pptx
   figure: civil-materials-figure
   data: civil-materials-data
-assets:
-  - assets
+assets: []
 scripts:
   - scripts
 tests:
@@ -267,11 +266,29 @@ tests:
 quality_gates:
   - release gate must report no issues for this skill
   - claims must stay inside the skill evidence contract
+
 handoffs:
-  - civil-materials-research
-  - civil-materials-reader
-  - civil-materials-citation
-  - civil-materials-figure
+  provides:
+    gate-report:
+      description: "Stage gate report with weakness routing"
+      contract: ../../_shared/contracts/gate-report.yaml
+      version: "1.0"
+  consumes:
+    - handoff: citation-handoff
+      from: civil-materials-citation
+      optional: false
+    - handoff: reader-package
+      from: civil-materials-reader
+      optional: false
+    - handoff: figure-handoff
+      from: civil-materials-figure
+      optional: false
+    - handoff: data-package
+      from: civil-materials-data
+      optional: false
+    - handoff: gate-report
+      from: civil-materials-research
+      optional: true
 release_checks:
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

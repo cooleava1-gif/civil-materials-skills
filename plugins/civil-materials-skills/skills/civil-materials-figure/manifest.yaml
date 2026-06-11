@@ -1,4 +1,4 @@
-version: "2.1.0"
+version: "2.0.0"
 
 always_load:
   - static/core/contract.md
@@ -105,6 +105,14 @@ references:
       path: references/chart-atlas.md
     - condition: review-first visual inspiration and paper-derived patterns
       path: references/paper-derived-visual-patterns.md
+    - condition: design theory and visual communication principles
+      path: references/figure-design-theory.md
+    - condition: paper demo reference for production-quality figures
+      path: references/paper-demo-reference.md
+    - condition: visual asset roadmap and asset production guide
+      path: references/visual-asset-roadmap.md
+    - condition: table system templates for comparison matrices
+      path: references/table-system.md
 assets:
   - assets
 scripts:
@@ -115,10 +123,21 @@ quality_gates:
   - release gate must report no issues for this skill
   - claims must stay inside the skill evidence contract
 handoffs:
-  - civil-materials-research
-  - civil-materials-reader
-  - civil-materials-citation
-  - civil-materials-figure
+  provides:
+    figure-handoff:
+      description: "Figure planning and evidence mapping"
+      contract: ../../_shared/contracts/figure-handoff.yaml
+      version: "1.0"
+  consumes:
+    - handoff: citation-handoff
+      from: civil-materials-citation
+      optional: true
+    - handoff: reader-package
+      from: civil-materials-reader
+      optional: true
+    - handoff: data-package
+      from: civil-materials-data
+      optional: true
 release_checks:
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

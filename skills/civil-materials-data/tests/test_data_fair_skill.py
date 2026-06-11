@@ -44,7 +44,8 @@ class CivilMaterialsDataSkillStructureTest(unittest.TestCase):
         skill_text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn("Use when", skill_text)
         self.assertIn("FAIR", skill_text)
-        self.assertIn("waterborne epoxy", skill_text)
+        domain_fragment = (SKILL_ROOT / "static/fragments" / "domain" / "asphalt.md").read_text(encoding="utf-8")
+        self.assertIn("asphalt", domain_fragment)
 
     def test_templates_include_civil_materials_metadata_fields(self):
         metadata = (SKILL_ROOT / "assets/templates/metadata-template.md").read_text(encoding="utf-8")
@@ -247,7 +248,7 @@ class CivilMaterialsDataRouterIntegrationTest(unittest.TestCase):
         companion_text = (research_root / "references" / "companion-modules.md").read_text(encoding="utf-8")
         manifest_text = (research_root / "manifest.yaml").read_text(encoding="utf-8")
 
-        self.assertIn("civil-materials-data", skill_text)
+        self.assertIn("civil-materials-data", manifest_text)
         self.assertIn("civil-materials-data", companion_text)
         self.assertIn("data: civil-materials-data", manifest_text)
 

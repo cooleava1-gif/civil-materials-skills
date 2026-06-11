@@ -27,13 +27,13 @@ axes:
     default: civil-materials
     values:
       asphalt:
-        path: references/asphalt-data-schema.md
+        path: static/fragments/domain/asphalt.md
         triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "bitumen", "pavement", "bonding", "tack coat"]
       cement-concrete:
-        path: references/cement-concrete-data-schema.md
+        path: static/fragments/domain/cement-concrete.md
         triggers: ["cement", "concrete", "mortar", "hydration", "UHPC", "geopolymer"]
       civil-materials:
-        path: references/dataset-package.md
+        path: static/fragments/domain/civil-materials.md
         triggers: ["civil materials", "construction materials", "durability", "sustainability"]
   journal:
     default: generic
@@ -56,6 +56,36 @@ axes:
       generic:
         path: references/data-availability-statements.md
         triggers: ["journal", "submission", "SCI"]
+references:
+  on_demand:
+    availability-rules:
+      path: static/fragments/data_task/availability-statement.md
+      when: "The user needs data availability rules."
+    repository-rules:
+      path: static/fragments/data_task/repository-plan.md
+      when: "The user needs repository planning rules."
+    fair-rules:
+      path: static/fragments/data_task/fair-check.md
+      when: "The user needs FAIR check rules."
+    experiment-template:
+      path: references/dataset-package.md
+      when: "The user needs experiment data templates."
+    fair-audit:
+      path: references/fair-checklist.md
+      when: "The user requests a FAIR audit."
+    data-availability:
+      path: references/data-availability-statements.md
+      when: "The user needs journal-specific statements."
+    asphalt-schema:
+      path: references/asphalt-data-schema.md
+      when: "The task involves asphalt data."
+    cement-schema:
+      path: references/cement-concrete-data-schema.md
+      when: "The task involves cement data."
+
+    table-system:
+      path: references/table-system.md
+      when: "The user needs table system templates."
 assets:
   - assets
 scripts:
@@ -66,10 +96,12 @@ quality_gates:
   - release gate must report no issues for this skill
   - claims must stay inside the skill evidence contract
 handoffs:
-  - civil-materials-research
-  - civil-materials-reader
-  - civil-materials-citation
-  - civil-materials-figure
+  provides:
+    data-package:
+      description: "FAIR dataset package with metadata and data availability"
+      contract: ../../_shared/contracts/data-package.yaml
+      version: "1.0"
+  consumes: []
 release_checks:
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

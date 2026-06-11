@@ -19,11 +19,9 @@ class FigureHardWorkflowStructureTest(unittest.TestCase):
         workflow_text = (SKILL_ROOT / "static" / "core" / "workflow.md").read_text(encoding="utf-8")
 
         for phrase in [
-            "backend gate",
             "Python or R?",
-            "Do not default",
-            "selected backend is exclusive",
-            "figure package",
+            "BLOCKING",
+            "SVG-first",
         ]:
             self.assertIn(phrase, skill_text)
 

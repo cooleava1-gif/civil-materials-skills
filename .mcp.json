@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "civil-materials-academic-search": {
+      "command": "python",
+      "args": [
+        "-m",
+        "server"
+      ],
+      "cwd": "mcp-server/civil-materials-academic-search",
+      "env": {}
+    }
+  }
+}

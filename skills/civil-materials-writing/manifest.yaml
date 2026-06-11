@@ -102,6 +102,9 @@ references:
     journal-jbe-facts:
       path: ../_shared/journal-formats/jbe.md
       when: "The target journal is JBE, Journal of Building Engineering."
+    table-system:
+      path: references/table-system.md
+      when: "The user needs table system templates."
 assets:
   - assets
 scripts:
@@ -112,10 +115,11 @@ quality_gates:
   - release gate must report no issues for this skill
   - claims must stay inside the skill evidence contract
 handoffs:
-  - civil-materials-research
-  - civil-materials-reader
-  - civil-materials-citation
-  - civil-materials-figure
+  provides: {}
+  consumes:
+    - handoff: reader-package
+      from: civil-materials-reader
+      optional: true
 release_checks:
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

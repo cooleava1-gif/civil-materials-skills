@@ -73,7 +73,7 @@ PAPER_PRODUCTION_EXAMPLES = [
 
 def collect_paper_production_orchestrator_issues(skill_root: Path) -> list[str]:
     issues = []
-    shared = skill_root.parents[0] / "_shared" / "paper-production"
+    shared = skill_root / "_shared" / "paper-production"
     for name in [
         "weakness-routing.md",
         "weakness-routing-template.csv",
@@ -133,6 +133,59 @@ def main() -> int:
         figure_issues.append("missing scripts/audit_figure_package.py")
     if figure_issues:
         all_issues["figure_hard_workflow"] = figure_issues
+
+    # handoff contract validation
+    try:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            "validate_handoffs",
+            Path(__file__).parent / "validate_handoffs.py"
+        )
+        if spec and spec.loader:
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            handoff_issues = mod.validate_all()
+            if handoff_issues:
+                for key, vals in handoff_issues.items():
+                    all_issues.setdefault(key, []).extend(vals)
+    except ImportError:
+        all_issues["handoff_contracts"] = ["validate_handoffs module not available"]
+    except Exception as exc:
+        all_issues["handoff_contracts"] = [f"handoff validation error: {exc}"]
+
+    # manifest validation
+    try:
+        spec2 = importlib.util.spec_from_file_location(
+            "validate_manifest",
+            Path(__file__).parent / "validate_manifest.py"
+        )
+        if spec2 and spec2.loader:
+            mod2 = importlib.util.module_from_spec(spec2)
+            spec2.loader.exec_module(mod2)
+            manifest_issues = mod2.validate_all()
+            if manifest_issues:
+                for key, vals in manifest_issues.items():
+                    all_issues.setdefault(key, []).extend(vals)
+    except Exception as exc:
+        all_issues["manifest_validation"] = [f"manifest validation error: {exc}"]
+
+    # behavioral contract test discovery (record count only)
+    try:
+        spec3 = importlib.util.spec_from_file_location(
+            "run_behavioral_tests",
+            Path(__file__).parent / "run_behavioral_tests.py"
+        )
+        if spec3 and spec3.loader:
+            mod3 = importlib.util.module_from_spec(spec3)
+            spec3.loader.exec_module(mod3)
+            bt_issues = mod3.run_all(silent=True)
+            total_scenarios = sum(len(v) for v in bt_issues.values())
+            if total_scenarios == 0:
+                all_issues.setdefault("behavioral_tests", []).append(
+                    "no behavioral test scenarios found under skills/*/tests/scenarios/"
+                )
+    except Exception as exc:
+        all_issues["behavioral_tests"] = [f"behavioral test error: {exc}"]
 
     if args.json:
         print(json.dumps({"status": "pass" if not all_issues else "fail", "issues": all_issues}, indent=2))
