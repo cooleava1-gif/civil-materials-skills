@@ -48,4 +48,14 @@ Use `references/response-patterns.md` when the reviewer comment matches a high-f
 
 Use `references/response-document-format.md` when the user needs a revision package format, tracked-changes handoff, author response layout, or revision cover letter.
 
-Use `examples/cbm-major-revision-response-example.md`, `examples/ccc-methodology-critique-response-example.md`, and `examples/rmpd-minor-revision-response-example.md` as concrete models. Use `tests/pressure-tests/aggressive-reviewer-mechanism-request.md` to check that responses stay respectful, evidence-bound, and honest about missing data.
+Use `examples/cbm-major-revision-response-example.md`, `examples/ccc-methodology-critique-response-example.md`, and `examples/rmpd-minor-revision-response-example.md` as concrete models.
+
+Use `tests/rubric.md` to evaluate response quality across 6 dimensions: Completeness, Traceability, Factuality, Tone, Actionability, and Domain-fit.
+
+Use the pressure tests to check that responses stay respectful, evidence-bound, and honest about missing data:
+
+- `tests/pressure-tests/aggressive-reviewer-mechanism-request.md` — hostile tone, missing characterization evidence.
+- `tests/pressure-tests/conflicting-reviewers.md` — incompatible reviewer requests, editor priority.
+- `tests/pressure-tests/major-revision-missing-evidence.md` — missing DSC/TG, small sample size, absent durability data.
+- `tests/pressure-tests/impossible-experiment.md` — field trial limitations, LCCA requirements.
+- `tests/pressure-tests/defensive-draft-audit.md` — hostile draft language, dismissive tone.

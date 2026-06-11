@@ -1,4 +1,4 @@
-version: "1.1.0"
+version: "1.2.0"
 
 always_load:
   - static/core/contract.md
@@ -8,18 +8,33 @@ always_load:
   - static/core/workflow.md
 
 axes:
-  source_type:
+  source_format:
+    detect: |
+      Determine the input form the user provided. Use pdf-text for a
+      selectable-text PDF, scanned-pdf for an image-only or OCR-required PDF,
+      doi-arxiv for a bare DOI or arXiv identifier/link that must be resolved
+      first, html for a publisher or preprint HTML page, and pasted-text when
+      the user pastes prose or notes with no retrievable original layout.
+      If several apply (e.g., a DOI that resolves to a PDF), load the
+      resolution fragment first, then the fragment for the resolved artifact.
     default: pasted-text
+    multi: true
     values:
-      pdf:
-        path: references/pdf-reading.md
-        triggers: ["PDF", "paper file", "full paper", "文献PDF"]
-      doi-html:
-        path: references/source-grounding.md
-        triggers: ["DOI", "publisher page", "ScienceDirect", "Taylor"]
+      pdf-text:
+        path: static/fragments/source/pdf-text.md
+        triggers: ["PDF", "paper file", "full paper", "文献PDF", "PDF file"]
+      scanned-pdf:
+        path: static/fragments/source/scanned-pdf.md
+        triggers: ["scanned", "image-only", "OCR", "scan", "扫描"]
+      doi-arxiv:
+        path: static/fragments/source/doi-arxiv.md
+        triggers: ["DOI", "arXiv", "10.", "arxiv.org", "doi.org"]
+      html:
+        path: static/fragments/source/html.md
+        triggers: ["ScienceDirect", "Springer", "MDPI", "Taylor", "publisher page", "HTML"]
       pasted-text:
-        path: references/source-grounding.md
-        triggers: ["abstract", "copied text", "pasted", "粘贴"]
+        path: static/fragments/source/pasted-text.md
+        triggers: ["abstract", "copied text", "pasted", "粘贴", "摘要"]
   output_type:
     default: full-reader
     values:

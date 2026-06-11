@@ -1,18 +1,71 @@
 ---
 name: civil-materials-reader
-version: "1.1.0"
+version: "1.2.0"
 stability: stable
 description: Use when reading, translating, extracting, auditing, or structuring civil engineering and construction materials papers, especially for source-grounded notes, evidence-chain reading, claim-evidence-mechanism matrices, Chinese-English paper notes, figure/table-aware reading, literature matrices, journal-club preparation, asphalt pavement materials, cement/concrete, durability, sustainability, and waterborne epoxy modified emulsified asphalt.
 ---
 
-# Civil Materials Reader
+# Civil Materials Reader — Router
 
-Build source-grounded civil materials reading artifacts, not shallow summaries.
+This skill is split into two layers:
+
+- A **static layer** under `static/` that holds versioned, reusable content fragments (core principles, the reading workflow, the output contract, and per-source-format extraction guidance).
+- A **dynamic layer** (this file plus `manifest.yaml`) that detects the request's source format and loads only the fragments needed for the current job.
+
+Do not try to apply the reading logic from memory or from this router. Always load fragments from disk as described below.
+
+## Routing protocol
+
+Follow these five steps every time the skill is invoked.
+
+### 1. Load the manifest and the core layer
+
+Read [manifest.yaml](manifest.yaml). It declares the `source_format` axis, the allowed values, and the file paths each value maps to.
+
+Also read every file listed under `always_load`. These hold the core principles, the reading workflow, and the output contract that apply to every reading job.
+
+### 2. Detect the source format
+
+Decide the `source_format` value using the manifest's `detect:` hint and the user's input:
+
+- `pdf-text` — selectable-text PDF. Default for PDF files.
+- `scanned-pdf` — image-only or OCR-required PDF.
+- `doi-arxiv` — a bare DOI or arXiv link that must be resolved first.
+- `html` — publisher or preprint HTML page.
+- `pasted-text` — pasted prose or notes with no retrievable original layout.
+
+State the detected value in one short line to the user before processing, so they can correct you cheaply. A source may map to more than one value (for example a DOI that resolves to a PDF); load the resolution fragment first, then the fragment for the resolved artifact.
+
+### 3. Load the matching fragment(s)
+
+Read the file mapped for the detected `source_format`. Do **not** read every fragment in `static/`. Load only what step 2 selected.
+
+### 4. Build the reader using the loaded material
+
+Apply the loaded fragments in this priority order:
+
+1. Core principles — bilingual reader by default, translate for meaning, never degrade to a summary, copyright caution.
+2. Source-format fragment — how to extract text, figures, and tables for this input.
+3. Reading workflow — the seven-step process for civil materials papers.
+4. Output contract — required files and the pre-response verification checklist.
+
+### 5. Reach for references only when needed
+
+The files under `references/` are deep references, not defaults. Open them on demand:
+
+- full-text figure-anchored reading → `references/fulltext-figure-anchored-reading.md`.
+- evidence chain audit → `references/evidence-chain-audit.md`.
+- literature matrix → `references/literature-matrix.md`.
+- microstructure interpretation (SEM/AFM/DSC/TG) → `references/microstructure-interpretation.md`.
+- PDF visual asset extraction → `references/pdf-visual-asset-extraction.md`.
+- table system → `references/table-system.md`.
+- journal club reading → `references/journal-club-reading.md`.
+- WER-EA intensive reading package → `references/wer-ea-intensive-reading-package.md`.
 
 ## Protocol
 
-1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
-2. Detect the `source_type` and `output_type`.
+1. Follow the routing protocol above.
+2. Detect the `source_format` and `output_type`.
 3. Load only the matching fragments and references.
 4. Produce a Markdown reader, matrix, or evidence-chain audit that preserves the paper's evidence chain.
 5. Keep all numbers, figures, tables, mechanisms, and limitations tied to the source.

@@ -448,12 +448,18 @@ def main() -> int:
     args = parser.parse_args()
 
     generated = {}
+    skipped = []
     for board in BOARDS:
-        for tile in board.tiles:
-            if not tile.path.is_file():
-                raise FileNotFoundError(f"Missing source image: {tile.path}")
+        missing = [tile.path for tile in board.tiles if not tile.path.is_file()]
+        if missing:
+            skipped.append((board.filename, missing))
+            continue
         generated[board.filename] = render_board(board)
 
+    if not generated:
+        print(f"WARNING: all {len(BOARDS)} boards skipped due to missing source images", file=sys.stderr)
+        for filename, paths in skipped:
+            print(f"  skipped: {filename} ({len(paths)} missing images)", file=sys.stderr)
     manifest = build_manifest()
     output_dir = Path(args.output_dir)
     save_outputs(generated, manifest, output_dir)

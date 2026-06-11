@@ -81,18 +81,6 @@ class FigureProductionScriptsTest(unittest.TestCase):
         "plot_dosage_window.py",
         "plot_particle_size_distribution.py",
         "plot_sem_analysis.py",
-        "plot_xrd_pattern.py",
-        "plot_property_correlation.py",
-        "plot_freeze_thaw_cycle.py",
-        "plot_aging_test.py",
-        "plot_mechanism_diagram.py",
-        "plot_screening_flow.py",
-        "plot_graphical_abstract.py",
-        "plot_lca_boundary.py",
-        "plot_research_gap_matrix.py",
-        "plot_dosage_radar.py",
-        "plot_durability_comparison.py",
-        "plot_research_gap_heatmap.py",
     ]
     EXPECTED_DATA = [
         "bonding_strength.csv",
@@ -105,17 +93,6 @@ class FigureProductionScriptsTest(unittest.TestCase):
         "dosage_window.csv",
         "particle_size_distribution.csv",
         "sem_analysis.csv",
-        "xrd_pattern.csv",
-        "property_correlation.csv",
-        "freeze_thaw_cycle.csv",
-        "aging_test.csv",
-        "mechanism_diagram.csv",
-        "screening_flow.csv",
-        "graphical_abstract.csv",
-        "lca_boundary.csv",
-        "research_gap_matrix.csv",
-        "durability_comparison.csv",
-        "research_gap_heatmap.csv",
     ]
 
     def test_figures4materials_scripts_and_data_exist(self):

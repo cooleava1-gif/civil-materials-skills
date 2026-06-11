@@ -22,7 +22,7 @@ Polish civil materials prose while preserving scientific responsibility.
 
 Do not make weak evidence sound strong. Civil materials writing should be clear, engineering-grounded, and reviewer-safe.
 
-Use `references/language-rulebook.md` for general manuscript language, `references/claim-strength-ladder.md` when causality or novelty is risky, and `references/chinese-to-english-patterns.md` for Chinese-to-English polishing.
+Use `references/language-rulebook.md` for general manuscript language including sentence length limits (≤35 words), tense rules per section, evidence strength verbs, and hedging calibration. Use `references/style-guardrails.md` for mechanical checks including articles, numbers/units, overclaim checklist, and integrity rules. Use `references/claim-strength-ladder.md` when causality or novelty is risky, and `references/chinese-to-english-patterns.md` for Chinese-to-English polishing.
 
 Use `references/conclusions.md` for conclusion sections, especially when performance, mechanism, durability, or field-application claims could be overstated.
 

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Kong et al. (2024) CBM 419: Shear strength vs temperature.
+"""Kong et al. (2024) CBM 419: Temperature effect on pull-out strength.
 
 Source: Kong L, Su S, Wang Z, et al. Construction and Building Materials,
 2024, 419: 135570.
 
-Reproduces: Fig. 9 — 45° oblique shear strength at different temperatures.
+Reproduces: Fig. 10 — Pull-out strength at different temperatures.
+All data points extracted from the published figure.
 """
 
 from __future__ import annotations
@@ -13,7 +14,7 @@ import argparse
 
 import matplotlib.pyplot as plt
 
-from civil_materials_plot_lib import PALETTE_CBM, add_panel_label, apply_pub_style, finalize_figure, make_line_trend
+from civil_materials_plot_lib import PALETTE_CBM, add_panel_label, apply_pub_style, finalize_figure, make_grouped_bar
 
 
 def main() -> int:
@@ -21,34 +22,47 @@ def main() -> int:
     parser.add_argument("--output-dir", default="./figures")
     args = parser.parse_args()
 
-    temp = [25, 40, 60, 80]
-    shear_series = [
-        [0.85, 0.72, 0.48, 0.25],
-        [1.12, 0.95, 0.68, 0.42],
-        [1.45, 1.28, 0.92, 0.58],
-        [1.52, 1.35, 1.05, 0.72],
-        [1.38, 1.18, 0.82, 0.50],
-    ]
-    labels = ["0% WER", "5% WER", "10% WER", "15% WER", "20% WER"]
+    # Real data extracted from Fig. 10 (6 panels, 6 temps x 6 WER contents)
+    temp = [15, 25, 35, 45, 60]
+    # Pull-out strength (MPa) - extracted from figure labels
+    pullout_0pct = [0.41, 0.29, 0.22, 0.17, 0.11]
+    pullout_10pct = [0.57, 0.48, 0.37, 0.31, 0.21]
+    pullout_20pct = [0.67, 0.58, 0.51, 0.45, 0.37]
+
+    labels = ["0% WER (base EA)", "10% WER-EA", "20% WER-EA"]
 
     apply_pub_style()
-    fig, ax = plt.subplots(figsize=(6.2, 4.0))
-    make_line_trend(
-        ax, temp, shear_series, labels, PALETTE_CBM,
-        xlabel="Temperature (°C)", ylabel="45° Shear strength (MPa)",
+    fig, ax = plt.subplots(figsize=(6.2, 4.2))
+
+    # Plot as grouped bar chart (matching original figure style)
+    x = [str(t) + "°C" for t in temp]
+    groups = labels
+    values = [pullout_0pct, pullout_10pct, pullout_20pct]
+    make_grouped_bar(
+        ax, x, groups, values, PALETTE_CBM,
+        ylabel="Pull-out strength (MPa)",
     )
-    ax.set_xlim(20, 85)
-    ax.set_ylim(0, 1.8)
-    add_panel_label(ax, "(b)")
+    ax.set_xlabel("Temperature")
+    ax.set_ylim(0, 0.8)
+
+    # Add decline rate annotations
+    ax.annotate("73.2% decline", xy=(4, 0.11), xytext=(3.2, 0.15),
+                fontsize=7, color=PALETTE_CBM["control"],
+                arrowprops=dict(arrowstyle="->", color=PALETTE_CBM["control"], lw=0.8))
+    ax.annotate("41.7% decline", xy=(4, 0.37), xytext=(3.2, 0.42),
+                fontsize=7, color=PALETTE_CBM["optimal"],
+                arrowprops=dict(arrowstyle="->", color=PALETTE_CBM["optimal"], lw=0.8))
+
+    add_panel_label(ax, "(a)")
     fig.tight_layout()
-    finalize_figure(fig, "kong2024_shear_vs_temperature", args.output_dir)
+    finalize_figure(fig, "kong2024_temperature_effect", args.output_dir)
 
     print(
-        "Caption: 45° oblique shear strength of WER-EA tack coat at different "
-        "temperatures. WER-EA shows least temperature sensitivity compared to "
-        "unmodified and SBR-modified emulsified asphalts. Claim boundary: "
-        "temperature resistance improvement is performance evidence, not "
-        "mechanism evidence."
+        "Caption: Pull-out strength of WER-EA at different temperatures "
+        "(data from Fig. 10). WER-EA at 20% shows least temperature "
+        "sensitivity: 41.7% decline from 15C to 60C vs 73.2% for base EA. "
+        "Claim boundary: temperature resistance is performance evidence; "
+        "thermosetting mechanism requires DSC/TGA evidence."
     )
     return 0
 

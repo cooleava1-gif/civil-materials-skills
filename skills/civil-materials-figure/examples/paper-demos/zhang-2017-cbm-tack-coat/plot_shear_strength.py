@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Zhang et al. (2017) CBM: Shear strength of composite plate.
+"""Zhang et al. (2017) CBM 155: Shear strength vs WER content.
 
 Source: Zhang Q, Xu Y, Wen Z. Construction and Building Materials,
-2017, 155: 706-714.
+2017, 153: 774-782.
 
-Reproduces: Fig. 10 — Shear strength of rolled composite plate.
+Reproduces: Fig. 10 — Shear strength of composite plate at different WER contents.
+All data points extracted from the published figure.
 """
 
 from __future__ import annotations
@@ -12,8 +13,9 @@ from __future__ import annotations
 import argparse
 
 import matplotlib.pyplot as plt
+import numpy as np
 
-from civil_materials_plot_lib import PALETTE_CBM, add_panel_label, apply_pub_style, finalize_figure, make_grouped_bar
+from civil_materials_plot_lib import PALETTE_CBM, add_panel_label, apply_pub_style, finalize_figure, make_line_trend
 
 
 def main() -> int:
@@ -21,37 +23,39 @@ def main() -> int:
     parser.add_argument("--output-dir", default="./figures")
     args = parser.parse_args()
 
-    labels = ["0%", "5%", "10%", "15%", "20%"]
-    groups = ["25°C", "40°C", "60°C"]
-    values = [
-        [0.62, 0.78, 0.95, 1.08, 0.98],
-        [0.45, 0.58, 0.72, 0.85, 0.75],
-        [0.22, 0.32, 0.45, 0.55, 0.48],
-    ]
-    errors = [
-        [0.04, 0.05, 0.04, 0.05, 0.06],
-        [0.03, 0.04, 0.04, 0.05, 0.04],
-        [0.02, 0.03, 0.03, 0.04, 0.03],
-    ]
+    # Real data extracted from Fig. 10
+    wer_content = [2, 3, 4, 5, 6]
+    shear_strength = [1.53, 1.72, 1.60, 1.43, 1.37]
 
     apply_pub_style()
-    fig, ax = plt.subplots(figsize=(6.2, 4.0))
-    make_grouped_bar(
-        ax, labels, groups, values, PALETTE_CBM,
-        error_bars=errors, ylabel="Shear strength (MPa)",
-    )
-    ax.set_xlabel("WER dosage (% by evaporation residue)")
-    ax.set_ylim(0, 1.3)
+    fig, ax = plt.subplots(figsize=(6.2, 4.2))
+    ax.plot(wer_content, shear_strength, "o-", color=PALETTE_CBM["control"],
+            linewidth=2.5, markersize=8, markerfacecolor=PALETTE_CBM["control"],
+            markeredgecolor="white", markeredgewidth=1.5)
+
+    # Mark optimal point
+    ax.annotate("Optimal (1.72 MPa)", xy=(3, 1.72), xytext=(4.2, 1.73),
+                fontsize=8, fontweight="bold",
+                arrowprops=dict(arrowstyle="->", color=PALETTE_CBM["danger"], lw=1.2),
+                color=PALETTE_CBM["danger"])
+
+    ax.set_xlabel("WER content (%)")
+    ax.set_ylabel("Shear strength (MPa)")
+    ax.set_xlim(1.5, 6.5)
+    ax.set_ylim(1.30, 1.80)
+    ax.set_xticks(wer_content)
+    ax.set_xticklabels([str(w) for w in wer_content])
+    ax.grid(color="#E8E2D6", linewidth=0.8, alpha=0.8)
     add_panel_label(ax, "(b)")
     fig.tight_layout()
     finalize_figure(fig, "zhang2017_shear_strength", args.output_dir)
 
     print(
-        "Caption: Shear strength of rolled composite plate at different "
-        "temperatures and WER dosages. Optimal dosage is 15% WER. "
-        "Temperature sensitivity is reduced at higher WER content. "
-        "Claim boundary: shear strength is performance evidence; "
-        "mechanism requires DSC and FTIR evidence."
+        "Caption: Shear strength of WER-SBR modified emulsified asphalt vs WER "
+        "content (data from Fig. 10). Optimal WER content is 3% (1.72 MPa). "
+        "Strength decreases beyond 3% due to excessive crosslinking causing brittleness. "
+        "Claim boundary: shear strength is performance evidence; DSC/FTIR needed "
+        "for crosslinking mechanism confirmation."
     )
     return 0
 
