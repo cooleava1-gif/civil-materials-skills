@@ -1,8 +1,13 @@
-version: "2.0.0"
+name: civil-materials-figure
+description: >
+  Declarative manifest for the static/dynamic split
+  SKILL.md uses this to decide which fragments to load for a given figure creation request.
+
+version: 2.0.0
 
 always_load:
-  - static/core/contract.md
-  - static/core/figure-contract.md
+  - static/core/principles.md
+  - static/core/output-contract.md
   - static/core/stance.md
   - static/core/workflow.md
   - ../_shared/paper-production/weakness-routing.md

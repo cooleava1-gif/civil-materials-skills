@@ -1,9 +1,20 @@
 ---
 name: civil-materials-writing
-version: "1.1.0"
-stability: stable
-description: Use when drafting, restructuring, or planning civil engineering and construction-materials manuscripts from claims, results, figures, notes, outlines, or Chinese drafts, especially abstracts, introductions, methods, results/discussion, conclusions, review papers, experimental papers, waterborne epoxy modified emulsified asphalt, cement/concrete, durability, mechanisms, CBM, CCC, RMPD, JBE, CSCM, and JRE.
+description: >-
+  Draft, restructure, or plan civil engineering and construction-materials manuscripts from claims, results, figures, notes, outlines, or Chinese drafts. Use for abstracts, introductions, methods, results/discussion, conclusions, review papers, experimental papers, waterborne epoxy modified emulsified asphalt, cement/concrete, durability, mechanisms, CBM, CCC, RMPD, JBE, CSCM, and JRE.
+  
+  Also trigger on:
+  - English: manuscript drafting, paper writing, abstract writing, introduction writing, discussion writing, argument chain, section drafting
+  - Chinese: 学术写作、科研写作、论文写作、写论文、写paper、SCI写作、帮我写论文、搭论文框架、起草论文、写引言、写摘要、写讨论、写结论
+  
+  Specializes in:
+  - Claim-first writing with evidence and boundary visibility
+  - Chinese-to-English manuscript drafting
+  - Review paper strategy and outline generation
+version: 2.0.0
+author: Civil Materials Team, refactored into static/dynamic layers
 ---
+
 
 # Civil Materials Writing
 

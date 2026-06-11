@@ -25,7 +25,8 @@ class CivilMaterialsDataSkillStructureTest(unittest.TestCase):
         required = [
             "SKILL.md",
             "manifest.yaml",
-            "static/core/data-contract.md",
+            "static/core/principles.md",
+            "static/core/output-contract.md",
             "static/core/workflow.md",
             "references/fair-checklist.md",
             "references/dataset-package.md",

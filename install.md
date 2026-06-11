@@ -1,170 +1,229 @@
 # Install Civil Materials Skills
 
-This guide is for the polished, day-to-day use of the bundle: install it, run a
-five-minute workflow, verify the installed state, and avoid stale-skill drift
-between the source repo, plugin mirror, and local Codex installation.
+本文档说明如何安装和配置 civil-materials-skills 技能包。
 
 ## Option 1: Codex Plugin
 
-Add the local marketplace entry and install the plugin:
+**通过插件市场安装（推荐）：**
 
-```powershell
+```bash
 codex plugin marketplace add https://github.com/cooleava1-gif/civil-materials-skills.git --ref main
 codex plugin add civil-materials-skills@civil-materials-skills
 ```
 
-What this gives you:
+**Codex Desktop 用户：**
 
-- the `civil-materials-*` skill bundle
-- the required `_shared` support folder
-- the academic-search MCP configuration included with the plugin
+1. 打开 Codex Desktop 设置
+2. 添加自定义插件市场：
+   - 市场源：`https://github.com/cooleava1-gif/civil-materials-skills.git`
+   - 分支/ref：`main`
+3. 安装插件：`civil-materials-skills`
+
+安装后，所有 `civil-materials-*` 技能将通过插件作为完整包提供。如果技能未立即显示，请刷新插件页面或启动新的 Codex 会话。
 
 ## Option 2: Manual Skills Install
 
-From the repository root, run:
+**克隆仓库：**
+
+```bash
+git clone https://github.com/cooleava1-gif/civil-materials-skills.git
+cd civil-materials-skills
+```
+
+**安装单个技能：**
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R skills/_shared ~/.codex/skills/
+cp -R skills/civil-materials-reader ~/.codex/skills/
+```
+
+**安装所有技能：**
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R skills/_shared ~/.codex/skills/
+for d in skills/civil-materials-*; do
+  cp -R "$d" ~/.codex/skills/
+done
+```
+
+**使用 PowerShell 安装（Windows）：**
 
 ```powershell
 .\scripts\install.ps1
 ```
 
-The installer copies all `civil-materials-*` skills plus `_shared` into
-`$CODEX_HOME\skills` if `CODEX_HOME` is set, or into `~\.codex\skills`
-otherwise. It also removes stale target directories before reinstalling so old
-files do not survive an update.
+## Option 3: Claude Code Plugin
 
-If you need the manual fallback commands:
+**通过插件市场安装（推荐）：**
 
-```powershell
-$skillsDir = if ($env:CODEX_HOME) { Join-Path $env:CODEX_HOME "skills" } else { Join-Path $HOME ".codex\skills" }
-New-Item -ItemType Directory -Force $skillsDir | Out-Null
-Copy-Item -Recurse -Force .\skills\civil-materials-* $skillsDir
-Copy-Item -Recurse -Force .\skills\_shared $skillsDir
+```bash
+claude plugin marketplace add cooleava1-gif/civil-materials-skills
+claude plugin install civil-materials-skills@civil-materials-skills
 ```
 
-## Optional Academic Search MCP
+**备选：子代理/包装器安装**
 
-If you want the citation skill's local academic-search MCP, install the Python
-dependencies first:
+如果插件市场不可用，可以使用子代理包装器：
 
-```powershell
-python -m pip install -r .\requirements.txt
+```bash
+mkdir -p ~/ai-skills
+cd ~/ai-skills
+git clone https://github.com/cooleava1-gif/civil-materials-skills.git
 ```
 
-Example Codex MCP configuration:
+创建用户级子代理包装器：
 
-```toml
-[mcp_servers."civil-materials-academic-search"]
-command = "python"
-args = ["$CODEX_HOME/skills/civil-materials-citation/mcp/academic_search/server.py"]
+```bash
+mkdir -p ~/.claude/agents
+cat > ~/.claude/agents/civil-materials-reader.md <<'EOF'
+---
+name: civil-materials-reader
+description: Full-paper bilingual, figure-aware, source-grounded Markdown reader for civil engineering papers.
+---
+
+When invoked, first read `~/ai-skills/civil-materials-skills/skills/civil-materials-reader/SKILL.md`.
+Treat that file as the governing workflow.
+If the skill references supporting files, read only the specific files you need from
+`~/ai-skills/civil-materials-skills/skills/civil-materials-reader/` and
+`~/ai-skills/civil-materials-skills/skills/_shared/`.
+Do not replace the skill with a generic paper-summary response.
+EOF
 ```
-
-Optional environment variables:
-
-- `OPENALEX_API_KEY`
-- `SEMANTIC_SCHOLAR_API_KEY`
-- `CIVIL_MATERIALS_CONTACT_EMAIL`
-- `NCBI_API_KEY`
 
 ## Verify The Install
 
-Run the main release verification:
+运行发布检查脚本验证安装：
 
-```powershell
-python .\scripts\run_release_checks.py --json
+```bash
+python scripts/run_release_checks.py --json
 ```
 
-Then check that the installed state is not stale:
+预期输出：`"status": "pass"`
 
-1. If you changed root skill files, rerun `.\scripts\install.ps1`.
-2. Confirm the plugin mirror under `plugins/civil-materials-skills/skills/`
-   still matches the source skills you edited.
-3. Judge the release by the final JSON `status`, not by expected negative-test
-   lines such as `source PDF not found: ...missing.pdf`.
+运行架构检查：
+
+```bash
+python scripts/check_skill_architecture.py --json
+```
+
+预期输出：根目录/插件镜像差异为空或仅有已知例外。
 
 ## Five-Minute Walkthrough
 
-Use one of these paths immediately after install.
+### 路径 A：WER-EA 综述工作流
 
-### Path A: WER-EA Mini-Review
-
-Prompt:
-
-```text
+```
 Help me run a WER-EA mini-review workflow from screening to figure planning.
 ```
 
-Expected shape:
+**预期流程：**
+1. `civil-materials-research` 路由工作流
+2. `civil-materials-citation` 规划搜索和筛选矩阵
+3. `civil-materials-reader` 构建证据链交接
+4. `civil-materials-writing` 构建大纲
+5. `civil-materials-figure` 规划综述图表
 
-1. `civil-materials-research` routes the workflow.
-2. `civil-materials-citation` plans the search and screening matrix.
-3. `civil-materials-reader` builds evidence-chain handoffs.
-4. `civil-materials-writing` builds the outline.
-5. `civil-materials-figure` plans the review figures.
+### 路径 B：实验论文
 
-### Path B: Experimental Manuscript
-
-Prompt:
-
-```text
+```
 Audit this experimental manuscript for evidence gaps before I draft the discussion.
 ```
 
-Expected shape:
+**预期流程：**
+1. `civil-materials-research` 框定阶段、证据水平和路由
+2. `civil-materials-data` 和 `civil-materials-figure` 紧缩支撑数据
+3. `civil-materials-writing` 和 `civil-materials-polishing` 重建有界文本
+4. `civil-materials-reviewer` 检查修订包
 
-1. `civil-materials-research` frames stage, evidence level, and route.
-2. `civil-materials-data` and `civil-materials-figure` tighten supporting data.
-3. `civil-materials-writing` and `civil-materials-polishing` rebuild bounded text.
-4. `civil-materials-reviewer` checks the revised package.
+### 路径 C：论文→PPT
 
-### Path C: Paper To Presentation
-
-Prompt:
-
-```text
+```
 Turn this paper package into a journal-club slide outline and then a real PPTX.
 ```
 
-Expected shape:
-
-1. `civil-materials-paper2ppt` creates slide-ready Markdown.
-2. `civil-materials-pptx` turns the outline into a real PowerPoint deck.
+**预期流程：**
+1. `civil-materials-paper2ppt` 创建幻灯片就绪 Markdown
+2. `civil-materials-pptx` 将大纲转换为实际 PowerPoint 文件
 
 ## Guided Demo Routes
 
-If you want a curated first-use path instead of jumping in cold, start here:
+如果你想要一个引导式的首次使用路径，可以从这里开始：
 
-1. [WER-EA mini-review](docs/workflows/wer-ea-mini-review.md)
-2. [Experimental manuscript](docs/workflows/experimental-manuscript.md)
-3. [Revision loop](docs/workflows/revision-loop.md)
-4. [Paper to presentation](docs/workflows/paper-to-presentation.md)
-
-To see the visual proof side first, open [docs/gallery/README.md](docs/gallery/README.md).
+1. [WER-EA 综述](docs/workflows/wer-ea-mini-review.md)
+2. [实验论文](docs/workflows/experimental-manuscript.md)
+3. [修回循环](docs/workflows/revision-loop.md)
+4. [论文→演讲](docs/workflows/paper-to-presentation.md)
 
 ## Showcase Shortcuts
 
-If you already know the outcome you want, jump straight to:
+如果你已经清楚交付物是什么，可以直接跳到结果形状：
 
-1. [Submission package](docs/showcases/submission-package.md)
-2. [Reviewer response](docs/showcases/reviewer-response.md)
-3. [FAIR data package](docs/showcases/fair-data-package.md)
+- [投稿包](docs/showcases/submission-package.md)
+- [审稿回复](docs/showcases/reviewer-response.md)
+- [FAIR 数据包](docs/showcases/fair-data-package.md)
 
-## Recommended Reading Order
+完整索引请查看 [docs/showcases/README.md](docs/showcases/README.md)。
 
-If this is your first time with the bundle, open these in order:
+## 更新技能
 
-1. [README.md](README.md)
-2. [docs/skills-index.md](docs/skills-index.md)
-3. `skills/civil-materials-research/README.md`
-4. the README for the production skill you actually need
+**通过 Git 更新：**
 
-## Troubleshooting
+```bash
+cd civil-materials-skills
+git pull
+cp -R skills/_shared ~/.codex/skills/
+for d in skills/civil-materials-*; do
+  cp -R "$d" ~/.codex/skills/
+done
+```
 
-- Installed skill seems stale:
-  rerun `.\scripts\install.ps1`, then run the release checks again.
-- Repo tests pass but Codex behaves like an older version:
-  compare source skills, plugin mirror skills, and installed skills.
-- Journal facts are old:
-  live-check official journal pages before submission advice.
-- Search results look strong but claims still feel weak:
-  treat search outputs as screening inputs, then rebuild the evidence chain with
-  the reader skill before writing.
+**通过 PowerShell 更新（Windows）：**
+
+```powershell
+git pull
+.\scripts\install.ps1
+```
+
+更新后重启 Codex 或 Claude Code 以加载新技能。
+
+## 故障排除
+
+### 技能未显示
+
+1. 确认技能已复制到正确目录（`~/.codex/skills/`）
+2. 重启 Codex 或 Claude Code
+3. 检查 `_shared` 目录是否与技能目录在同一层级
+
+### 路径错误
+
+确保 `_shared` 目录与 `civil-materials-*` 技能目录在同一父目录下：
+
+```
+~/.codex/skills/
+├── _shared/              # 共享支持目录
+├── civil-materials-research/
+├── civil-materials-reader/
+└── ...
+```
+
+## 环境变量（可选）
+
+学术搜索 MCP 功能需要以下环境变量：
+
+- `OPENALEX_API_KEY` - OpenAlex API 密钥
+- `SEMANTIC_SCHOLAR_API_KEY` - Semantic Scholar API 密钥
+- `CIVIL_MATERIALS_CONTACT_EMAIL` - 联系邮箱（用于 API 请求）
+- `NCBI_API_KEY` - NCBI API 密钥（用于 PubMed 搜索）
+
+## 下一步
+
+安装完成后，可以尝试：
+
+1. [WER-EA 综述工作流](docs/workflows/wer-ea-mini-review.md)
+2. [实验论文工作流](docs/workflows/experimental-manuscript.md)
+3. [修回循环工作流](docs/workflows/revision-loop.md)
+4. [论文→PPT 工作流](docs/workflows/paper-to-presentation.md)
+
+如有问题，请提交 [Issue](https://github.com/cooleava1-gif/civil-materials-skills/issues)。

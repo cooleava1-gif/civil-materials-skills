@@ -16,7 +16,8 @@ from typing import Any
 import yaml
 
 
-REQUIRED_CORE_FILES = ("static/core/contract.md", "static/core/workflow.md")
+REQUIRED_CORE_FILES = ("static/core/workflow.md",)
+REQUIRED_PREFERRED_CORE_FILES = ("static/core/principles.md", "static/core/contract.md")
 REQUIRED_ROUTER_FILES = ("SKILL.md", "manifest.yaml", "agents/openai.yaml")
 STANDARD_MANIFEST_BLOCKS = (
     "assets",
@@ -125,9 +126,15 @@ def _core_status(skill_dir: Path) -> dict[str, list[str]]:
     static_core = skill_dir / "static" / "core"
     existing_core = {path.name for path in static_core.glob("*.md")} if static_core.exists() else set()
     missing = [path for path in REQUIRED_CORE_FILES if not (skill_dir / path).exists()]
+    # Check if at least one of the preferred core files exists (principles.md or contract.md)
+    has_preferred = any((skill_dir / f).exists() for f in REQUIRED_PREFERRED_CORE_FILES)
+    if not has_preferred:
+        missing.append("static/core/principles.md (or contract.md)")
     compatible = []
     if missing and "workflow.md" in existing_core and (
-        any(name.endswith("contract.md") for name in existing_core) or any(name.endswith("stance.md") for name in existing_core)
+        any(name.endswith("contract.md") for name in existing_core) or 
+        any(name.endswith("principles.md") for name in existing_core) or
+        any(name.endswith("stance.md") for name in existing_core)
     ):
         compatible = sorted(f"static/core/{name}" for name in existing_core)
     return {"missing_exact": missing, "compatible_core_files": compatible}

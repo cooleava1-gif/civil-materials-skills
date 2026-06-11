@@ -1,9 +1,22 @@
 ---
 name: civil-materials-research
-version: "1.1.0"
-stability: stable
-description: Use when working on civil engineering and construction materials research, including topic positioning, literature review, citation mapping, experiments, data interpretation, manuscript writing, journal targeting, submission packages, reviewer responses, figures, PPTX presentations, or reviewer-risk checks for construction materials, pavement/asphalt, cement/concrete, durability, sustainability, CBM, CCC, CSCM, JBE, RMPD, IJPE, and JRE.
+description: >-
+  Use when working on civil engineering and construction materials research, including topic positioning, literature review, citation mapping, experiments, data interpretation, manuscript writing, journal targeting, submission packages, reviewer responses, figures, PPTX presentations, or reviewer-risk checks for construction materials, pavement/asphalt, cement/concrete, durability, sustainability, CBM, CCC, CSCM, JBE, RMPD, IJPE, and JRE.
+  
+  Also trigger on:
+  - English: research routing, paper production, workflow orchestration, gate tracking, weakness routing, manuscript planning, journal fit
+  - Chinese: 研究路由、论文制作、工作流编排、门控追踪、弱点路由、论文规划、期刊适配、选题定位、文献综述、实验设计、数据分析、论文写作、投稿包、审稿回复、科研绘图、PPT制作
+  
+  Specializes in:
+  - Waterborne epoxy modified emulsified asphalt (WER-EA)
+  - Asphalt pavement materials
+  - Cement and concrete
+  - Durability and sustainability
+  - Paper production orchestration across multiple skills
+version: 2.0.0
+author: Civil Materials Team, refactored into static/dynamic layers
 ---
+
 
 # Civil Materials Research - Router
 

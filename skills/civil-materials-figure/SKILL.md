@@ -1,9 +1,20 @@
 ---
 name: civil-materials-figure
-version: "2.0.0"
-stability: stable
-description: Use when planning, creating, auditing, or polishing manuscript figures and data visualizations for civil engineering and construction materials research, especially asphalt pavement materials, WER-EA, cement/concrete, durability, bonding strength, rheology, characterization panels, review figures, and journal-ready SVG/PDF/TIFF figure packages.
+description: >-
+  Plan, create, audit, or polish manuscript figures and data visualizations for civil engineering and construction materials research. Use for asphalt pavement materials, WER-EA, cement/concrete, durability, bonding strength, rheology, characterization panels, review figures, and journal-ready SVG/PDF/TIFF figure packages.
+  
+  Also trigger on:
+  - English: figure planning, scientific plotting, data visualization, figure audit, caption writing, multi-panel figure, figure package, charts, graphs
+  - Chinese: 科研绘图、图表制作、数据可视化、图件规划、图注撰写、多面板图、figure、图表审计
+  
+  Specializes in:
+  - Nature-style figure design and layout
+  - WER-EA mechanism maps and evidence boards
+  - Journal-ready figure packages with SVG/PDF/TIFF export
+version: 2.0.0
+author: Civil Materials Team, refactored into static/dynamic layers
 ---
+
 
 # Civil Materials Figure
 

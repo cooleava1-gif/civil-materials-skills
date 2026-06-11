@@ -1,10 +1,16 @@
-version: "1.1.0"
+name: civil-materials-reader
+description: >
+  Declarative manifest for the static/dynamic split
+  SKILL.md uses this to decide which fragments to load for a given paper-reading request
+  The main axes are source_type and output_type.
+
+version: 2.0.0
 
 always_load:
-  - static/core/contract.md
+  - static/core/principles.md
   - ../_shared/core/terminology-ledger.md
   - ../_shared/core/ethics.md
-  - static/core/reader-contract.md
+  - static/core/output-contract.md
   - static/core/workflow.md
 
 axes:

@@ -1,9 +1,22 @@
 ---
 name: civil-materials-reader
-version: "1.1.0"
-stability: stable
-description: Use when reading, translating, extracting, auditing, or structuring civil engineering and construction materials papers, especially for source-grounded notes, evidence-chain reading, claim-evidence-mechanism matrices, Chinese-English paper notes, figure/table-aware reading, literature matrices, journal-club preparation, asphalt pavement materials, cement/concrete, durability, sustainability, and waterborne epoxy modified emulsified asphalt.
+description: >-
+  Build source-grounded civil materials reading artifacts, not shallow summaries. Use whenever the user asks to read a paper, translate an academic paper, extract figures/tables, build evidence chains, create literature matrices, or prepare journal-club materials for civil engineering and construction materials research.
+  
+  Also trigger on:
+  - English: paper reading, full-text reader, literature review, evidence chain, claim-evidence-mechanism, microstructure interpretation, dosage window, mechanism table, figure card, table card, source grounding, PDF reading
+  - Chinese: 读论文、精读论文、论文翻译、文献翻译、文献阅读、学术阅读、帮我读这篇文章、证据链、微观形貌、剂量窗口、机理表、文献矩阵、组会汇报、图表锚定、中英对照、原文对照、全文翻译
+  
+  Specializes in:
+  - Waterborne epoxy modified emulsified asphalt (WER-EA)
+  - Asphalt pavement materials
+  - Cement and concrete
+  - Durability and sustainability
+  - Source-grounded notes with figure/table anchoring
+version: 2.0.0
+author: Civil Materials Team, refactored into static/dynamic layers
 ---
+
 
 # Civil Materials Reader
 

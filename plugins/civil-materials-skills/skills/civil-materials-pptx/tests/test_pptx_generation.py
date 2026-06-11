@@ -20,11 +20,18 @@ PNG_BYTES = (
 )
 
 
+def read_core_markdown() -> str:
+    return "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in sorted((SKILL_ROOT / "static" / "core").glob("*.md"))
+    )
+
+
 class PptxStructureTest(unittest.TestCase):
     def test_skill_manifest_contract_and_release_checks_cover_generation(self):
         skill_text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
         manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
-        contract_text = (SKILL_ROOT / "static" / "core" / "contract.md").read_text(encoding="utf-8")
+        contract_text = read_core_markdown()
         release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
 
         self.assertIn("civil-materials-paper2ppt", skill_text)

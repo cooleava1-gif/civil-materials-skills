@@ -1,9 +1,20 @@
 ---
 name: civil-materials-reviewer
-version: "1.0.0"
-stability: stable
-description: Use when simulating peer review, pre-submission referee screening, reviewer-risk audits, editorial-fit checks, or independent review reports for civil engineering and construction materials manuscripts, especially CBM, CCC, RMPD, JBE, CSCM, JRE, asphalt pavement, emulsified asphalt, waterborne epoxy, cement/concrete, durability, mechanisms, and figures.
+description: >-
+  Simulate peer review, pre-submission referee screening, reviewer-risk audits, editorial-fit checks, or independent review reports for civil engineering and construction materials manuscripts. Use for CBM, CCC, RMPD, JBE, CSCM, JRE, asphalt pavement, emulsified asphalt, waterborne epoxy, cement/concrete, durability, mechanisms, and figures.
+  
+  Also trigger on:
+  - English: peer review, referee report, pre-submission review, editorial review, manuscript audit, reviewer perspective
+  - Chinese: 同行评审、审稿人视角、预审、稿件审查、审稿报告、编辑审查、审稿风险
+  
+  Specializes in:
+  - Nature-style referee assessment with 3 referee reports
+  - Cross-review synthesis and weakness identification
+  - Desk-reject risk assessment
+version: 2.0.0
+author: Civil Materials Team, refactored into static/dynamic layers
 ---
+
 
 # Civil Materials Reviewer
 

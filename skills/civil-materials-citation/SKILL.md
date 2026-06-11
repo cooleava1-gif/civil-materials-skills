@@ -1,9 +1,20 @@
 ---
 name: civil-materials-citation
-version: "1.1.0"
-stability: stable
-description: Use when searching, screening, organizing, or mapping literature and citations for civil engineering and construction materials manuscripts, especially CBM, CCC, JBE, RMPD, IJPE, asphalt pavement materials, emulsified asphalt, waterborne epoxy, cement/concrete, durability, mechanisms, citation matrices, reference gaps, and claim-source alignment.
+description: >-
+  Search, screen, organize, and map literature and citations for civil engineering and construction materials manuscripts. Use when building citation matrices, reference gap audits, claim-source maps, or search strategies for CBM, CCC, JBE, RMPD, IJPE, asphalt pavement materials, emulsified asphalt, waterborne epoxy, cement/concrete, durability, and mechanisms.
+  
+  Also trigger on:
+  - English: literature search, citation matrix, reference gap, claim-source map, search strategy, bibliographic management, DOI lookup
+  - Chinese: 文献检索、引文矩阵、参考文献缺口、查收查引、文献管理、文献筛选、引文映射、文献搜索、论文检索
+  
+  Specializes in:
+  - Multi-source academic search (OpenAlex, Semantic Scholar, CrossRef, PubMed)
+  - Claim-citation mapping for evidence-grounded manuscripts
+  - Reference gap identification and source quality assessment
+version: 2.0.0
+author: Civil Materials Team, refactored into static/dynamic layers
 ---
+
 
 # Civil Materials Citation
 

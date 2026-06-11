@@ -1,12 +1,17 @@
-version: "1.1.0"
+name: civil-materials-response
+description: >
+  Declarative manifest for the static/dynamic split
+  SKILL.md uses this to decide which fragments to load for a given reviewer response request.
+
+version: 2.0.0
 
 always_load:
-  - static/core/contract.md
+  - static/core/principles.md
   - ../_shared/core/stance.md
   - ../_shared/core/evidence-contract.md
   - ../_shared/core/ethics.md
   - ../_shared/paper-production/weakness-routing.md
-  - static/core/response-contract.md
+  - static/core/output-contract.md
   - static/core/workflow.md
 
 axes:

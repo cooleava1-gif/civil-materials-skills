@@ -1,0 +1,22 @@
+{
+  "name": "civil-materials-skills",
+  "description": "Civil engineering and construction materials research skills for producing work at top-journal standard. Covers research routing, paper reading, citation mapping, manuscript writing, academic polishing, figure creation, data/FAIR packaging, peer review simulation, reviewer response drafting, paper-to-PPTX conversion, and real PPTX generation. Specializes in waterborne epoxy modified emulsified asphalt (WER-EA), asphalt pavement materials, cement/concrete, durability, and sustainability.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Civil Materials Team",
+    "email": ""
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/cooleava1-gif/civil-materials-skills",
+  "repository": "https://github.com/cooleava1-gif/civil-materials-skills",
+  "keywords": [
+    "civil-engineering",
+    "construction-materials",
+    "asphalt",
+    "concrete",
+    "academic",
+    "research",
+    "WER-EA",
+    "paper-writing"
+  ]
+}

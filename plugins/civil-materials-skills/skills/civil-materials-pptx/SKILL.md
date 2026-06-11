@@ -1,9 +1,20 @@
 ---
 name: civil-materials-pptx
-version: "1.0.0"
-stability: stable
-description: Use when generating, converting, or polishing real PowerPoint .pptx slide decks for civil engineering and construction materials research, including image embedding, figure cropping, speaker notes, paper-to-PPTX, group meeting slides, journal club decks, thesis reports, asphalt pavement materials, emulsified asphalt, waterborne epoxy, cement/concrete, durability, mechanisms, CBM, CCC, JBE, RMPD, and IJPE presentations.
+description: >-
+  Generate, convert, or polish real PowerPoint .pptx slide decks for civil engineering and construction materials research. Use for image embedding, figure cropping, speaker notes, paper-to-PPTX, group meeting slides, journal club decks, thesis reports, asphalt pavement materials, emulsified asphalt, waterborne epoxy, cement/concrete, durability, mechanisms, CBM, CCC, JBE, RMPD, and IJPE presentations.
+  
+  Also trigger on:
+  - English: PPTX generation, PowerPoint creation, slide deck, presentation file, .pptx conversion
+  - Chinese: PPTX生成、PPT制作、幻灯片制作、答辩PPT、开题PPT、毕业答辩
+  
+  Specializes in:
+  - Real .pptx file generation (not just outlines)
+  - Image embedding and figure cropping
+  - Speaker notes and presenter view support
+version: 2.0.0
+author: Civil Materials Team, refactored into static/dynamic layers
 ---
+
 
 # Civil Materials PPTX
 

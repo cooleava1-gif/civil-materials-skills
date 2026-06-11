@@ -250,7 +250,7 @@ class PaperProductionOrchestratorTest(unittest.TestCase):
                 text = "\n".join(
                     path.read_text(encoding="utf-8")
                     for path in [
-                        root / "static" / "core" / "contract.md",
+                        *sorted((root / "static" / "core").glob("*.md")),
                         root / "manifest.yaml",
                     ]
                     if path.exists()

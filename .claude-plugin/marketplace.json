@@ -1,0 +1,28 @@
+{
+  "name": "civil-materials-skills",
+  "version": "2.0.0",
+  "description": "Civil engineering and construction materials research skills — research routing, paper reading, citation mapping, manuscript writing, academic polishing, figures, data/FAIR, reviewer simulation, response letters, and PPTX generation",
+  "owner": {
+    "name": "cooleava1-gif"
+  },
+  "plugins": [
+    {
+      "name": "civil-materials-skills",
+      "version": "2.0.0",
+      "source": "./",
+      "description": "A collection of Claude-compatible academic workflow bundles for civil engineering and construction materials research, including research routing, paper reading, citation mapping, manuscript writing, academic polishing, figure creation, data/FAIR packaging, peer review simulation, reviewer response drafting, paper-to-PPTX conversion, and real PPTX generation.",
+      "author": {
+        "name": "Civil Materials Team"
+      },
+      "keywords": [
+        "civil-engineering",
+        "construction-materials",
+        "asphalt",
+        "concrete",
+        "academic",
+        "research"
+      ],
+      "category": "academic"
+    }
+  ]
+}

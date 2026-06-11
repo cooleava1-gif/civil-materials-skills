@@ -1,9 +1,20 @@
 ---
 name: civil-materials-paper2ppt
-version: "1.0.0"
-stability: stable
-description: Use when turning civil engineering and construction materials papers, projects, review notes, manuscripts, or evidence-chain matrices into Chinese PPT outlines, PPTX-ready Markdown, or one-click PPTX handoff for journal club, group meetings, thesis reports, literature presentations, asphalt pavement materials, cement/concrete, durability, sustainability, CBM, CCC, JBE, RMPD, IJPE, and JRE.
+description: >-
+  Turn civil engineering and construction materials papers, projects, review notes, manuscripts, or evidence-chain matrices into Chinese PPT outlines, PPTX-ready Markdown, or one-click PPTX handoff for journal club, group meetings, thesis reports, literature presentations, asphalt pavement materials, cement/concrete, durability, sustainability, CBM, CCC, JBE, RMPD, IJPE, and JRE.
+  
+  Also trigger on:
+  - English: paper to PPT, presentation slides, journal club, group meeting, thesis report, slide outline, PowerPoint
+  - Chinese: 论文转PPT、组会汇报、学术汇报、论文汇报、PPT制作、幻灯片、会议报告、开题报告、中期报告、毕业答辩
+  
+  Specializes in:
+  - Evidence-chain based presentation structure
+  - Chinese academic presentation format
+  - One-click Markdown to PPTX conversion
+version: 2.0.0
+author: Civil Materials Team, refactored into static/dynamic layers
 ---
+
 
 # Civil Materials Paper2PPT
 

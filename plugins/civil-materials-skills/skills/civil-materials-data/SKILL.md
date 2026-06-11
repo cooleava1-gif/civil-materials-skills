@@ -1,9 +1,20 @@
 ---
 name: civil-materials-data
-version: "1.1.0"
-stability: stable
-description: Use when organizing, auditing, packaging, or drafting data and FAIR materials for civil engineering and construction materials manuscripts, especially raw/processed datasets, metadata, data availability statements, asphalt pavement materials, waterborne epoxy modified emulsified asphalt, cement/concrete, durability, CBM, CCC, JBE, RMPD, IJPE, and JRE submissions.
+description: >-
+  Organize, audit, package, or draft data and FAIR materials for civil engineering and construction materials manuscripts. Use for raw/processed datasets, metadata, data availability statements, asphalt pavement materials, waterborne epoxy modified emulsified asphalt, cement/concrete, durability, CBM, CCC, JBE, RMPD, IJPE, and JRE submissions.
+  
+  Also trigger on:
+  - English: FAIR data, dataset package, data availability, metadata, supplementary data, data organization, experimental data
+  - Chinese: 数据管理、FAIR数据、数据可用性声明、实验数据、数据包、数据整理、元数据、补充材料
+  
+  Specializes in:
+  - FAIR data principles for civil materials research
+  - Data availability statements for journal submissions
+  - Experimental data organization and documentation
+version: 2.0.0
+author: Civil Materials Team, refactored into static/dynamic layers
 ---
+
 
 # Civil Materials Data And FAIR
 

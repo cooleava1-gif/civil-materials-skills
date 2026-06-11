@@ -1,10 +1,15 @@
-version: "1.1.0"
+name: civil-materials-data
+description: >
+  Declarative manifest for the static/dynamic split
+  SKILL.md uses this to decide which fragments to load for a given data and FAIR packaging request.
+
+version: 2.0.0
 
 always_load:
-  - static/core/contract.md
+  - static/core/principles.md
   - ../_shared/core/stance.md
   - ../_shared/core/ethics.md
-  - static/core/data-contract.md
+  - static/core/output-contract.md
   - static/core/workflow.md
 
 axes:

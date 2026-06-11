@@ -1,9 +1,20 @@
 ---
 name: civil-materials-response
-version: "1.1.0"
-stability: stable
-description: Use when drafting, structuring, auditing, or polishing reviewer responses, rebuttal letters, revision summaries, point-by-point replies, response tables, or resubmission packages for civil engineering and construction materials manuscripts, especially CBM, CCC, JBE, RMPD, IJPE, asphalt pavement, emulsified asphalt, cement/concrete, durability, and mechanism-related reviewer comments.
+description: >-
+  Draft, structure, audit, or polish reviewer responses, rebuttal letters, revision summaries, point-by-point replies, response tables, or resubmission packages for civil engineering and construction materials manuscripts. Use for CBM, CCC, JBE, RMPD, IJPE, asphalt pavement, emulsified asphalt, cement/concrete, durability, and mechanism-related reviewer comments.
+  
+  Also trigger on:
+  - English: reviewer response, rebuttal letter, point-by-point, revision summary, response to reviewers, resubmission
+  - Chinese: 审稿意见回复、修改回复、逐条回复、反驳信、修回稿、回复审稿人、修改说明
+  
+  Specializes in:
+  - Evidence-first, respectful response strategy
+  - Point-by-point comment triage and action mapping
+  - Risk-aware response drafting for mechanism-related comments
+version: 2.0.0
+author: Civil Materials Team, refactored into static/dynamic layers
 ---
+
 
 # Civil Materials Response
 
