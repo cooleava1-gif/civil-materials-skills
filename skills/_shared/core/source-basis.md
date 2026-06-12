@@ -17,7 +17,7 @@ The operating stance (`stance.md`) is a local synthesis from:
 
 The "never invent" prohibition list and five-question reasoning logic are
 original local rules designed to prevent common failure modes observed in
-Chinese-authored materials manuscripts. They do not quote any single
+Chinese-authored civil-materials manuscripts. They do not quote any single
 external source verbatim.
 
 ## 2. Evidence contract
