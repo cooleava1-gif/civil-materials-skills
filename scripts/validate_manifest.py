@@ -16,17 +16,17 @@ SKILLS_ROOT = Path(__file__).resolve().parents[1] / "skills"
 CONTRACTS_DIR = Path(__file__).resolve().parents[1] / "_shared" / "contracts"
 
 ALL_SKILLS = [
-    "civil-materials-citation",
-    "civil-materials-data",
-    "civil-materials-figure",
-    "civil-materials-paper2ppt",
-    "civil-materials-polishing",
-    "civil-materials-pptx",
-    "civil-materials-reader",
-    "civil-materials-research",
-    "civil-materials-response",
-    "civil-materials-reviewer",
-    "civil-materials-writing",
+    "materials-citation",
+    "materials-data",
+    "materials-figure",
+    "materials-paper2ppt",
+    "materials-polishing",
+    "materials-pptx",
+    "materials-reader",
+    "materials-research",
+    "materials-response",
+    "materials-reviewer",
+    "materials-writing",
 ]
 
 

@@ -1,19 +1,19 @@
-# Civil Materials Skills
+# Materials Science Skills
 
-Civil Materials Skills is a full-cycle Codex skill bundle for civil engineering
+Materials Science Skills is a full-cycle Codex skill bundle for civil engineering
 and construction-materials research. It is built for researchers who need more
 than isolated prompts: they need routed workflows, evidence-grounded handoffs,
 release-checked skill packaging, and outputs they can use immediately for WER-EA
 mini-reviews, experimental manuscripts, figures, reviewer responses, and PPTX
 decks.
 
-The bundle is strongest where civil-materials work is usually fragile: source
+The bundle is strongest where materials work is usually fragile: source
 anchoring, claim boundaries, paper-production routing, and reviewer-risk
 control. WER-EA remains the first-class route, but the architecture also covers
 asphalt pavement materials, cement/concrete, durability, sustainability, and
 broader construction-materials manuscripts.
 
-![WER-EA review evidence board](skills/civil-materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
+![WER-EA review evidence board](skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
 
 ## Why This Bundle Feels Like A System
 
@@ -29,16 +29,16 @@ broader construction-materials manuscripts.
 
 | Workflow | Start With | Core Handoffs | Final Product |
 |---|---|---|---|
-| WER-EA mini-review | `civil-materials-research` | citation -> reader -> writing -> figure -> reviewer | Review-ready package with screening, evidence chain, outline, figures, and risk notes |
-| Experimental manuscript | `civil-materials-research` | data -> writing -> figure -> polishing -> reviewer | Draft-ready manuscript package with figure/data boundaries |
-| Revision loop | `civil-materials-reviewer` or `civil-materials-response` | reviewer -> weakness routing -> writing/polishing/figure/data -> response | Point-by-point response plus routed manuscript fixes |
-| Paper to presentation | `civil-materials-paper2ppt` | paper2ppt -> pptx | Chinese slide outline or real `.pptx` deck |
+| WER-EA mini-review | `materials-research` | citation -> reader -> writing -> figure -> reviewer | Review-ready package with screening, evidence chain, outline, figures, and risk notes |
+| Experimental manuscript | `materials-research` | data -> writing -> figure -> polishing -> reviewer | Draft-ready manuscript package with figure/data boundaries |
+| Revision loop | `materials-reviewer` or `materials-response` | reviewer -> weakness routing -> writing/polishing/figure/data -> response | Point-by-point response plus routed manuscript fixes |
+| Paper to presentation | `materials-paper2ppt` | paper2ppt -> pptx | Chinese slide outline or real `.pptx` deck |
 
 ## Quick Start
 
 1. Install the plugin or copy the skills locally. Full instructions live in
    [install.md](install.md).
-2. Start broad work with `civil-materials-research` when you need routing,
+2. Start broad work with `materials-research` when you need routing,
    paper-stage judgment, or a multi-skill plan.
 3. Jump straight to the production skill when the deliverable is already clear,
    such as citation screening, reader packaging, manuscript drafting, figure
@@ -71,8 +71,8 @@ If you want the index first, open [docs/workflows/README.md](docs/workflows/READ
 ## Installation Paths
 
 - Codex plugin:
-  `codex plugin marketplace add https://github.com/cooleava1-gif/civil-materials-skills.git --ref main`
-  then `codex plugin add civil-materials-skills@civil-materials-skills`
+  `codex plugin marketplace add https://github.com/cooleava1-gif/materials-skills.git --ref main`
+  then `codex plugin add materials-skills@materials-skills`
 - Manual skills install:
   run `.\scripts\install.ps1` from the repository root
 - Installed-state verification:
@@ -86,17 +86,17 @@ For fuller human-readable routing notes, see [docs/skills-index.md](docs/skills-
 
 | Module | Maturity | Scripts | Tests | Typical input | Typical product |
 |---|---|---|---|---|---|
-| `civil-materials-research` | Stable paper-production router | Yes | Yes | Research idea, journal target, manuscript task | Route, topic angle, workflow package, gate/risk map |
-| `civil-materials-reader` | Stable production skill | Yes | Yes | PDF/text, paper notes, figure caption | Reader package, evidence-chain matrix, citation/figure handoff |
-| `civil-materials-citation` | Stable MCP-backed skill | Yes | Yes | Topic, claim list, candidate sources | Search plan, screened citation matrix, normalized IDs, reference gaps |
-| `civil-materials-writing` | Stable production skill | Yes | Yes | Claims, results, outline, Chinese draft | Manuscript section, review outline, argument chain |
-| `civil-materials-polishing` | Stable production skill | Yes | Yes | English draft, Chinese academic paragraph | Polished text, claim-strength audit |
-| `civil-materials-response` | Stable production skill | Yes | Yes | Reviewer comments, revision notes | Point-by-point response, rebuttal package |
-| `civil-materials-reviewer` | Stable audit skill | Yes | Yes | Manuscript draft, abstract, figures | Simulated review, desk-reject risk report |
-| `civil-materials-paper2ppt` | Stable handoff skill | Yes | Yes | Paper notes, review matrix, outline | Slide-ready Markdown, talk structure |
-| `civil-materials-pptx` | Stable generation skill | Yes | Yes | PPTX-ready Markdown or JSON | Real `.pptx` deck |
-| `civil-materials-figure` | Stable production skill | Yes | Yes | Data table, reader/citation handoff, figure idea | Figure plan, WER-EA atlas output, caption boundary, figure package |
-| `civil-materials-data` | Stable FAIR skill | Yes | Yes | Raw/processed data, metadata needs | FAIR package, data availability statement |
+| `materials-research` | Stable paper-production router | Yes | Yes | Research idea, journal target, manuscript task | Route, topic angle, workflow package, gate/risk map |
+| `materials-reader` | Stable production skill | Yes | Yes | PDF/text, paper notes, figure caption | Reader package, evidence-chain matrix, citation/figure handoff |
+| `materials-citation` | Stable MCP-backed skill | Yes | Yes | Topic, claim list, candidate sources | Search plan, screened citation matrix, normalized IDs, reference gaps |
+| `materials-writing` | Stable production skill | Yes | Yes | Claims, results, outline, Chinese draft | Manuscript section, review outline, argument chain |
+| `materials-polishing` | Stable production skill | Yes | Yes | English draft, Chinese academic paragraph | Polished text, claim-strength audit |
+| `materials-response` | Stable production skill | Yes | Yes | Reviewer comments, revision notes | Point-by-point response, rebuttal package |
+| `materials-reviewer` | Stable audit skill | Yes | Yes | Manuscript draft, abstract, figures | Simulated review, desk-reject risk report |
+| `materials-paper2ppt` | Stable handoff skill | Yes | Yes | Paper notes, review matrix, outline | Slide-ready Markdown, talk structure |
+| `materials-pptx` | Stable generation skill | Yes | Yes | PPTX-ready Markdown or JSON | Real `.pptx` deck |
+| `materials-figure` | Stable production skill | Yes | Yes | Data table, reader/citation handoff, figure idea | Figure plan, WER-EA atlas output, caption boundary, figure package |
+| `materials-data` | Stable FAIR skill | Yes | Yes | Raw/processed data, metadata needs | FAIR package, data availability statement |
 
 ## What You Can Open Immediately
 
@@ -107,23 +107,23 @@ For fuller human-readable routing notes, see [docs/skills-index.md](docs/skills-
 - Visual gallery:
   [docs/gallery/README.md](docs/gallery/README.md)
 - Paper-production system PRD:
-  [docs/superpowers/specs/2026-06-09-civil-materials-paper-production-prd.md](docs/superpowers/specs/2026-06-09-civil-materials-paper-production-prd.md)
+  [docs/superpowers/specs/2026-06-09-materials-paper-production-prd.md](docs/superpowers/specs/2026-06-09-materials-paper-production-prd.md)
 - WER-EA sample output package:
   [outputs/wer-ea-30-reading-sample/README.md](outputs/wer-ea-30-reading-sample/README.md)
 - Editorial proof boards:
-  `skills/civil-materials-figure/assets/showcase-proof/`
+  `skills/materials-figure/assets/showcase-proof/`
 - Board manifest:
-  `skills/civil-materials-figure/assets/showcase-proof/showcase_manifest.json`
+  `skills/materials-figure/assets/showcase-proof/showcase_manifest.json`
 - Figure atlas templates:
-  `skills/civil-materials-figure/assets/wer-ea-atlas/generated/`
+  `skills/materials-figure/assets/wer-ea-atlas/generated/`
 - Per-skill README files:
-  `skills/civil-materials-*/README.md`
+  `skills/materials-*/README.md`
 
 ## Visual Gallery
 
 If you want to see the system before reading every skill:
 
-- [Civil Materials Gallery](docs/gallery/README.md) collects editorial multi-panel
+- [Materials Science Gallery](docs/gallery/README.md) collects editorial multi-panel
   boards built from reader-package outputs and extracted paper figures.
 - The front-door boards follow an `overview -> deviation -> relationship`
   narrative so the gallery reads like a product surface instead of a pile of
@@ -175,7 +175,7 @@ The hub page is [docs/showcases/README.md](docs/showcases/README.md).
 
 ## Scope
 
-This bundle helps structure civil-materials research work with stronger
+This bundle helps structure materials research work with stronger
 evidence, routing, and packaging discipline. It does not replace deep reading,
 real experimental evidence, supervisor or co-author judgment, official journal
 instructions, or institutional requirements.

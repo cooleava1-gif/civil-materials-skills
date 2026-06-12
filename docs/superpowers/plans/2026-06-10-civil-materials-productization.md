@@ -1,8 +1,8 @@
-# Civil Materials Productization Implementation Plan
+# Materials Science Productization Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Turn the current civil-materials skill bundle into a more polished, nature-style product surface without weakening the existing paper-production architecture.
+**Goal:** Turn the current materials skill bundle into a more polished, nature-style product surface without weakening the existing paper-production architecture.
 
 **Architecture:** Keep the research and release-check core intact, then add a stronger presentation layer around it: a sharper root README, a dedicated install guide, consistent per-skill README files, and plugin metadata that showcases real generated assets. Lock the new documentation surface with lightweight repository contract tests so future upgrades do not regress back into an internal-only bundle.
 
@@ -19,7 +19,7 @@
 
 ```python
 def test_every_skill_has_readme():
-    self.assertTrue((ROOT / "skills" / "civil-materials-research" / "README.md").is_file())
+    self.assertTrue((ROOT / "skills" / "materials-research" / "README.md").is_file())
 ```
 
 - [ ] **Step 2: Run test to verify it fails**
@@ -65,7 +65,7 @@ git commit -m "test: add product docs contract coverage"
 
 | Workflow | Start With | Core Handoffs | Final Product |
 |---|---|---|---|
-| WER-EA mini-review | `civil-materials-research` | citation -> reader -> writing -> figure -> reviewer | Review-ready package |
+| WER-EA mini-review | `materials-research` | citation -> reader -> writing -> figure -> reviewer | Review-ready package |
 ```
 
 - [ ] **Step 2: Add a dedicated installation guide**
@@ -73,8 +73,8 @@ git commit -m "test: add product docs contract coverage"
 ```markdown
 ## Option 1: Codex Plugin
 
-codex plugin marketplace add https://github.com/cooleava1-gif/civil-materials-skills.git --ref main
-codex plugin add civil-materials-skills@civil-materials-skills
+codex plugin marketplace add https://github.com/cooleava1-gif/materials-skills.git --ref main
+codex plugin add materials-skills@materials-skills
 ```
 
 - [ ] **Step 3: Add a five-minute walkthrough**
@@ -95,24 +95,24 @@ Expected: root README and install guide assertions pass; skill README and plugin
 
 ```bash
 git add README.md install.md
-git commit -m "docs: rebuild civil materials product entry surfaces"
+git commit -m "docs: rebuild materials product entry surfaces"
 ```
 
 ### Task 3: Add Consistent README Files For Every Skill
 
 **Files:**
-- Create: `skills/civil-materials-citation/README.md`
-- Create: `skills/civil-materials-data/README.md`
-- Modify: `skills/civil-materials-figure/README.md`
-- Create: `skills/civil-materials-paper2ppt/README.md`
-- Create: `skills/civil-materials-polishing/README.md`
-- Create: `skills/civil-materials-pptx/README.md`
-- Create: `skills/civil-materials-reader/README.md`
-- Create: `skills/civil-materials-research/README.md`
-- Create: `skills/civil-materials-response/README.md`
-- Create: `skills/civil-materials-reviewer/README.md`
-- Create: `skills/civil-materials-writing/README.md`
-- Modify: `plugins/civil-materials-skills/skills/<same skill>/README.md` via mirror sync
+- Create: `skills/materials-citation/README.md`
+- Create: `skills/materials-data/README.md`
+- Modify: `skills/materials-figure/README.md`
+- Create: `skills/materials-paper2ppt/README.md`
+- Create: `skills/materials-polishing/README.md`
+- Create: `skills/materials-pptx/README.md`
+- Create: `skills/materials-reader/README.md`
+- Create: `skills/materials-research/README.md`
+- Create: `skills/materials-response/README.md`
+- Create: `skills/materials-reviewer/README.md`
+- Create: `skills/materials-writing/README.md`
+- Modify: `plugins/materials-skills/skills/<same skill>/README.md` via mirror sync
 
 - [ ] **Step 1: Use one shared README structure**
 
@@ -134,7 +134,7 @@ Use this skill when the deliverable is a screened citation matrix with evidence-
 - [ ] **Step 3: Sync the new README files into the plugin mirror**
 
 ```powershell
-Copy-Item -Force .\skills\civil-materials-*\README.md .\plugins\civil-materials-skills\skills\ -Container
+Copy-Item -Force .\skills\materials-*\README.md .\plugins\materials-skills\skills\ -Container
 ```
 
 - [ ] **Step 4: Re-run the product docs contract test**
@@ -145,21 +145,21 @@ Expected: skill README assertions pass; plugin screenshot assertions may still f
 - [ ] **Step 5: Commit**
 
 ```bash
-git add skills plugins/civil-materials-skills/skills
+git add skills plugins/materials-skills/skills
 git commit -m "docs: add skill-level product readmes"
 ```
 
 ### Task 4: Upgrade Plugin Showcase Metadata And Release Checks
 
 **Files:**
-- Modify: `plugins/civil-materials-skills/.codex-plugin/plugin.json`
+- Modify: `plugins/materials-skills/.codex-plugin/plugin.json`
 - Modify: `scripts/run_release_checks.py`
 
 - [ ] **Step 1: Point plugin screenshots at real generated assets**
 
 ```json
 "screenshots": [
-  "./skills/civil-materials-figure/assets/wer-ea-atlas/generated/wer_ea_mechanism_map.png"
+  "./skills/materials-figure/assets/wer-ea-atlas/generated/wer_ea_mechanism_map.png"
 ]
 ```
 
@@ -183,7 +183,7 @@ Expected: PASS or only known non-productization warnings.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add plugins/civil-materials-skills/.codex-plugin/plugin.json scripts/run_release_checks.py
+git add plugins/materials-skills/.codex-plugin/plugin.json scripts/run_release_checks.py
 git commit -m "feat: productize plugin showcase metadata"
 ```
 
@@ -195,7 +195,7 @@ git commit -m "feat: productize plugin showcase metadata"
 - [ ] **Step 1: Reinstall the skills**
 
 Run: `.\scripts\install.ps1`
-Expected: updated `civil-materials-*` skills and `_shared` copied into the installed skill directory.
+Expected: updated `materials-*` skills and `_shared` copied into the installed skill directory.
 
 - [ ] **Step 2: Run the main release verification**
 
@@ -210,8 +210,8 @@ Expected: only intended tracked changes remain before commit, then clean after c
 - [ ] **Step 4: Create the final commit**
 
 ```bash
-git add README.md install.md tests/test_product_docs_contract.py scripts/run_release_checks.py skills plugins/civil-materials-skills
-git commit -m "feat: productize civil materials skill entry experience"
+git add README.md install.md tests/test_product_docs_contract.py scripts/run_release_checks.py skills plugins/materials-skills
+git commit -m "feat: productize materials skill entry experience"
 ```
 
 - [ ] **Step 5: Report verification evidence**

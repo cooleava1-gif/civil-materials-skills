@@ -1,11 +1,11 @@
 name: figure-handoff
 version: "1.0"
 description: "Figure planning and evidence mapping handoff from review-figure intake"
-produced_by: civil-materials-figure
+produced_by: materials-figure
 consumed_by:
-  - civil-materials-paper2ppt
-  - civil-materials-pptx
-  - civil-materials-research
+  - materials-paper2ppt
+  - materials-pptx
+  - materials-research
 
 artifacts:
   figure_handoff.csv:
@@ -25,5 +25,5 @@ artifacts:
       review_figure_support: { type: string, required: false }
 
 templates:
-  - ../../skills/civil-materials-reader/assets/templates/figure-handoff-template.csv
-  - ../../skills/civil-materials-figure/assets/templates/review-figure-intake-template.csv
+  - ../../skills/materials-reader/assets/templates/figure-handoff-template.csv
+  - ../../skills/materials-figure/assets/templates/review-figure-intake-template.csv

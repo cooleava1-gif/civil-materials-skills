@@ -1,19 +1,19 @@
-# Civil Materials Skills
+# Materials Science Skills
 
 Full-cycle Codex skill bundle for civil engineering and construction-materials research. Routes work across research, citation, reader, writing, figure, data, polishing, reviewer, response, paper-to-PPT, and PPTX generation.
 
 ## Project
 
 - **Stack**: Python 3.11+, skill manifests in YAML, tests with `unittest`
-- **Entry**: any of 11 `civil-materials-*` skills; start with `civil-materials-research` for workflow routing
-- **Plugin mirror**: `plugins/civil-materials-skills/` — installed package mirrored from `skills/`
+- **Entry**: any of 11 `materials-*` skills; start with `materials-research` for workflow routing
+- **Plugin mirror**: `plugins/materials-skills/` — installed package mirrored from `skills/`
 
 ## Commands
 
 | Purpose | Command |
 |---|---|
 | **All skill tests** | `python -m unittest discover -s skills/<skill>/tests -p "test_*.py" -v` |
-| **Citation MCP tests** | `python -m unittest discover -s skills/civil-materials-citation/mcp/academic_search/tests -p "test_*.py" -v` |
+| **Citation MCP tests** | `python -m unittest discover -s skills/materials-citation/mcp/academic_search/tests -p "test_*.py" -v` |
 | **Root contract tests** | `python -m unittest discover -s tests -p "test_*.py" -v` |
 | **Full suite** | iterate 11 skills + citation MCP + root tests (201 tests total) |
 | **Release checks** | `python scripts/run_release_checks.py --json` |
@@ -21,7 +21,7 @@ Full-cycle Codex skill bundle for civil engineering and construction-materials r
 
 ## Architecture
 
-- **11 skill modules** under `skills/civil-materials-*/`, each with `SKILL.md`, `manifest.yaml`, `tests/`, and `scripts/`
+- **11 skill modules** under `skills/materials-*/`, each with `SKILL.md`, `manifest.yaml`, `tests/`, and `scripts/`
 - **_shared/** — cross-skill assets: `core/` (stance, contract, ethics), `journal-formats/` (CBM, CCC, JBE, RMPD), `paper-production/` (routing, gate report, weakness templates)
 - **`manifest.yaml`** — skill's routing axes with `always_load`, `detect` triggers, and fragment paths
 - **Output handoffs** — standardized CSV/MD artifacts: `reader-package`, `citation_handoff.csv`, `figure_handoff.csv`, gate reports, review assets

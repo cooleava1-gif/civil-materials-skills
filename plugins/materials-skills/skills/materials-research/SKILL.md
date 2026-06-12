@@ -1,0 +1,23 @@
+---
+name: materials-research
+version: "1.1.0"
+description: Use when planning, scoping, or routing a civil engineering and construction materials research workflow across multiple skills.
+---
+
+# Materials Science Research
+
+Route research workflows across the materials skill bundle. This is the day-to-day entry point for most multi-skill tasks.
+
+## Protocol
+
+1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
+2. Detect `task`, `journal`, and `domain` from the user request.
+3. Load only the matching fragments.
+4. Decide whether the deliverable is in scope for a single skill or needs a multi-skill plan.
+5. If multi-skill: produce a stage-gated plan with handoffs and gate criteria.
+
+## Gates
+
+- Do not skip to writing or figures before research and citation are grounded.
+- Gate each stage on the previous stage's output contract.
+- Recommend `materials-citation` first when literature gaps exist.

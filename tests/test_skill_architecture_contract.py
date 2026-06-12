@@ -26,7 +26,7 @@ def _write_minimal_skill(skill_dir: Path, manifest: str) -> None:
 
 
 class SkillArchitectureContractTests(unittest.TestCase):
-    def test_all_civil_materials_skills_follow_static_dynamic_architecture(self):
+    def test_all_materials_skills_follow_static_dynamic_architecture(self):
         report = inspect_all(Path("skills"))
         self.assertEqual("pass", report["status"], report)
         self.assertFalse(
@@ -40,7 +40,7 @@ class SkillArchitectureContractTests(unittest.TestCase):
 
     def test_architecture_checker_reports_missing_manifest_path(self):
         with tempfile.TemporaryDirectory() as tmp:
-            skill_dir = Path(tmp) / "civil-materials-fake"
+            skill_dir = Path(tmp) / "materials-fake"
             _write_minimal_skill(
                 skill_dir,
                 """
@@ -71,7 +71,7 @@ release_checks: []
 
     def test_architecture_checker_detects_mojibake_trigger(self):
         with tempfile.TemporaryDirectory() as tmp:
-            skill_dir = Path(tmp) / "civil-materials-fake"
+            skill_dir = Path(tmp) / "materials-fake"
             _write_minimal_skill(
                 skill_dir,
                 """
@@ -102,7 +102,7 @@ release_checks: []
 
     def test_architecture_checker_requires_standard_manifest_blocks(self):
         with tempfile.TemporaryDirectory() as tmp:
-            skill_dir = Path(tmp) / "civil-materials-fake"
+            skill_dir = Path(tmp) / "materials-fake"
             _write_minimal_skill(
                 skill_dir,
                 """

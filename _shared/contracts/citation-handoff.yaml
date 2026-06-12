@@ -1,11 +1,11 @@
 name: citation-handoff
 version: "1.0"
 description: "Citation matrix and claim-source mapping from literature search and screening"
-produced_by: civil-materials-citation
+produced_by: materials-citation
 consumed_by:
-  - civil-materials-reader
-  - civil-materials-figure
-  - civil-materials-research
+  - materials-reader
+  - materials-figure
+  - materials-research
 
 artifacts:
   citation_handoff.csv:
@@ -28,5 +28,5 @@ artifacts:
       missing_evidence_flag: { type: string, required: false }
 
 templates:
-  - ../../skills/civil-materials-citation/assets/templates/citation-matrix-template.csv
-  - ../../skills/civil-materials-reader/assets/templates/citation-handoff-template.csv
+  - ../../skills/materials-citation/assets/templates/citation-matrix-template.csv
+  - ../../skills/materials-reader/assets/templates/citation-handoff-template.csv

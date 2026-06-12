@@ -1,8 +1,8 @@
-# Civil Materials Skill Architecture
+# Materials Science Skill Architecture
 
 This document defines the final static/dynamic architecture for every
-`civil-materials-*` skill. The root `skills/<skill>/` directory is the source of
-truth, and `plugins/civil-materials-skills/skills/<skill>/` is the installed
+`materials-*` skill. The root `skills/<skill>/` directory is the source of
+truth, and `plugins/materials-skills/skills/<skill>/` is the installed
 plugin mirror.
 
 ## Architecture Contract
@@ -16,7 +16,7 @@ plugin mirror.
 | Templates | assets/templates/* | Output schemas | required fields checked |
 | Scripts | scripts/*.py | Reusable production helpers | targeted tests |
 | Tests | tests/* | Regression and contract checks | release gate |
-| Plugin mirror | plugins/civil-materials-skills/skills/<skill>/ | Installed package copy | byte identity check |
+| Plugin mirror | plugins/materials-skills/skills/<skill>/ | Installed package copy | byte identity check |
 
 ## Router
 

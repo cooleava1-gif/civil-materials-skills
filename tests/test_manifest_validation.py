@@ -29,7 +29,7 @@ class ManifestValidationTest(unittest.TestCase):
 
     def test_reader_has_no_dangling_references(self):
         result = subprocess.run(
-            [sys.executable, str(VALIDATOR), "--skill", "civil-materials-reader", "--json"],
+            [sys.executable, str(VALIDATOR), "--skill", "materials-reader", "--json"],
             capture_output=True, text=True, check=True,
         )
         report = json.loads(result.stdout)

@@ -1,0 +1,34 @@
+name: data-package
+version: "1.0"
+description: "FAIR-organized dataset package with metadata and data availability statement"
+produced_by: materials-data
+consumed_by:
+  - materials-figure
+  - materials-research
+
+artifacts:
+  metadata.md:
+    description: "Dataset metadata with units, standards, and conditions"
+    required: true
+    columns:
+      test_standard: { type: string, required: true }
+      replicate_count: { type: integer, required: true }
+      temperature: { type: string, required: false }
+      humidity: { type: string, required: false }
+      curing_condition: { type: string, required: false }
+      aging_condition: { type: string, required: false }
+  README.md:
+    description: "Dataset overview and usage instructions"
+    required: true
+  data_availability_statement.md:
+    description: "Journal-specific data availability statement"
+    required: true
+  raw_data/:
+    description: "Raw experimental data files"
+    required: true
+
+templates:
+  - assets/templates/metadata-template.md
+  - assets/templates/dataset-readme-template.md
+  - assets/templates/data-availability-template.md
+  - assets/templates/experiment-data-template.csv

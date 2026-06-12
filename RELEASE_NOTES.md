@@ -1,4 +1,4 @@
-# Civil Materials Skills v1.0.0
+# Materials Science Skills v1.0.0
 
 **A research companion built by a materials researcher, for materials researchers.**
 
@@ -6,7 +6,7 @@
 
 ## What is this?
 
-Eleven Codex skills that walk with you through the entire journey of a civil-materials research paper -- from picking a topic all the way to responding to Reviewer 2's third round of comments. Everything here was shaped by real peer-review experience in asphalt emulsions, waterborne epoxy systems, and cementitious composites.
+Eleven Codex skills that walk with you through the entire journey of a materials research paper -- from picking a topic all the way to responding to Reviewer 2's third round of comments. Everything here was shaped by real peer-review experience in asphalt emulsions, waterborne epoxy systems, and cementitious composites.
 
 This is not a generic academic writing tool. It knows that "significantly improved" needs a p-value, that FTIR alone cannot prove a mechanism, and that your GB/T test results need an ASTM translation before an editor at CBM will take them seriously.
 
@@ -16,17 +16,17 @@ This is not a generic academic writing tool. It knows that "significantly improv
 
 | Skill | What it does |
 |---|---|
-| **civil-materials-research** | The router. Detects your task, material domain, and target journal, then loads only what you need. Start here. |
-| **civil-materials-reader** | Turns a paper into structured evidence-chain notes, not shallow summaries. Flags claims that outrun the data. |
-| **civil-materials-citation** | Builds claim-citation matrices, runs multi-source academic search (Crossref + PubMed + OpenAlex + Semantic Scholar), audits reference gaps. |
-| **civil-materials-writing** | Drafts manuscript sections from claims, results, or Chinese notes. Claim first, evidence second, boundary always visible. |
-| **civil-materials-polishing** | Polishes English prose without inflating weak evidence. Includes a claim-strength ladder that downgrades "proves" to "suggests" when the data only supports trends. |
-| **civil-materials-response** | Structures reviewer response packages. 12 high-frequency reviewer comment patterns with ready-to-adapt templates. |
-| **civil-materials-reviewer** | Simulates two independent peer reviewers plus a cross-review synthesis. Use before you submit, not after you get rejected. |
-| **civil-materials-figure** | Plans figures, enforces DPI/format/width specs per journal, includes 5 matplotlib production scripts for bonding strength bars, FTIR overlays, dosage-performance curves, durability retention, and multi-property radar charts. |
-| **civil-materials-paper2ppt** | Converts papers into Chinese slide decks for group meetings, journal clubs, and thesis reports. |
-| **civil-materials-pptx** | Generates real `.pptx` files from structured outlines -- with speaker notes, figure embedding, and crop settings. |
-| **civil-materials-data** | Builds FAIR dataset packages with metadata, audit reports, and data availability statements. Scaffolds everything so you can fill in real values. |
+| **materials-research** | The router. Detects your task, material domain, and target journal, then loads only what you need. Start here. |
+| **materials-reader** | Turns a paper into structured evidence-chain notes, not shallow summaries. Flags claims that outrun the data. |
+| **materials-citation** | Builds claim-citation matrices, runs multi-source academic search (Crossref + PubMed + OpenAlex + Semantic Scholar), audits reference gaps. |
+| **materials-writing** | Drafts manuscript sections from claims, results, or Chinese notes. Claim first, evidence second, boundary always visible. |
+| **materials-polishing** | Polishes English prose without inflating weak evidence. Includes a claim-strength ladder that downgrades "proves" to "suggests" when the data only supports trends. |
+| **materials-response** | Structures reviewer response packages. 12 high-frequency reviewer comment patterns with ready-to-adapt templates. |
+| **materials-reviewer** | Simulates two independent peer reviewers plus a cross-review synthesis. Use before you submit, not after you get rejected. |
+| **materials-figure** | Plans figures, enforces DPI/format/width specs per journal, includes 5 matplotlib production scripts for bonding strength bars, FTIR overlays, dosage-performance curves, durability retention, and multi-property radar charts. |
+| **materials-paper2ppt** | Converts papers into Chinese slide decks for group meetings, journal clubs, and thesis reports. |
+| **materials-pptx** | Generates real `.pptx` files from structured outlines -- with speaker notes, figure embedding, and crop settings. |
+| **materials-data** | Builds FAIR dataset packages with metadata, audit reports, and data availability statements. Scaffolds everything so you can fill in real values. |
 
 ---
 
@@ -38,7 +38,7 @@ The citation skill's MCP server connects to **Crossref**, **PubMed**, **OpenAlex
 
 ### Five matplotlib scripts you can actually run
 
-A new `civil_materials_plot_lib.py` provides publication-ready helper functions (`make_grouped_bar`, `make_ftir_overlay`, `make_xrd_pattern`, `make_radar`, etc.) with journal-specific color palettes (CBM, CCC). Five complete example scripts under `scripts/figures4materials/`:
+A new `materials_plot_lib.py` provides publication-ready helper functions (`make_grouped_bar`, `make_ftir_overlay`, `make_xrd_pattern`, `make_radar`, etc.) with journal-specific color palettes (CBM, CCC). Five complete example scripts under `scripts/figures4materials/`:
 
 - **Bonding strength comparison** -- grouped bar chart, dry vs. moisture-conditioned, with error bars
 - **FTIR curing evidence** -- overlaid spectra with peak annotations at 915, 1240, 1730 cm-1
@@ -50,7 +50,7 @@ Each script reads from CSV data and exports SVG + PNG at 300 DPI.
 
 ### A reviewer simulator you didn't know you needed
 
-`civil-materials-reviewer` generates exactly two independent review reports (different lenses: Reviewer A checks novelty and journal fit; Reviewer B checks mechanism evidence and statistics) plus a cross-review synthesis. Scoring across six axes: innovation, methodology, evidence completeness, writing, figures, journal fit. Use it to find the holes in your manuscript before a real reviewer does.
+`materials-reviewer` generates exactly two independent review reports (different lenses: Reviewer A checks novelty and journal fit; Reviewer B checks mechanism evidence and statistics) plus a cross-review synthesis. Scoring across six axes: innovation, methodology, evidence completeness, writing, figures, journal fit. Use it to find the holes in your manuscript before a real reviewer does.
 
 ### Statistical methods guidance
 
@@ -83,7 +83,7 @@ Elsevier wants 300 DPI TIFF at 85 mm single-column width. Taylor & Francis wants
 
 ```powershell
 # Copy skills into your Codex skills directory
-Copy-Item -Recurse .\skills\civil-materials-* "$env:CODEX_HOME\skills\"
+Copy-Item -Recurse .\skills\materials-* "$env:CODEX_HOME\skills\"
 
 # Install dependencies (only needed for the academic-search MCP and matplotlib scripts)
 pip install -r requirements.txt
@@ -92,9 +92,9 @@ pip install -r requirements.txt
 Optional: configure the academic-search MCP server in your Codex config:
 
 ```toml
-[mcp_servers."civil-materials-academic-search"]
+[mcp_servers."materials-academic-search"]
 command = "python"
-args = ["$CODEX_HOME/skills/civil-materials-citation/mcp/academic_search/server.py"]
+args = ["$CODEX_HOME/skills/materials-citation/mcp/academic_search/server.py"]
 
 # Optional environment variables
 # OPENALEX_API_KEY=...

@@ -2,7 +2,7 @@
 
 ## Outcome Snapshot
 
-This showcase is the final-preparation surface for a civil-materials paper just
+This showcase is the final-preparation surface for a materials paper just
 before submission. The outcome is not only manuscript text, but a bundle of
 journal-facing pieces such as highlights, cover-letter logic, declarations, and
 paper-gate evidence that the package is coherent.
@@ -16,17 +16,17 @@ Build me a submission package checklist for this CBM-targeted manuscript, includ
 ## Proof Assets
 
 - Output templates:
-  `skills/civil-materials-research/references/output-templates.md`
+  `skills/materials-research/references/output-templates.md`
 - Paper gate structure:
   `skills/_shared/paper-production/paper-gate-report-template.md`
 - Journal fact layer:
   `skills/_shared/journal-formats/cbm.md`
 - Orchestrator route:
-  `skills/civil-materials-research/references/paper-production-orchestrator.md`
+  `skills/materials-research/references/paper-production-orchestrator.md`
 
 ## Build Path
 
-1. Start with `civil-materials-research` and set the stage to `submission`.
+1. Start with `materials-research` and set the stage to `submission`.
 2. Use the paper gate report to check literature coverage, source anchoring,
    figure integrity, manuscript logic, reviewer simulation, and submission fit.
 3. Pull highlights, cover-letter framing, and graphical-abstract structure from

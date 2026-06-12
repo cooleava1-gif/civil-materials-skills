@@ -1,8 +1,8 @@
-# Civil Materials Front-Door Visual Redesign
+# Materials Science Front-Door Visual Redesign
 
 **Date:** 2026-06-10  
 **Status:** approved for implementation in this session  
-**Reference direction:** borrow the front-door visual language from `nature-skills` while keeping all surface evidence grounded in real civil-materials outputs
+**Reference direction:** borrow the front-door visual language from `nature-skills` while keeping all surface evidence grounded in real materials outputs
 
 ## Problem
 
@@ -31,7 +31,7 @@ The current `showcase-proof` boards are better than flat placeholder cards, but 
 
 ## 1. Editorial Board Engine
 
-Upgrade `skills/civil-materials-figure/scripts/build_showcase_proof_assets.py` from a simple card renderer into a small board engine with:
+Upgrade `skills/materials-figure/scripts/build_showcase_proof_assets.py` from a simple card renderer into a small board engine with:
 
 - multiple layout families for different narrative shapes
 - relative crop boxes so each panel can focus on the signal-rich region of a source image
@@ -79,7 +79,7 @@ Update `README.md` and `docs/gallery/README.md` so the front door explains that 
 
 ## Validation
 
-- extend `skills/civil-materials-figure/tests/test_figure_gallery.py`
+- extend `skills/materials-figure/tests/test_figure_gallery.py`
 - confirm regenerated PNGs still carry visual signal
 - verify `showcase_manifest.json` exists and records narrative metadata
 - run skill tests plus repo release checks

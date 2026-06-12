@@ -7,7 +7,7 @@ import argparse
 import sys
 from pathlib import Path
 
-SKILL_ROOT = Path(__file__).resolve().parents[1] / "skills" / "civil-materials-figure"
+SKILL_ROOT = Path(__file__).resolve().parents[1] / "skills" / "materials-figure"
 PACKAGES_ROOT = SKILL_ROOT / "examples" / "figure-packages"
 sys.path.insert(0, str(SKILL_ROOT / "scripts"))
 
@@ -171,7 +171,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 
-from civil_materials_plot_lib import apply_pub_style, finalize_figure
+from materials_plot_lib import apply_pub_style, finalize_figure
 
 
 def main() -> int:
@@ -269,7 +269,7 @@ def generate_figure_package(figure_type: str) -> None:
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
         import numpy as np
-        from civil_materials_plot_lib import apply_pub_style
+        from materials_plot_lib import apply_pub_style
         
         apply_pub_style()
         fig, ax = plt.subplots(figsize=(6, 4))

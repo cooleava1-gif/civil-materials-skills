@@ -1,5 +1,5 @@
 {
-  "name": "civil-materials-academic-search",
+  "name": "materials-academic-search",
   "description": "MCP server for civil engineering and construction-materials literature search via CrossRef, PubMed, arXiv, Scopus, and more.",
   "version": "1.0.0",
   "mcp": {
@@ -8,6 +8,6 @@
       "-m",
       "server"
     ],
-    "cwd": "mcp-server/civil-materials-academic-search"
+    "cwd": "mcp-server/materials-academic-search"
   }
 }

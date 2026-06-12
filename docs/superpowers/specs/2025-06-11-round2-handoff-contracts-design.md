@@ -6,7 +6,7 @@
 
 ## 1. What & Why
 
-**Problem**: Currently `handoffs: [civil-materials-research, ...]` is a flat string list. There's no way to know:
+**Problem**: Currently `handoffs: [materials-research, ...]` is a flat string list. There's no way to know:
 - What exact artifact each skill produces
 - Which downstream skill needs which artifact
 - Whether a handoff artifact's schema has changed
@@ -33,8 +33,8 @@ Each skill's manifest.yaml `handoffs:` field transforms:
 ```yaml
 # BEFORE
 handoffs:
-  - civil-materials-research
-  - civil-materials-reader
+  - materials-research
+  - materials-reader
 
 # AFTER
 handoffs:
@@ -45,7 +45,7 @@ handoffs:
       version: "1.0"
   consumes:
     - handoff: citation-handoff
-      from: civil-materials-citation
+      from: materials-citation
       optional: true
       description: "Citation matrix rows for figure mapping"
 ```
@@ -57,11 +57,11 @@ handoffs:
 name: citation-handoff
 version: "1.0"
 description: "Citation matrix and claim-source mapping"
-produced_by: civil-materials-citation
+produced_by: materials-citation
 consumed_by:
-  - civil-materials-reader
-  - civil-materials-figure
-  - civil-materials-research
+  - materials-reader
+  - materials-figure
+  - materials-research
 
 artifacts:
   citation_handoff.csv:
@@ -85,27 +85,27 @@ templates:
 ## 4. Five Handoff Contracts
 
 ### 4.1 citation-handoff
-Produced by: `civil-materials-citation`
+Produced by: `materials-citation`
 Consumed by: `reader`, `figure`, `research`
 Artifact: `citation_handoff.csv`
 
 ### 4.2 reader-package
-Produced by: `civil-materials-reader`
+Produced by: `materials-reader`
 Consumed by: `figure`, `writing`, `research`
 Artifacts: `{paper-name}/notes.md`, `source_map.json`, terminology ledger
 
 ### 4.3 figure-handoff
-Produced by: `civil-materials-figure`
+Produced by: `materials-figure`
 Consumed by: `paper2ppt`, `pptx`, `research`
 Artifact: `figure_handoff.csv`
 
 ### 4.4 data-package
-Produced by: `civil-materials-data`
+Produced by: `materials-data`
 Consumed by: `figure`, `research`
 Artifact: FAIR dataset package
 
 ### 4.5 gate-report
-Produced by: `civil-materials-research`
+Produced by: `materials-research`
 Consumed by: internal routing
 Artifact: `paper-gate-report-template.md` output
 
@@ -132,10 +132,10 @@ Output on failure:
 {
   "status": "fail",
   "issues": {
-    "civil-materials-figure": [
+    "materials-figure": [
       "consumes 'citation-handoff' → not provided by any skill in provides list"
     ],
-    "civil-materials-citation": [
+    "materials-citation": [
       "provides 'citation-handoff' → not consumed by any skill"
     ]
   }
@@ -146,17 +146,17 @@ Output on failure:
 
 | Skill | Provides | Consumes |
 |---|---|---|
-| civil-materials-citation | citation-handoff | — |
-| civil-materials-reader | reader-package | citation-handoff (optional) |
-| civil-materials-figure | figure-handoff | citation-handoff (optional), reader-package (optional), data-package (optional) |
-| civil-materials-data | data-package | — |
-| civil-materials-research | gate-report | citation-handoff, reader-package, figure-handoff, data-package |
-| civil-materials-writing | — | reader-package (optional) |
-| civil-materials-paper2ppt | — | figure-handoff (optional) |
-| civil-materials-pptx | — | figure-handoff (optional) |
-| civil-materials-polishing | — | — |
-| civil-materials-response | — | — |
-| civil-materials-reviewer | — | — |
+| materials-citation | citation-handoff | — |
+| materials-reader | reader-package | citation-handoff (optional) |
+| materials-figure | figure-handoff | citation-handoff (optional), reader-package (optional), data-package (optional) |
+| materials-data | data-package | — |
+| materials-research | gate-report | citation-handoff, reader-package, figure-handoff, data-package |
+| materials-writing | — | reader-package (optional) |
+| materials-paper2ppt | — | figure-handoff (optional) |
+| materials-pptx | — | figure-handoff (optional) |
+| materials-polishing | — | — |
+| materials-response | — | — |
+| materials-reviewer | — | — |
 
 (`consumes` marked optional = the handoff is useful but the skill can work without it)
 

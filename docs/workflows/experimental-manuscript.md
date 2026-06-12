@@ -15,17 +15,17 @@ Audit this experimental manuscript for evidence gaps before I draft the discussi
 
 ## Workflow Steps
 
-1. Start with `civil-materials-research` and detect the manuscript stage,
+1. Start with `materials-research` and detect the manuscript stage,
    claimed contribution, and missing-support hotspots.
-2. If data organization is weak, route to `civil-materials-data` to clarify
+2. If data organization is weak, route to `materials-data` to clarify
    variables, controls, raw/processed structure, and FAIR-facing gaps.
-3. Send result figures or tables to `civil-materials-figure` to tighten figure
+3. Send result figures or tables to `materials-figure` to tighten figure
    contracts, source-data anchors, export QA, and caption boundaries.
-4. Use `civil-materials-writing` to rebuild the argument chain in the results
+4. Use `materials-writing` to rebuild the argument chain in the results
    and discussion around actual measurements and stated boundaries.
-5. Use `civil-materials-polishing` to reduce literal translation or
+5. Use `materials-polishing` to reduce literal translation or
    mechanism-overreach after the technical content is stable.
-6. Run `civil-materials-reviewer` before submission framing to see which claims,
+6. Run `materials-reviewer` before submission framing to see which claims,
    figures, or methods still look vulnerable.
 
 ## Expected Artifacts

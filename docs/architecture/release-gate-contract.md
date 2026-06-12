@@ -7,7 +7,7 @@ matrix, or slide deck is publication-ready without expert review.
 
 ## Buckets
 
-`skill_architecture` proves that each `civil-materials-*` skill has router
+`skill_architecture` proves that each `materials-*` skill has router
 files, manifest metadata, static core files, declared paths, and a plugin mirror
 inspection report. It does not prove that every reference is scientifically
 complete.
@@ -53,13 +53,13 @@ The default rule is byte identity between:
 
 ```text
 skills/<skill>/
-plugins/civil-materials-skills/skills/<skill>/
+plugins/materials-skills/skills/<skill>/
 ```
 
 Accepted exceptions must be documented and named in the checker or release gate.
 Current known exceptions:
 
-- `civil-materials-figure/tests/test_figure_hard_workflow.py`: pre-existing
+- `materials-figure/tests/test_figure_hard_workflow.py`: pre-existing
   root-only hard-workflow exception.
 - `_shared/SKILL.md`: allowed only if the final packaging decision keeps
   `_shared` as a non-production support folder rather than a plugin skill.

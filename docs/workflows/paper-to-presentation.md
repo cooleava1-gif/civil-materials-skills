@@ -14,13 +14,13 @@ Turn this paper package into a journal-club slide outline and then a real PPTX.
 
 ## Workflow Steps
 
-1. Start with `civil-materials-paper2ppt` to decide the audience, slide count,
+1. Start with `materials-paper2ppt` to decide the audience, slide count,
    talk arc, and which figures or results deserve space.
 2. Build a slide-ready Markdown or JSON outline instead of writing a loose
    narrative.
 3. If figure selection is messy, borrow the relevant artifacts from the reader
    or figure workflows first, then finalize the slide order.
-4. Use `civil-materials-pptx` to generate the actual `.pptx` file with notes
+4. Use `materials-pptx` to generate the actual `.pptx` file with notes
    and image placement.
 5. If the talk is for a group meeting or thesis report, loop back once to make
    sure the deck still matches the paper's evidence boundaries.

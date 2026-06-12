@@ -1,4 +1,4 @@
-# Civil Materials P1 Demo And Gallery Implementation Plan
+# Materials Science P1 Demo And Gallery Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -79,7 +79,7 @@ git commit -m "test: require workflow demos and gallery docs"
 - [ ] **Step 3: Make the content concrete**
 
 ```markdown
-Step 1: Start with `civil-materials-research` and route by `paper_stage=screening`.
+Step 1: Start with `materials-research` and route by `paper_stage=screening`.
 ```
 
 - [ ] **Step 4: Re-run the product docs contract test**
@@ -119,7 +119,7 @@ git commit -m "docs: add guided workflow demos"
 - [ ] **Step 3: Use real repo assets, not placeholders**
 
 ```markdown
-![WER-EA mechanism map](../skills/civil-materials-figure/assets/wer-ea-atlas/generated/wer_ea_mechanism_map.png)
+![WER-EA mechanism map](../skills/materials-figure/assets/wer-ea-atlas/generated/wer_ea_mechanism_map.png)
 ```
 
 - [ ] **Step 4: Re-run the product docs contract test**

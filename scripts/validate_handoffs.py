@@ -13,45 +13,45 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 CONTRACTS_DIR = REPO_ROOT / "_shared" / "contracts"
 
 ALL_SKILLS = [
-    "civil-materials-citation",
-    "civil-materials-data",
-    "civil-materials-figure",
-    "civil-materials-paper2ppt",
-    "civil-materials-polishing",
-    "civil-materials-pptx",
-    "civil-materials-reader",
-    "civil-materials-research",
-    "civil-materials-response",
-    "civil-materials-reviewer",
-    "civil-materials-writing",
+    "materials-citation",
+    "materials-data",
+    "materials-figure",
+    "materials-paper2ppt",
+    "materials-polishing",
+    "materials-pptx",
+    "materials-reader",
+    "materials-research",
+    "materials-response",
+    "materials-reviewer",
+    "materials-writing",
 ]
 
 # Expected handoff topology (declared both in manifest and in contracts)
 EXPECTED_PROVIDES: dict[str, list[str]] = {
-    "civil-materials-citation": ["citation-handoff"],
-    "civil-materials-reader": ["reader-package"],
-    "civil-materials-figure": ["figure-handoff"],
-    "civil-materials-data": ["data-package"],
-    "civil-materials-research": ["gate-report"],
+    "materials-citation": ["citation-handoff"],
+    "materials-reader": ["reader-package"],
+    "materials-figure": ["figure-handoff"],
+    "materials-data": ["data-package"],
+    "materials-research": ["gate-report"],
 }
 
 EXPECTED_CONSUMES: dict[str, list[dict]] = {
-    "civil-materials-reader": [{"handoff": "citation-handoff", "optional": True}],
-    "civil-materials-figure": [
+    "materials-reader": [{"handoff": "citation-handoff", "optional": True}],
+    "materials-figure": [
         {"handoff": "citation-handoff", "optional": True},
         {"handoff": "reader-package", "optional": True},
         {"handoff": "data-package", "optional": True},
     ],
-    "civil-materials-research": [
+    "materials-research": [
         {"handoff": "citation-handoff", "optional": False},
         {"handoff": "reader-package", "optional": False},
         {"handoff": "figure-handoff", "optional": False},
         {"handoff": "data-package", "optional": False},
         {"handoff": "gate-report", "optional": True},
     ],
-    "civil-materials-writing": [{"handoff": "reader-package", "optional": True}],
-    "civil-materials-paper2ppt": [{"handoff": "figure-handoff", "optional": True}],
-    "civil-materials-pptx": [{"handoff": "figure-handoff", "optional": True}],
+    "materials-writing": [{"handoff": "reader-package", "optional": True}],
+    "materials-paper2ppt": [{"handoff": "figure-handoff", "optional": True}],
+    "materials-pptx": [{"handoff": "figure-handoff", "optional": True}],
 }
 
 

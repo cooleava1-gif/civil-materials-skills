@@ -1,4 +1,4 @@
-"""Inspect civil-materials skill architecture contracts.
+"""Inspect materials skill architecture contracts.
 
 The checker is intentionally diagnostic-first: missing router files and broken
 manifest routes are hard issues, while standardization gaps that are still being
@@ -42,7 +42,7 @@ MOJIBAKE_MARKERS = (
 )
 MIRROR_EXCEPTION_SUFFIXES = {
     # Pre-existing root-only hard workflow exception documented in the plan.
-    "civil-materials-figure/tests/test_figure_hard_workflow.py",
+    "materials-figure/tests/test_figure_hard_workflow.py",
 }
 
 
@@ -207,7 +207,7 @@ def _inspect_plugin_mirror(root: Path, plugin_root: Path) -> dict[str, object]:
     different_files: list[str] = []
     compared_files = 0
 
-    for skill_dir in sorted(root.glob("civil-materials-*")):
+    for skill_dir in sorted(root.glob("materials-*")):
         if not skill_dir.is_dir():
             continue
         plugin_skill = plugin_root / skill_dir.name
@@ -247,12 +247,12 @@ def _inspect_plugin_mirror(root: Path, plugin_root: Path) -> dict[str, object]:
 
 
 def inspect_all(root: Path = Path("skills")) -> dict[str, object]:
-    """Inspect every civil-materials-* skill and return a JSON-safe report."""
+    """Inspect every materials-* skill and return a JSON-safe report."""
 
     root = Path(root)
-    skills = [path for path in sorted(root.glob("civil-materials-*")) if path.is_dir()]
+    skills = [path for path in sorted(root.glob("materials-*")) if path.is_dir()]
     skill_reports = [inspect_skill(skill_dir) for skill_dir in skills]
-    plugin_root = root.parent / "plugins" / "civil-materials-skills" / "skills"
+    plugin_root = root.parent / "plugins" / "materials-skills" / "skills"
     mirror_report = (
         _inspect_plugin_mirror(root, plugin_root)
         if plugin_root.exists()

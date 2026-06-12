@@ -14,9 +14,9 @@ if (-not (Test-Path -LiteralPath $sourceSkillsDir -PathType Container)) {
     exit 1
 }
 
-$civilSkillDirs = Get-ChildItem -LiteralPath $sourceSkillsDir -Directory -Filter "civil-materials-*"
+$civilSkillDirs = Get-ChildItem -LiteralPath $sourceSkillsDir -Directory -Filter "materials-*"
 if (-not $civilSkillDirs) {
-    Write-Error "No civil-materials-* skill directories found in: $sourceSkillsDir"
+    Write-Error "No materials-* skill directories found in: $sourceSkillsDir"
     exit 1
 }
 
@@ -61,9 +61,9 @@ foreach ($skillDir in $civilSkillDirs) {
 Remove-ExistingInstallDir -Name "_shared"
 Copy-Item -LiteralPath $sharedDir -Destination $targetSkillsDir -Recurse -Force
 
-Write-Output "Installed civil materials skills to: $targetSkillsDir"
+Write-Output "Installed materials skills to: $targetSkillsDir"
 Write-Output "Installed directories:"
 Get-ChildItem -LiteralPath $targetSkillsDir -Directory |
-    Where-Object { $_.Name -like "civil-materials-*" -or $_.Name -eq "_shared" } |
+    Where-Object { $_.Name -like "materials-*" -or $_.Name -eq "_shared" } |
     Sort-Object Name |
     ForEach-Object { Write-Output ("- " + $_.Name) }

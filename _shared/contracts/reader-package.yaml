@@ -1,11 +1,11 @@
 name: reader-package
 version: "1.0"
 description: "Bilingual Markdown reading notes with source anchors and terminology ledger"
-produced_by: civil-materials-reader
+produced_by: materials-reader
 consumed_by:
-  - civil-materials-figure
-  - civil-materials-writing
-  - civil-materials-research
+  - materials-figure
+  - materials-writing
+  - materials-research
 
 artifacts:
   notes.md:
@@ -24,7 +24,7 @@ artifacts:
     required: false
 
 templates:
-  - ../../skills/civil-materials-reader/assets/templates/paper-md-template.md
-  - ../../skills/civil-materials-reader/assets/templates/source-map-template.json
-  - ../../skills/civil-materials-reader/assets/templates/source-anchor-checklist.md
-  - ../../skills/civil-materials-reader/assets/templates/obsidian-note-template.md
+  - ../../skills/materials-reader/assets/templates/paper-md-template.md
+  - ../../skills/materials-reader/assets/templates/source-map-template.json
+  - ../../skills/materials-reader/assets/templates/source-anchor-checklist.md
+  - ../../skills/materials-reader/assets/templates/obsidian-note-template.md

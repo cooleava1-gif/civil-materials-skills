@@ -15,19 +15,19 @@ Help me run a WER-EA mini-review workflow from screening to figure planning.
 
 ## Workflow Steps
 
-1. Start with `civil-materials-research` and frame the review question, scope,
+1. Start with `materials-research` and frame the review question, scope,
    target journal family, and `paper_stage=screening`.
-2. Hand off to `civil-materials-citation` to build the search logic, screening
+2. Hand off to `materials-citation` to build the search logic, screening
    criteria, and a reviewer-safe citation matrix.
-3. Send the screened paper set into `civil-materials-reader` to generate
+3. Send the screened paper set into `materials-reader` to generate
    `source_map.json`, `citation_handoff.csv`, `figure_handoff.csv`, and
    evidence-boundary notes.
-4. Use `civil-materials-writing` to turn those artifacts into a review outline
+4. Use `materials-writing` to turn those artifacts into a review outline
    organized by evidence roles rather than paper titles.
-5. Use `civil-materials-figure` to plan the mechanism map, evidence heatmap,
+5. Use `materials-figure` to plan the mechanism map, evidence heatmap,
    screening flow, dosage window, and caption boundaries.
-6. Before treating the package as ready, run `civil-materials-reviewer` or
-   `civil-materials-polishing` on the outline and figure logic to downgrade
+6. Before treating the package as ready, run `materials-reviewer` or
+   `materials-polishing` on the outline and figure logic to downgrade
    overclaims and expose missing evidence.
 
 ## Expected Artifacts

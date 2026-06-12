@@ -1,14 +1,14 @@
 {
-  "name": "civil-materials-skills",
+  "name": "materials-skills",
   "interface": {
-    "displayName": "Civil Materials Skills"
+    "displayName": "Materials Science Skills"
   },
   "plugins": [
     {
-      "name": "civil-materials-skills",
+      "name": "materials-skills",
       "source": {
         "source": "local",
-        "path": "./plugins/civil-materials-skills"
+        "path": "./plugins/materials-skills"
       },
       "policy": {
         "installation": "AVAILABLE",

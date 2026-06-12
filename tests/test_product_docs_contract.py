@@ -6,19 +6,19 @@ from PIL import Image
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PLUGIN_ROOT = ROOT / "plugins" / "civil-materials-skills"
+PLUGIN_ROOT = ROOT / "plugins" / "materials-skills"
 SKILLS = [
-    "civil-materials-citation",
-    "civil-materials-data",
-    "civil-materials-figure",
-    "civil-materials-paper2ppt",
-    "civil-materials-polishing",
-    "civil-materials-pptx",
-    "civil-materials-reader",
-    "civil-materials-research",
-    "civil-materials-response",
-    "civil-materials-reviewer",
-    "civil-materials-writing",
+    "materials-citation",
+    "materials-data",
+    "materials-figure",
+    "materials-paper2ppt",
+    "materials-polishing",
+    "materials-pptx",
+    "materials-reader",
+    "materials-research",
+    "materials-response",
+    "materials-reviewer",
+    "materials-writing",
 ]
 SKILL_README_SECTIONS = [
     "## When To Use",
@@ -98,7 +98,7 @@ class ProductDocsContractTests(unittest.TestCase):
 
         install_text = install_path.read_text(encoding="utf-8")
         for marker in [
-            "# Install Civil Materials Skills",
+            "# Install Materials Science Skills",
             "## Option 1: Codex Plugin",
             "## Option 2: Manual Skills Install",
             "## Verify The Install",
@@ -129,7 +129,7 @@ class ProductDocsContractTests(unittest.TestCase):
         gallery_text = gallery_path.read_text(encoding="utf-8")
 
         for marker in [
-            "# Civil Materials Gallery",
+            "# Materials Science Gallery",
             "## Screenshot Gallery",
             "## Workflow Proof",
             "## Artifact Deep Dives",
@@ -137,7 +137,7 @@ class ProductDocsContractTests(unittest.TestCase):
         ]:
             self.assertIn(marker, gallery_text)
 
-        showcase_root = ROOT / "skills" / "civil-materials-figure" / "assets" / "showcase-proof"
+        showcase_root = ROOT / "skills" / "materials-figure" / "assets" / "showcase-proof"
         for asset in GALLERY_PROOF_ASSETS:
             self.assertIn(asset, gallery_text)
             asset_path = showcase_root / asset

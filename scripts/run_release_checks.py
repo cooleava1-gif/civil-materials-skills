@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run release checks across all civil-materials skills.
+"""Run release checks across all materials skills.
 
 Checks file presence, manifest validity, trigger coverage, and asset completeness.
 """
@@ -15,32 +15,32 @@ SKILLS_ROOT = Path(__file__).resolve().parents[1] / "skills"
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 ALL_SKILLS = [
-    "civil-materials-citation",
-    "civil-materials-data",
-    "civil-materials-figure",
-    "civil-materials-paper2ppt",
-    "civil-materials-polishing",
-    "civil-materials-pptx",
-    "civil-materials-reader",
-    "civil-materials-research",
-    "civil-materials-response",
-    "civil-materials-reviewer",
-    "civil-materials-writing",
+    "materials-citation",
+    "materials-data",
+    "materials-figure",
+    "materials-paper2ppt",
+    "materials-polishing",
+    "materials-pptx",
+    "materials-reader",
+    "materials-research",
+    "materials-response",
+    "materials-reviewer",
+    "materials-writing",
 ]
 
 # Each skill's test directory, checked for presence
 SKILL_TEST_DIRS = [
-    '"civil-materials-citation" / "tests"',
-    '"civil-materials-data" / "tests"',
-    '"civil-materials-figure" / "tests"',
-    '"civil-materials-paper2ppt" / "tests"',
-    '"civil-materials-polishing" / "tests"',
-    '"civil-materials-pptx" / "tests"',
-    '"civil-materials-reader" / "tests"',
-    '"civil-materials-research" / "tests"',
-    '"civil-materials-response" / "tests"',
-    '"civil-materials-reviewer" / "tests"',
-    '"civil-materials-writing" / "tests"',
+    '"materials-citation" / "tests"',
+    '"materials-data" / "tests"',
+    '"materials-figure" / "tests"',
+    '"materials-paper2ppt" / "tests"',
+    '"materials-polishing" / "tests"',
+    '"materials-pptx" / "tests"',
+    '"materials-reader" / "tests"',
+    '"materials-research" / "tests"',
+    '"materials-response" / "tests"',
+    '"materials-reviewer" / "tests"',
+    '"materials-writing" / "tests"',
 ]
 
 FIGURE_PACKAGE_SAMPLE_NAMES = [
@@ -123,7 +123,7 @@ def main() -> int:
         all_issues["paper_production_orchestrator"] = orchestrator_issues
 
     # figure_hard_workflow check
-    figure_root = SKILLS_ROOT / "civil-materials-figure"
+    figure_root = SKILLS_ROOT / "materials-figure"
     figure_issues = []
     for fname in FIGURE_HARD_WORKFLOW_FILES:
         if not (figure_root / fname).exists():

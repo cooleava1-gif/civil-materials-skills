@@ -11,7 +11,7 @@ Current problem: 7 out of 11 skills have `manifest.yaml` but no `static/fragment
 Goal: Every skill follows the same **Router/Static-Dynamic v2** pattern:
 
 ```
-skills/civil-materials-<name>/
+skills/materials-<name>/
 ├── SKILL.md              ← ≤40 lines: identity + protocol steps only
 ├── manifest.yaml          ← always_load + axes.detect/values + references.on_demand
 ├── static/
@@ -72,16 +72,16 @@ release_checks:
 
 ## 3. Seven-Skill Fragment Layouts
 
-### 3.1 civil-materials-citation
+### 3.1 materials-citation
 
 New domain fragments:
 - material_domain/asphalt → static/fragments/domain/asphalt.md
 - material_domain/cement-concrete → static/fragments/domain/cement-concrete.md
-- material_domain/civil-materials → static/fragments/domain/civil-materials.md
+- material_domain/materials → static/fragments/domain/materials.md
 
 `task` and `journal_family` axes stay pointing to `references/` for now.
 
-### 3.2 civil-materials-data
+### 3.2 materials-data
 
 New data_task fragments:
 - data_task/availability-statement → static/fragments/data_task/availability-statement.md
@@ -91,15 +91,15 @@ New data_task fragments:
 New domain fragments (same as citation):
 - domain/asphalt → static/fragments/domain/asphalt.md
 - domain/cement-concrete → static/fragments/domain/cement-concrete.md
-- domain/civil-materials → static/fragments/domain/civil-materials.md
+- domain/materials → static/fragments/domain/materials.md
 
-### 3.3 civil-materials-paper2ppt
+### 3.3 materials-paper2ppt
 
 New task fragments:
 - task/slide-outline → static/fragments/task/slide-outline.md
 - task/pptx-deck → static/fragments/task/pptx-deck.md
 
-### 3.4 civil-materials-polishing
+### 3.4 materials-polishing
 
 New language fragments:
 - language/en → static/fragments/language/en.md
@@ -109,14 +109,14 @@ New paper_type fragments:
 - paper_type/research → static/fragments/paper_type/research.md
 - paper_type/review → static/fragments/paper_type/review.md
 
-### 3.5 civil-materials-pptx
+### 3.5 materials-pptx
 
 New template fragments:
 - template/academic → static/fragments/template/academic.md
 - template/defense → static/fragments/template/defense.md
 - template/journal-club → static/fragments/template/journal-club.md
 
-### 3.6 civil-materials-response
+### 3.6 materials-response
 
 New tone axis fragments (extracted from SKILL.md):
 - tone/academic → static/fragments/tone/academic.md
@@ -124,7 +124,7 @@ New tone axis fragments (extracted from SKILL.md):
 
 response_task axis values stay in references/.
 
-### 3.7 civil-materials-reviewer
+### 3.7 materials-reviewer
 
 New review_scope axis fragments (extracted from SKILL.md):
 - review_scope/full-manuscript → static/fragments/review_scope/full-manuscript.md
@@ -137,12 +137,12 @@ review_depth axis values stay in references/.
 
 ```markdown
 ---
-name: civil-materials-<name>
+name: materials-<name>
 version: "x.y.z"
 description: One-line purpose
 ---
 
-# Civil Materials <Name>
+# Materials Science <Name>
 
 <One-paragraph role statement.>
 

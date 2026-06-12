@@ -16,18 +16,18 @@ Package this WER-EA bonding dataset into a FAIR-ready submission bundle and flag
 ## Proof Assets
 
 - Data showcase example:
-  `skills/civil-materials-data/examples/waterborne-epoxy-fair-package.md`
+  `skills/materials-data/examples/waterborne-epoxy-fair-package.md`
 - Generated FAIR package sample:
-  `skills/civil-materials-data/examples/generated/waterborne_epoxy_modified_emulsified_asphalt_bonding_performance_cbm_fair_package/README.md`
+  `skills/materials-data/examples/generated/waterborne_epoxy_modified_emulsified_asphalt_bonding_performance_cbm_fair_package/README.md`
 - Data templates:
-  `skills/civil-materials-data/assets/templates/data-availability-template.md`
-  and `skills/civil-materials-data/assets/templates/metadata-template.md`
+  `skills/materials-data/assets/templates/data-availability-template.md`
+  and `skills/materials-data/assets/templates/metadata-template.md`
 - Data skill contract:
-  `skills/civil-materials-data/README.md`
+  `skills/materials-data/README.md`
 
 ## Build Path
 
-1. Start with `civil-materials-data` when raw and processed files exist but the
+1. Start with `materials-data` when raw and processed files exist but the
    paper-facing package is still loose.
 2. Build metadata, README, and data availability language from the templates.
 3. Compare the output against the generated FAIR package sample and audit notes.

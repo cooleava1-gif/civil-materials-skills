@@ -17,7 +17,7 @@ from the first prompt through the expected artifacts.
 - Use the demo prompt as your first real prompt inside Codex.
 - Compare your actual outputs against the expected artifacts and the
   "What Good Looks Like" checklist.
-- If your task drifts, return to `civil-materials-research` and re-route before
+- If your task drifts, return to `materials-research` and re-route before
   asking a downstream skill to improvise.
 
 ## Shared Rule

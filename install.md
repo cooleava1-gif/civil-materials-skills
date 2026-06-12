@@ -1,4 +1,4 @@
-# Install Civil Materials Skills
+# Install Materials Science Skills
 
 This guide is for the polished, day-to-day use of the bundle: install it, run a
 five-minute workflow, verify the installed state, and avoid stale-skill drift
@@ -9,13 +9,13 @@ between the source repo, plugin mirror, and local Codex installation.
 Add the local marketplace entry and install the plugin:
 
 ```powershell
-codex plugin marketplace add https://github.com/cooleava1-gif/civil-materials-skills.git --ref main
-codex plugin add civil-materials-skills@civil-materials-skills
+codex plugin marketplace add https://github.com/cooleava1-gif/materials-skills.git --ref main
+codex plugin add materials-skills@materials-skills
 ```
 
 What this gives you:
 
-- the `civil-materials-*` skill bundle
+- the `materials-*` skill bundle
 - the required `_shared` support folder
 - the academic-search MCP configuration included with the plugin
 
@@ -27,7 +27,7 @@ From the repository root, run:
 .\scripts\install.ps1
 ```
 
-The installer copies all `civil-materials-*` skills plus `_shared` into
+The installer copies all `materials-*` skills plus `_shared` into
 `$CODEX_HOME\skills` if `CODEX_HOME` is set, or into `~\.codex\skills`
 otherwise. It also removes stale target directories before reinstalling so old
 files do not survive an update.
@@ -37,7 +37,7 @@ If you need the manual fallback commands:
 ```powershell
 $skillsDir = if ($env:CODEX_HOME) { Join-Path $env:CODEX_HOME "skills" } else { Join-Path $HOME ".codex\skills" }
 New-Item -ItemType Directory -Force $skillsDir | Out-Null
-Copy-Item -Recurse -Force .\skills\civil-materials-* $skillsDir
+Copy-Item -Recurse -Force .\skills\materials-* $skillsDir
 Copy-Item -Recurse -Force .\skills\_shared $skillsDir
 ```
 
@@ -53,9 +53,9 @@ python -m pip install -r .\requirements.txt
 Example Codex MCP configuration:
 
 ```toml
-[mcp_servers."civil-materials-academic-search"]
+[mcp_servers."materials-academic-search"]
 command = "python"
-args = ["$CODEX_HOME/skills/civil-materials-citation/mcp/academic_search/server.py"]
+args = ["$CODEX_HOME/skills/materials-citation/mcp/academic_search/server.py"]
 ```
 
 Optional environment variables:
@@ -76,7 +76,7 @@ python .\scripts\run_release_checks.py --json
 Then check that the installed state is not stale:
 
 1. If you changed root skill files, rerun `.\scripts\install.ps1`.
-2. Confirm the plugin mirror under `plugins/civil-materials-skills/skills/`
+2. Confirm the plugin mirror under `plugins/materials-skills/skills/`
    still matches the source skills you edited.
 3. Judge the release by the final JSON `status`, not by expected negative-test
    lines such as `source PDF not found: ...missing.pdf`.
@@ -95,11 +95,11 @@ Help me run a WER-EA mini-review workflow from screening to figure planning.
 
 Expected shape:
 
-1. `civil-materials-research` routes the workflow.
-2. `civil-materials-citation` plans the search and screening matrix.
-3. `civil-materials-reader` builds evidence-chain handoffs.
-4. `civil-materials-writing` builds the outline.
-5. `civil-materials-figure` plans the review figures.
+1. `materials-research` routes the workflow.
+2. `materials-citation` plans the search and screening matrix.
+3. `materials-reader` builds evidence-chain handoffs.
+4. `materials-writing` builds the outline.
+5. `materials-figure` plans the review figures.
 
 ### Path B: Experimental Manuscript
 
@@ -111,10 +111,10 @@ Audit this experimental manuscript for evidence gaps before I draft the discussi
 
 Expected shape:
 
-1. `civil-materials-research` frames stage, evidence level, and route.
-2. `civil-materials-data` and `civil-materials-figure` tighten supporting data.
-3. `civil-materials-writing` and `civil-materials-polishing` rebuild bounded text.
-4. `civil-materials-reviewer` checks the revised package.
+1. `materials-research` frames stage, evidence level, and route.
+2. `materials-data` and `materials-figure` tighten supporting data.
+3. `materials-writing` and `materials-polishing` rebuild bounded text.
+4. `materials-reviewer` checks the revised package.
 
 ### Path C: Paper To Presentation
 
@@ -126,8 +126,8 @@ Turn this paper package into a journal-club slide outline and then a real PPTX.
 
 Expected shape:
 
-1. `civil-materials-paper2ppt` creates slide-ready Markdown.
-2. `civil-materials-pptx` turns the outline into a real PowerPoint deck.
+1. `materials-paper2ppt` creates slide-ready Markdown.
+2. `materials-pptx` turns the outline into a real PowerPoint deck.
 
 ## Guided Demo Routes
 
@@ -154,7 +154,7 @@ If this is your first time with the bundle, open these in order:
 
 1. [README.md](README.md)
 2. [docs/skills-index.md](docs/skills-index.md)
-3. `skills/civil-materials-research/README.md`
+3. `skills/materials-research/README.md`
 4. the README for the production skill you actually need
 
 ## Troubleshooting

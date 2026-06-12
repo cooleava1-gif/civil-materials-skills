@@ -1,4 +1,4 @@
-"""Automated pressure test runner for civil-materials-skills.
+"""Automated pressure test runner for materials-skills.
 
 Parses all ``**/tests/pressure-tests/*.md`` files, extracts structured
 sections (Prompt, Expected Behavior, Failure Signs), and generates a

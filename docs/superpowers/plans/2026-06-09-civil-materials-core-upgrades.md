@@ -1,10 +1,10 @@
-# Civil Materials Core Upgrades Implementation Plan
+# Materials Science Core Upgrades Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Upgrade `civil-materials-reader`, `civil-materials-figure`, and `civil-materials-citation` into a stronger evidence-to-review pipeline for WER-EA and broader civil-materials manuscripts.
+**Goal:** Upgrade `materials-reader`, `materials-figure`, and `materials-citation` into a stronger evidence-to-review pipeline for WER-EA and broader materials manuscripts.
 
-**Architecture:** Keep each skill self-contained and router-driven. Add deeper workflow references, templates, and tests inside each skill folder, then mirror root skill changes into `plugins/civil-materials-skills/skills/<skill>/`. Avoid large shared refactors; only update shared docs or release checks when a new artifact must be validated.
+**Architecture:** Keep each skill self-contained and router-driven. Add deeper workflow references, templates, and tests inside each skill folder, then mirror root skill changes into `plugins/materials-skills/skills/<skill>/`. Avoid large shared refactors; only update shared docs or release checks when a new artifact must be validated.
 
 **Tech Stack:** Codex skills (`SKILL.md`, `manifest.yaml`, `agents/openai.yaml`), Markdown references/templates, Python scripts and `unittest`, local release gate `python scripts\run_release_checks.py --json`.
 
@@ -12,7 +12,7 @@
 
 ## Global Rules For All Workers
 
-- Work from the repository root on branch `codex/civil-materials-core-upgrades`.
+- Work from the repository root on branch `codex/materials-core-upgrades`.
 - Do not push to GitHub.
 - Do not add generated sample outputs under `outputs/`; `outputs/wer-ea-30-reading-sample/` must remain ignored and untracked.
 - Do not revert unrelated user or other-worker changes.
@@ -21,12 +21,12 @@
 - Prefer adding focused references/templates/tests over bloating `SKILL.md`.
 - Run targeted tests for your skill and report exact commands and results.
 
-## Task 1: Upgrade `civil-materials-reader`
+## Task 1: Upgrade `materials-reader`
 
 **Worker ownership:** only edit:
 
-- `skills/civil-materials-reader/**`
-- `plugins/civil-materials-skills/skills/civil-materials-reader/**`
+- `skills/materials-reader/**`
+- `plugins/materials-skills/skills/materials-reader/**`
 - reader-specific entries in `scripts/run_release_checks.py`, if needed for validation
 
 **Purpose:** Turn reader into a stricter full-paper evidence extractor that can hand off cleanly to citation and figure workflows.
@@ -37,21 +37,21 @@
 2. A durable reader output contract with required files, source anchors, confidence labels, and missing-evidence flags.
 3. A WER-EA mini-review extraction route that produces mechanism, dosage, durability, citation-role, and figure-handoff rows.
 4. A stronger visual-asset linkage protocol: each figure/table card should record source page, crop status, interpretation boundary, and whether the asset can support a review figure.
-5. A bridge to `civil-materials-citation`: each borrowable claim must include citation role and evidence type.
-6. A bridge to `civil-materials-figure`: each figure-worthy row must include figure archetype and reviewer-risk boundary.
+5. A bridge to `materials-citation`: each borrowable claim must include citation role and evidence type.
+6. A bridge to `materials-figure`: each figure-worthy row must include figure archetype and reviewer-risk boundary.
 7. Tests that catch mojibake in reader triggers and verify the new handoff templates/references exist and contain required fields.
 
 **Expected files to add or modify:**
 
-- Modify `skills/civil-materials-reader/SKILL.md` to stay short and point to new workflow references.
-- Modify `skills/civil-materials-reader/manifest.yaml` to add or clean axes for `source_type`, `output_type`, and a new handoff route if needed.
-- Add `skills/civil-materials-reader/references/evidence-to-review-handoff.md`.
+- Modify `skills/materials-reader/SKILL.md` to stay short and point to new workflow references.
+- Modify `skills/materials-reader/manifest.yaml` to add or clean axes for `source_type`, `output_type`, and a new handoff route if needed.
+- Add `skills/materials-reader/references/evidence-to-review-handoff.md`.
 - Add or modify reader templates such as:
   - `assets/templates/citation-handoff-template.csv`
   - `assets/templates/figure-handoff-template.csv`
   - `assets/templates/source-anchor-checklist.md`
-- Add tests in `skills/civil-materials-reader/tests/test_reader_handoff.py`.
-- Mirror all changed reader files to `plugins/civil-materials-skills/skills/civil-materials-reader/`.
+- Add tests in `skills/materials-reader/tests/test_reader_handoff.py`.
+- Mirror all changed reader files to `plugins/materials-skills/skills/materials-reader/`.
 
 **Implementation steps:**
 
@@ -77,7 +77,7 @@
 - [ ] Run:
 
 ```powershell
-python -m unittest discover -s skills\civil-materials-reader\tests -v
+python -m unittest discover -s skills\materials-reader\tests -v
 ```
 
 **Acceptance criteria:**
@@ -87,12 +87,12 @@ python -m unittest discover -s skills\civil-materials-reader\tests -v
 - Root and plugin reader copies match.
 - Targeted reader tests pass.
 
-## Task 2: Upgrade `civil-materials-figure`
+## Task 2: Upgrade `materials-figure`
 
 **Worker ownership:** only edit:
 
-- `skills/civil-materials-figure/**`
-- `plugins/civil-materials-skills/skills/civil-materials-figure/**`
+- `skills/materials-figure/**`
+- `plugins/materials-skills/skills/materials-figure/**`
 - figure-specific entries in `scripts/run_release_checks.py`, if needed for validation
 
 **Purpose:** Turn figure into a more reliable review-figure and journal-package generator that consumes reader/citation handoffs.
@@ -118,14 +118,14 @@ python -m unittest discover -s skills\civil-materials-reader\tests -v
 
 **Expected files to add or modify:**
 
-- Modify `skills/civil-materials-figure/SKILL.md` only to route to new references.
-- Modify `skills/civil-materials-figure/manifest.yaml` to add a `handoff_intake` or equivalent route.
-- Add `skills/civil-materials-figure/references/review-figure-intake.md`.
-- Add `skills/civil-materials-figure/assets/templates/review-figure-intake-template.csv`.
+- Modify `skills/materials-figure/SKILL.md` only to route to new references.
+- Modify `skills/materials-figure/manifest.yaml` to add a `handoff_intake` or equivalent route.
+- Add `skills/materials-figure/references/review-figure-intake.md`.
+- Add `skills/materials-figure/assets/templates/review-figure-intake-template.csv`.
 - Modify `references/wer-ea-review-figure-contract.md` if needed to include measured/inferred/speculative tiers.
 - Modify `references/figure-qa-contract.md` or package templates if needed.
-- Add tests in `skills/civil-materials-figure/tests/test_review_figure_intake.py`.
-- Mirror all changed figure files to `plugins/civil-materials-skills/skills/civil-materials-figure/`.
+- Add tests in `skills/materials-figure/tests/test_review_figure_intake.py`.
+- Mirror all changed figure files to `plugins/materials-skills/skills/materials-figure/`.
 
 **Implementation steps:**
 
@@ -150,7 +150,7 @@ python -m unittest discover -s skills\civil-materials-reader\tests -v
 - [ ] Run:
 
 ```powershell
-python -m unittest discover -s skills\civil-materials-figure\tests -v
+python -m unittest discover -s skills\materials-figure\tests -v
 ```
 
 **Acceptance criteria:**
@@ -160,15 +160,15 @@ python -m unittest discover -s skills\civil-materials-figure\tests -v
 - Root and plugin figure copies match.
 - Targeted figure tests pass.
 
-## Task 3: Upgrade `civil-materials-citation`
+## Task 3: Upgrade `materials-citation`
 
 **Worker ownership:** only edit:
 
-- `skills/civil-materials-citation/**`
-- `plugins/civil-materials-skills/skills/civil-materials-citation/**`
+- `skills/materials-citation/**`
+- `plugins/materials-skills/skills/materials-citation/**`
 - citation-specific entries in `scripts/run_release_checks.py`, if needed for validation
 
-**Purpose:** Turn citation into a stronger claim-source alignment and literature-screening engine for civil materials, with WER-EA-specific evidence layers.
+**Purpose:** Turn citation into a stronger claim-source alignment and literature-screening engine for materials, with WER-EA-specific evidence layers.
 
 **Desired capabilities:**
 
@@ -189,8 +189,8 @@ python -m unittest discover -s skills\civil-materials-figure\tests -v
 
 **Expected files to add or modify:**
 
-- Modify `skills/civil-materials-citation/SKILL.md` to route to new references without becoming long.
-- Modify `skills/civil-materials-citation/manifest.yaml` to add WER-EA screening/reference-gap triggers.
+- Modify `skills/materials-citation/SKILL.md` to route to new references without becoming long.
+- Modify `skills/materials-citation/manifest.yaml` to add WER-EA screening/reference-gap triggers.
 - Modify `references/claim-citation-mapping.md` and `references/reference-gap-audit.md`.
 - Add `references/wer-ea-screening-and-source-quality.md`.
 - Modify `assets/templates/citation-matrix-template.csv` and maybe `scripts/build_citation_matrix.py` if schema support is needed.
@@ -199,7 +199,7 @@ python -m unittest discover -s skills\civil-materials-figure\tests -v
   - `mcp/academic_search/domain/queries.py`
   - `mcp/academic_search/tests/test_domain.py`
   - `mcp/academic_search/tests/test_service.py`
-- Mirror all changed citation files to `plugins/civil-materials-skills/skills/civil-materials-citation/`.
+- Mirror all changed citation files to `plugins/materials-skills/skills/materials-citation/`.
 
 **Implementation steps:**
 
@@ -223,7 +223,7 @@ python -m unittest discover -s skills\civil-materials-figure\tests -v
 - [ ] Run:
 
 ```powershell
-python -m unittest discover -s skills\civil-materials-citation\mcp\academic_search\tests -v
+python -m unittest discover -s skills\materials-citation\mcp\academic_search\tests -v
 ```
 
 **Acceptance criteria:**

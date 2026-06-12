@@ -1,10 +1,10 @@
-﻿# Civil Materials Final Upgrade Implementation Plan
+﻿# Materials Science Final Upgrade Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Upgrade `civil-materials-skills` to a final-version, non-MVP research workflow by completing four pillars: unified skill architecture, reader standard output packages, expanded academic-search sources, and a WER-EA figure asset library.
+**Goal:** Upgrade `materials-skills` to a final-version, non-MVP research workflow by completing four pillars: unified skill architecture, reader standard output packages, expanded academic-search sources, and a WER-EA figure asset library.
 
-**Architecture:** Keep the existing root skill folders as the source of truth and mirror every changed skill file into `plugins/civil-materials-skills/skills/<skill>/`. Standardize skill routing around `SKILL.md`, `manifest.yaml`, `static/core/*`, on-demand `references/*`, templates, scripts, tests, manifest-declared assets/scripts/handoffs, and release gates. Preserve the current evidence-to-review pipeline while adding production-grade package builders, source adapters, visual assets, and verification.
+**Architecture:** Keep the existing root skill folders as the source of truth and mirror every changed skill file into `plugins/materials-skills/skills/<skill>/`. Standardize skill routing around `SKILL.md`, `manifest.yaml`, `static/core/*`, on-demand `references/*`, templates, scripts, tests, manifest-declared assets/scripts/handoffs, and release gates. Preserve the current evidence-to-review pipeline while adding production-grade package builders, source adapters, visual assets, and verification.
 
 **Tech Stack:** Codex skills, Markdown references/templates, YAML manifests, Python stdlib + `unittest`, optional `httpx`, optional academic API keys, matplotlib/SVG figure scripts, PowerShell verification commands on Windows.
 
@@ -13,18 +13,18 @@
 ## Current State And Non-Negotiable Constraints
 
 - Work from `the repository root`.
-- Current branch is expected to be `codex/civil-materials-core-upgrades`.
+- Current branch is expected to be `codex/materials-core-upgrades`.
 - There are already uncommitted upgrades for reader/citation/figure. Workers must not revert them.
 - `outputs/wer-ea-30-reading-sample/` must stay ignored and must not be staged.
-- Root skill folders under `skills/` and plugin mirror folders under `plugins/civil-materials-skills/skills/` must stay byte-identical for changed files, except known generated cache files and the pre-existing figure hard-workflow root-only exception.
+- Root skill folders under `skills/` and plugin mirror folders under `plugins/materials-skills/skills/` must stay byte-identical for changed files, except known generated cache files and the pre-existing figure hard-workflow root-only exception.
 - New files should be ASCII unless an existing domain file intentionally contains Chinese trigger text. If Chinese trigger text is changed, validate real UTF-8 bytes with Python, not PowerShell display.
 - Every pillar must add or update tests before being called complete.
 - The final integration gate is:
 
 ```powershell
-python -m unittest discover -s skills\civil-materials-reader\tests -v
-python -m unittest discover -s skills\civil-materials-figure\tests -v
-python -m unittest discover -s skills\civil-materials-citation\mcp\academic_search\tests -v
+python -m unittest discover -s skills\materials-reader\tests -v
+python -m unittest discover -s skills\materials-figure\tests -v
+python -m unittest discover -s skills\materials-citation\mcp\academic_search\tests -v
 python scripts\run_release_checks.py --json
 git diff --check
 git status --short --branch --ignored -- outputs\wer-ea-30-reading-sample
@@ -43,7 +43,7 @@ Expected final results:
 
 ### Purpose
 
-Make every `civil-materials-*` skill follow one explicit architecture: short router `SKILL.md`, schema-backed `manifest.yaml`, always-loaded `static/core/*`, lazy references/templates/scripts, tests, and release gates. This should make the package closer to the clean nature-skills static/dynamic split while preserving civil-materials domain specificity.
+Make every `materials-*` skill follow one explicit architecture: short router `SKILL.md`, schema-backed `manifest.yaml`, always-loaded `static/core/*`, lazy references/templates/scripts, tests, and release gates. This should make the package closer to the clean nature-skills static/dynamic split while preserving materials domain specificity.
 
 ### Final Architecture Contract
 
@@ -58,7 +58,7 @@ Every production skill must have:
 - `references/`: on-demand workflows and domain guidance.
 - `assets/templates/`: reusable output contracts and CSV/Markdown schemas where the skill has deliverables.
 - `tests/`: structural tests for key references, templates, routes, and anti-overclaim constraints.
-- Plugin mirror under `plugins/civil-materials-skills/skills/<skill>/`.
+- Plugin mirror under `plugins/materials-skills/skills/<skill>/`.
 
 Skills without scripts are allowed, but the manifest must still say what the skill can produce and how it routes.
 
@@ -72,9 +72,9 @@ Modify:
 - `skills/*/SKILL.md`
 - `skills/*/manifest.yaml`
 - `skills/*/static/core/*`
-- `plugins/civil-materials-skills/skills/*/SKILL.md`
-- `plugins/civil-materials-skills/skills/*/manifest.yaml`
-- `plugins/civil-materials-skills/skills/*/static/core/*`
+- `plugins/materials-skills/skills/*/SKILL.md`
+- `plugins/materials-skills/skills/*/manifest.yaml`
+- `plugins/materials-skills/skills/*/static/core/*`
 
 Create:
 
@@ -109,11 +109,11 @@ Steps:
 | Templates | assets/templates/* | Output schemas | required fields checked |
 | Scripts | scripts/*.py | Reusable production helpers | targeted tests |
 | Tests | tests/* | Regression and contract checks | release gate |
-| Plugin mirror | plugins/civil-materials-skills/skills/<skill>/ | Installed package copy | byte identity check |
+| Plugin mirror | plugins/materials-skills/skills/<skill>/ | Installed package copy | byte identity check |
 ```
 
 - [ ] Create `docs/architecture/release-gate-contract.md` listing every release check bucket, what it proves, and what it does not prove.
-- [ ] Document the accepted mirror exceptions, including whether `_shared/SKILL.md`, `_shared/agents/openai.yaml`, and `civil-materials-figure/tests/test_figure_hard_workflow.py` are synced or explicitly allowlisted.
+- [ ] Document the accepted mirror exceptions, including whether `_shared/SKILL.md`, `_shared/agents/openai.yaml`, and `materials-figure/tests/test_figure_hard_workflow.py` are synced or explicitly allowlisted.
 - [ ] Update `README.md` and `docs/skills-index.md` with a short "Architecture" section that points to these two docs.
 
 Verification:
@@ -140,7 +140,7 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
     """Return missing files, missing manifest paths, and invalid trigger encodings."""
 
 def inspect_all(root: Path = Path("skills")) -> dict[str, object]:
-    """Inspect every civil-materials-* skill and return a JSON-safe report."""
+    """Inspect every materials-* skill and return a JSON-safe report."""
 
 def main(argv: list[str] | None = None) -> int:
     """Print JSON. Exit 0 only when every required architecture check passes."""
@@ -148,7 +148,7 @@ def main(argv: list[str] | None = None) -> int:
 
 Required checks:
 
-- Every `civil-materials-*` skill has `SKILL.md`, `manifest.yaml`, `agents/openai.yaml`.
+- Every `materials-*` skill has `SKILL.md`, `manifest.yaml`, `agents/openai.yaml`.
 - Every production skill has `static/core/contract.md` and `static/core/workflow.md`.
 - Every `manifest.yaml` has standard blocks: `assets`, `scripts`, `tests`, `quality_gates`, `handoffs`, and `release_checks`.
 - Every `always_load` path exists relative to the skill folder.
@@ -160,7 +160,7 @@ Required checks:
 Test cases in `tests/test_skill_architecture_contract.py`:
 
 ```python
-def test_all_civil_materials_skills_follow_static_dynamic_architecture():
+def test_all_materials_skills_follow_static_dynamic_architecture():
     report = inspect_all(Path("skills"))
     assert report["status"] == "pass", report
 
@@ -195,17 +195,17 @@ Owned files:
 
 Per-skill final contract:
 
-- `civil-materials-research`: router and cross-skill planner.
-- `civil-materials-reader`: source-grounded reading and standard reader package.
-- `civil-materials-citation`: literature search, source screening, citation matrix, MCP.
-- `civil-materials-writing`: manuscript and review drafting from evidence.
-- `civil-materials-polishing`: language polishing and claim-strength control.
-- `civil-materials-response`: reviewer response mapping.
-- `civil-materials-reviewer`: simulated peer review and risk audit.
-- `civil-materials-paper2ppt`: slide-ready Markdown handoff.
-- `civil-materials-pptx`: real PPTX generation.
-- `civil-materials-figure`: figure package, visual QA, WER-EA atlas.
-- `civil-materials-data`: FAIR data package and data availability.
+- `materials-research`: router and cross-skill planner.
+- `materials-reader`: source-grounded reading and standard reader package.
+- `materials-citation`: literature search, source screening, citation matrix, MCP.
+- `materials-writing`: manuscript and review drafting from evidence.
+- `materials-polishing`: language polishing and claim-strength control.
+- `materials-response`: reviewer response mapping.
+- `materials-reviewer`: simulated peer review and risk audit.
+- `materials-paper2ppt`: slide-ready Markdown handoff.
+- `materials-pptx`: real PPTX generation.
+- `materials-figure`: figure package, visual QA, WER-EA atlas.
+- `materials-data`: FAIR data package and data availability.
 
 Steps:
 
@@ -213,9 +213,9 @@ Steps:
 - [ ] Ensure every `manifest.yaml` has `version`, `always_load`, `axes`, `assets`, `scripts`, `tests`, `quality_gates`, `handoffs`, and `release_checks`.
 - [ ] Replace mojibake trigger text with valid UTF-8 Chinese trigger text when Chinese triggers are useful.
 - [ ] Declare the citation test location as `mcp/academic_search/tests` rather than forcing a root `tests/` directory.
-- [ ] Add smoke tests or explicit documented release exemptions for `civil-materials-paper2ppt` and `civil-materials-pptx`.
+- [ ] Add smoke tests or explicit documented release exemptions for `materials-paper2ppt` and `materials-pptx`.
 - [ ] Keep all existing useful references and templates; do not delete domain guidance merely to make files shorter.
-- [ ] Mirror all root skill changes into `plugins/civil-materials-skills/skills/<skill>/`.
+- [ ] Mirror all root skill changes into `plugins/materials-skills/skills/<skill>/`.
 
 Verification:
 
@@ -245,7 +245,7 @@ New release buckets:
 Steps:
 
 - [ ] Import or call the checker logic from `scripts/check_skill_architecture.py`.
-- [ ] Expand mojibake scanning from selected skills to all `civil-materials-*` skills, root and plugin.
+- [ ] Expand mojibake scanning from selected skills to all `materials-*` skills, root and plugin.
 - [ ] Add plugin mirror identity checks for files touched by this final upgrade.
 - [ ] Add `--check-only` or `--no-clean` mode so pure audits can avoid deleting `__pycache__` or generated byproducts.
 - [ ] Add release checks for reader package scripts and WER-EA atlas required assets.
@@ -271,7 +271,7 @@ Acceptance criteria for Pillar 1:
 
 ### Purpose
 
-Turn `civil-materials-reader` into a production package generator for full-paper reading, WER-EA mini-review extraction, citation handoff, figure handoff, and Obsidian handoff. The final output must be a reusable folder, not isolated notes.
+Turn `materials-reader` into a production package generator for full-paper reading, WER-EA mini-review extraction, citation handoff, figure handoff, and Obsidian handoff. The final output must be a reusable folder, not isolated notes.
 
 ### Final Reader Package Contract
 
@@ -324,41 +324,41 @@ The package must preserve:
 
 Modify:
 
-- `skills/civil-materials-reader/SKILL.md`
-- `skills/civil-materials-reader/manifest.yaml`
-- `skills/civil-materials-reader/static/core/reader-contract.md`
-- `skills/civil-materials-reader/static/core/workflow.md`
-- `skills/civil-materials-reader/references/evidence-to-review-handoff.md`
-- `skills/civil-materials-reader/references/fulltext-figure-anchored-reading.md`
-- `skills/civil-materials-reader/references/wer-ea-intensive-reading-package.md`
+- `skills/materials-reader/SKILL.md`
+- `skills/materials-reader/manifest.yaml`
+- `skills/materials-reader/static/core/reader-contract.md`
+- `skills/materials-reader/static/core/workflow.md`
+- `skills/materials-reader/references/evidence-to-review-handoff.md`
+- `skills/materials-reader/references/fulltext-figure-anchored-reading.md`
+- `skills/materials-reader/references/wer-ea-intensive-reading-package.md`
 - `scripts/run_release_checks.py`
 - Matching plugin mirror files.
 
 Create:
 
-- `skills/civil-materials-reader/references/standard-output-package.md`
-- `skills/civil-materials-reader/assets/schemas/source-map.schema.json`
-- `skills/civil-materials-reader/assets/schemas/visual-asset-spec.schema.json`
-- `skills/civil-materials-reader/assets/schemas/visual-asset-report.schema.json`
-- `skills/civil-materials-reader/assets/schemas/reader-package-manifest.schema.json`
-- `skills/civil-materials-reader/assets/templates/package-manifest-template.json`
-- `skills/civil-materials-reader/assets/templates/qa-report-template.md`
-- `skills/civil-materials-reader/scripts/build_reader_package.py`
-- `skills/civil-materials-reader/scripts/audit_reader_package.py`
-- `skills/civil-materials-reader/scripts/validate_reader_package.py`
-- `skills/civil-materials-reader/tests/test_reader_package_contract.py`
-- `skills/civil-materials-reader/tests/test_reader_package_scripts.py`
-- `skills/civil-materials-reader/tests/test_validate_reader_package.py`
+- `skills/materials-reader/references/standard-output-package.md`
+- `skills/materials-reader/assets/schemas/source-map.schema.json`
+- `skills/materials-reader/assets/schemas/visual-asset-spec.schema.json`
+- `skills/materials-reader/assets/schemas/visual-asset-report.schema.json`
+- `skills/materials-reader/assets/schemas/reader-package-manifest.schema.json`
+- `skills/materials-reader/assets/templates/package-manifest-template.json`
+- `skills/materials-reader/assets/templates/qa-report-template.md`
+- `skills/materials-reader/scripts/build_reader_package.py`
+- `skills/materials-reader/scripts/audit_reader_package.py`
+- `skills/materials-reader/scripts/validate_reader_package.py`
+- `skills/materials-reader/tests/test_reader_package_contract.py`
+- `skills/materials-reader/tests/test_reader_package_scripts.py`
+- `skills/materials-reader/tests/test_validate_reader_package.py`
 - Matching plugin mirror files.
 
 ### Task 2.1: Add Standard Package Reference And Templates
 
 Owned files:
 
-- `skills/civil-materials-reader/references/standard-output-package.md`
-- `skills/civil-materials-reader/assets/schemas/*.schema.json`
-- `skills/civil-materials-reader/assets/templates/package-manifest-template.json`
-- `skills/civil-materials-reader/assets/templates/qa-report-template.md`
+- `skills/materials-reader/references/standard-output-package.md`
+- `skills/materials-reader/assets/schemas/*.schema.json`
+- `skills/materials-reader/assets/templates/package-manifest-template.json`
+- `skills/materials-reader/assets/templates/qa-report-template.md`
 - Existing reader templates.
 
 Steps:
@@ -369,7 +369,7 @@ Steps:
 
 ```json
 {
-  "package_type": "civil-materials-reader-package",
+  "package_type": "materials-reader-package",
   "skill_version": "1.2.0",
   "source_type": "",
   "paper_title": "",
@@ -386,7 +386,7 @@ Steps:
     "review_handoff.md",
     "qa_report.md"
   ],
-  "handoff_targets": ["civil-materials-citation", "civil-materials-figure"],
+  "handoff_targets": ["materials-citation", "materials-figure"],
   "evidence_boundary": "No unsupported claim is promoted without a source anchor."
 }
 ```
@@ -399,11 +399,11 @@ Steps:
 Verification:
 
 ```powershell
-Select-String -Path skills\civil-materials-reader\references\standard-output-package.md -Pattern 'package_manifest.json','source_map.json','citation_handoff.csv','figure_handoff.csv','qa_report.md'
+Select-String -Path skills\materials-reader\references\standard-output-package.md -Pattern 'package_manifest.json','source_map.json','citation_handoff.csv','figure_handoff.csv','qa_report.md'
 python - <<'PY'
 import json
 from pathlib import Path
-for path in Path('skills/civil-materials-reader/assets/schemas').glob('*.schema.json'):
+for path in Path('skills/materials-reader/assets/schemas').glob('*.schema.json'):
     json.loads(path.read_text(encoding='utf-8'))
 print('schemas valid')
 PY
@@ -413,7 +413,7 @@ PY
 
 Owned files:
 
-- `skills/civil-materials-reader/scripts/build_reader_package.py`
+- `skills/materials-reader/scripts/build_reader_package.py`
 - Matching plugin mirror file.
 
 Implement a deterministic builder that creates an empty but valid package scaffold from metadata and optional source-map JSON.
@@ -421,7 +421,7 @@ Implement a deterministic builder that creates an empty but valid package scaffo
 CLI:
 
 ```powershell
-python skills\civil-materials-reader\scripts\build_reader_package.py --output-dir <dir> --source-type pasted-text --title "Example" --doi "10.x/example" --json
+python skills\materials-reader\scripts\build_reader_package.py --output-dir <dir> --source-type pasted-text --title "Example" --doi "10.x/example" --json
 ```
 
 Required behavior:
@@ -450,7 +450,7 @@ def safe_resolve_output_dir(path: Path) -> Path:
 Verification:
 
 ```powershell
-python skills\civil-materials-reader\scripts\build_reader_package.py --output-dir $env:TEMP\reader-package-smoke --source-type pasted-text --title "Smoke" --force --json
+python skills\materials-reader\scripts\build_reader_package.py --output-dir $env:TEMP\reader-package-smoke --source-type pasted-text --title "Smoke" --force --json
 ```
 
 Expected: JSON reports `status: pass` and lists required files.
@@ -459,8 +459,8 @@ Expected: JSON reports `status: pass` and lists required files.
 
 Owned files:
 
-- `skills/civil-materials-reader/scripts/audit_reader_package.py`
-- `skills/civil-materials-reader/scripts/validate_reader_package.py`
+- `skills/materials-reader/scripts/audit_reader_package.py`
+- `skills/materials-reader/scripts/validate_reader_package.py`
 - Matching plugin mirror file.
 
 Audit rules:
@@ -484,8 +484,8 @@ Audit rules:
 CLI:
 
 ```powershell
-python skills\civil-materials-reader\scripts\audit_reader_package.py --package-dir <dir> --json
-python skills\civil-materials-reader\scripts\validate_reader_package.py --package-dir <dir> --json
+python skills\materials-reader\scripts\audit_reader_package.py --package-dir <dir> --json
+python skills\materials-reader\scripts\validate_reader_package.py --package-dir <dir> --json
 ```
 
 Expected JSON:
@@ -506,8 +506,8 @@ Expected JSON:
 
 Owned files:
 
-- `skills/civil-materials-reader/tests/test_reader_package_contract.py`
-- `skills/civil-materials-reader/tests/test_reader_package_scripts.py`
+- `skills/materials-reader/tests/test_reader_package_contract.py`
+- `skills/materials-reader/tests/test_reader_package_scripts.py`
 - Matching plugin mirror files.
 
 Test cases:
@@ -541,15 +541,15 @@ def test_reader_schemas_are_valid_json_and_referenced_by_validator():
 Verification:
 
 ```powershell
-python -m unittest discover -s skills\civil-materials-reader\tests -v
+python -m unittest discover -s skills\materials-reader\tests -v
 ```
 
 ### Task 2.5: Wire Reader Package Into Manifest And Release Gate
 
 Owned files:
 
-- `skills/civil-materials-reader/SKILL.md`
-- `skills/civil-materials-reader/manifest.yaml`
+- `skills/materials-reader/SKILL.md`
+- `skills/materials-reader/manifest.yaml`
 - `scripts/run_release_checks.py`
 - Matching plugin mirror files.
 
@@ -563,7 +563,7 @@ Steps:
 Verification:
 
 ```powershell
-python -m unittest discover -s skills\civil-materials-reader\tests -v
+python -m unittest discover -s skills\materials-reader\tests -v
 python scripts\run_release_checks.py --json
 ```
 
@@ -581,7 +581,7 @@ Acceptance criteria for Pillar 2:
 
 ### Purpose
 
-Upgrade `civil-materials-citation` from a focused Crossref/PubMed/OpenAlex/Semantic Scholar workflow into a broader academic-search layer comparable to nature-skills breadth, while keeping civil-materials evidence classification as the differentiator.
+Upgrade `materials-citation` from a focused Crossref/PubMed/OpenAlex/Semantic Scholar workflow into a broader academic-search layer comparable to nature-skills breadth, while keeping materials evidence classification as the differentiator.
 
 ### Final Source Contract
 
@@ -609,34 +609,34 @@ Required new service capabilities:
 
 Modify:
 
-- `skills/civil-materials-citation/SKILL.md`
-- `skills/civil-materials-citation/manifest.yaml`
-- `skills/civil-materials-citation/mcp/academic_search/README.md`
-- `skills/civil-materials-citation/mcp/academic_search/server.py`
-- `skills/civil-materials-citation/mcp/academic_search/service.py`
-- `skills/civil-materials-citation/mcp/academic_search/adapters/__init__.py`
-- `skills/civil-materials-citation/mcp/academic_search/adapters/base.py`
-- `skills/civil-materials-citation/mcp/academic_search/tests/*`
-- `skills/civil-materials-citation/references/academic-search-mcp.md`
+- `skills/materials-citation/SKILL.md`
+- `skills/materials-citation/manifest.yaml`
+- `skills/materials-citation/mcp/academic_search/README.md`
+- `skills/materials-citation/mcp/academic_search/server.py`
+- `skills/materials-citation/mcp/academic_search/service.py`
+- `skills/materials-citation/mcp/academic_search/adapters/__init__.py`
+- `skills/materials-citation/mcp/academic_search/adapters/base.py`
+- `skills/materials-citation/mcp/academic_search/tests/*`
+- `skills/materials-citation/references/academic-search-mcp.md`
 - `scripts/run_release_checks.py`
 - Matching plugin mirror files.
 
 Create:
 
-- `skills/civil-materials-citation/mcp/academic_search/adapters/arxiv.py`
-- `skills/civil-materials-citation/mcp/academic_search/adapters/elsevier_common.py`
-- `skills/civil-materials-citation/mcp/academic_search/adapters/scopus.py`
-- `skills/civil-materials-citation/mcp/academic_search/adapters/sciencedirect.py`
-- `skills/civil-materials-citation/mcp/academic_search/domain/identifiers.py`
-- `skills/civil-materials-citation/mcp/academic_search/importers/citation_files.py`
-- `skills/civil-materials-citation/mcp/academic_search/export/csl_json.py`
-- `skills/civil-materials-citation/mcp/academic_search/export/jsonl.py`
-- `skills/civil-materials-citation/mcp/academic_search/tests/test_arxiv_adapter.py`
-- `skills/civil-materials-citation/mcp/academic_search/tests/test_elsevier_adapters.py`
-- `skills/civil-materials-citation/mcp/academic_search/tests/test_identifiers.py`
-- `skills/civil-materials-citation/mcp/academic_search/tests/test_citation_file_import.py`
-- `skills/civil-materials-citation/mcp/academic_search/tests/test_format_conversion.py`
-- `skills/civil-materials-citation/references/expanded-academic-search.md`
+- `skills/materials-citation/mcp/academic_search/adapters/arxiv.py`
+- `skills/materials-citation/mcp/academic_search/adapters/elsevier_common.py`
+- `skills/materials-citation/mcp/academic_search/adapters/scopus.py`
+- `skills/materials-citation/mcp/academic_search/adapters/sciencedirect.py`
+- `skills/materials-citation/mcp/academic_search/domain/identifiers.py`
+- `skills/materials-citation/mcp/academic_search/importers/citation_files.py`
+- `skills/materials-citation/mcp/academic_search/export/csl_json.py`
+- `skills/materials-citation/mcp/academic_search/export/jsonl.py`
+- `skills/materials-citation/mcp/academic_search/tests/test_arxiv_adapter.py`
+- `skills/materials-citation/mcp/academic_search/tests/test_elsevier_adapters.py`
+- `skills/materials-citation/mcp/academic_search/tests/test_identifiers.py`
+- `skills/materials-citation/mcp/academic_search/tests/test_citation_file_import.py`
+- `skills/materials-citation/mcp/academic_search/tests/test_format_conversion.py`
+- `skills/materials-citation/references/expanded-academic-search.md`
 - Matching plugin mirror files.
 
 ### Task 3.1: Add arXiv Adapter
@@ -876,7 +876,7 @@ Steps:
 Verification:
 
 ```powershell
-python -m unittest discover -s skills\civil-materials-citation\mcp\academic_search\tests -v
+python -m unittest discover -s skills\materials-citation\mcp\academic_search\tests -v
 python scripts\run_release_checks.py --json
 ```
 
@@ -942,35 +942,35 @@ Every asset must have:
 
 Modify:
 
-- `skills/civil-materials-figure/SKILL.md`
-- `skills/civil-materials-figure/README.md`
-- `skills/civil-materials-figure/manifest.yaml`
-- `skills/civil-materials-figure/references/wer-ea-review-figure-contract.md`
-- `skills/civil-materials-figure/references/visual-asset-roadmap.md`
-- `skills/civil-materials-figure/references/figure-gallery.md`
-- `skills/civil-materials-figure/tests/test_review_assets.py`
+- `skills/materials-figure/SKILL.md`
+- `skills/materials-figure/README.md`
+- `skills/materials-figure/manifest.yaml`
+- `skills/materials-figure/references/wer-ea-review-figure-contract.md`
+- `skills/materials-figure/references/visual-asset-roadmap.md`
+- `skills/materials-figure/references/figure-gallery.md`
+- `skills/materials-figure/tests/test_review_assets.py`
 - `scripts/run_release_checks.py`
 - Matching plugin mirror files.
 
 Create:
 
-- `skills/civil-materials-figure/references/wer-ea-figure-atlas.md`
-- `skills/civil-materials-figure/assets/wer-ea-atlas/asset-specs.csv`
-- `skills/civil-materials-figure/assets/wer-ea-atlas/data/*.csv`
-- `skills/civil-materials-figure/assets/wer-ea-atlas/generated/*.svg`
-- `skills/civil-materials-figure/assets/wer-ea-atlas/generated/*.png`
-- `skills/civil-materials-figure/scripts/wer_ea_atlas/generate_atlas.py`
-- `skills/civil-materials-figure/scripts/wer_ea_atlas/plot_mechanism_map.py`
-- `skills/civil-materials-figure/scripts/wer_ea_atlas/plot_evidence_heatmap.py`
-- `skills/civil-materials-figure/scripts/wer_ea_atlas/plot_material_system_map.py`
-- `skills/civil-materials-figure/scripts/wer_ea_atlas/plot_performance_mechanism_boundary.py`
-- `skills/civil-materials-figure/scripts/wer_ea_atlas/plot_literature_screening_flow.py`
-- `skills/civil-materials-figure/scripts/wer_ea_atlas/plot_graphical_abstract.py`
-- `skills/civil-materials-figure/scripts/wer_ea_atlas/plot_dosage_window.py`
-- `skills/civil-materials-figure/scripts/wer_ea_atlas/plot_durability_retention.py`
-- `skills/civil-materials-figure/scripts/wer_ea_atlas/plot_characterization_panel.py`
-- `skills/civil-materials-figure/scripts/wer_ea_atlas/plot_construction_workflow.py`
-- `skills/civil-materials-figure/tests/test_wer_ea_atlas.py`
+- `skills/materials-figure/references/wer-ea-figure-atlas.md`
+- `skills/materials-figure/assets/wer-ea-atlas/asset-specs.csv`
+- `skills/materials-figure/assets/wer-ea-atlas/data/*.csv`
+- `skills/materials-figure/assets/wer-ea-atlas/generated/*.svg`
+- `skills/materials-figure/assets/wer-ea-atlas/generated/*.png`
+- `skills/materials-figure/scripts/wer_ea_atlas/generate_atlas.py`
+- `skills/materials-figure/scripts/wer_ea_atlas/plot_mechanism_map.py`
+- `skills/materials-figure/scripts/wer_ea_atlas/plot_evidence_heatmap.py`
+- `skills/materials-figure/scripts/wer_ea_atlas/plot_material_system_map.py`
+- `skills/materials-figure/scripts/wer_ea_atlas/plot_performance_mechanism_boundary.py`
+- `skills/materials-figure/scripts/wer_ea_atlas/plot_literature_screening_flow.py`
+- `skills/materials-figure/scripts/wer_ea_atlas/plot_graphical_abstract.py`
+- `skills/materials-figure/scripts/wer_ea_atlas/plot_dosage_window.py`
+- `skills/materials-figure/scripts/wer_ea_atlas/plot_durability_retention.py`
+- `skills/materials-figure/scripts/wer_ea_atlas/plot_characterization_panel.py`
+- `skills/materials-figure/scripts/wer_ea_atlas/plot_construction_workflow.py`
+- `skills/materials-figure/tests/test_wer_ea_atlas.py`
 - Matching plugin mirror files.
 
 ### Task 4.1: Define Atlas Reference And Asset Spec Schema
@@ -992,7 +992,7 @@ Steps:
 Verification:
 
 ```powershell
-Select-String -Path skills\civil-materials-figure\references\wer-ea-figure-atlas.md -Pattern 'mechanism map','evidence heatmap','graphical abstract','caption boundary'
+Select-String -Path skills\materials-figure\references\wer-ea-figure-atlas.md -Pattern 'mechanism map','evidence heatmap','graphical abstract','caption boundary'
 ```
 
 ### Task 4.2: Add Atlas Data Templates
@@ -1019,7 +1019,7 @@ Required data templates:
 Verification:
 
 ```powershell
-Get-ChildItem skills\civil-materials-figure\assets\wer-ea-atlas\data\*.csv | Measure-Object
+Get-ChildItem skills\materials-figure\assets\wer-ea-atlas\data\*.csv | Measure-Object
 ```
 
 Expected: at least 9 CSV templates.
@@ -1043,7 +1043,7 @@ Shared helper behavior:
 Shared CLI:
 
 ```powershell
-python skills\civil-materials-figure\scripts\wer_ea_atlas\generate_atlas.py --output-dir skills\civil-materials-figure\assets\wer-ea-atlas\generated --json
+python skills\materials-figure\scripts\wer_ea_atlas\generate_atlas.py --output-dir skills\materials-figure\assets\wer-ea-atlas\generated --json
 ```
 
 Expected JSON:
@@ -1088,7 +1088,7 @@ def test_atlas_assets_are_mirrored_into_plugin():
 Verification:
 
 ```powershell
-python -m unittest skills\civil-materials-figure\tests\test_wer_ea_atlas.py -v
+python -m unittest skills\materials-figure\tests\test_wer_ea_atlas.py -v
 ```
 
 ### Task 4.5: Wire Atlas Into Figure Skill And Release Gate
@@ -1112,7 +1112,7 @@ Steps:
 Verification:
 
 ```powershell
-python -m unittest discover -s skills\civil-materials-figure\tests -v
+python -m unittest discover -s skills\materials-figure\tests -v
 python scripts\run_release_checks.py --json
 ```
 
@@ -1138,15 +1138,15 @@ Run these workers in parallel only after this plan is accepted as the source of 
    - Does not edit: academic-search adapters or figure atlas scripts.
 
 2. **Reader package worker**
-   - Owns: `skills/civil-materials-reader/**`, plugin reader mirror, reader-specific release checks.
+   - Owns: `skills/materials-reader/**`, plugin reader mirror, reader-specific release checks.
    - Does not edit: citation MCP or figure atlas scripts except handoff field coordination in docs.
 
 3. **Academic-search worker**
-   - Owns: `skills/civil-materials-citation/mcp/academic_search/**`, citation MCP docs, citation-specific release checks.
+   - Owns: `skills/materials-citation/mcp/academic_search/**`, citation MCP docs, citation-specific release checks.
    - Does not edit: reader package builder or figure atlas scripts.
 
 4. **WER-EA atlas worker**
-   - Owns: `skills/civil-materials-figure/assets/wer-ea-atlas/**`, `scripts/wer_ea_atlas/**`, figure atlas docs/tests, plugin mirror.
+   - Owns: `skills/materials-figure/assets/wer-ea-atlas/**`, `scripts/wer_ea_atlas/**`, figure atlas docs/tests, plugin mirror.
    - Does not edit: citation MCP internals or reader package scripts.
 
 5. **Integration worker**
@@ -1187,9 +1187,9 @@ Final commands:
 
 ```powershell
 python -m unittest tests\test_skill_architecture_contract.py -v
-python -m unittest discover -s skills\civil-materials-reader\tests -v
-python -m unittest discover -s skills\civil-materials-citation\mcp\academic_search\tests -v
-python -m unittest discover -s skills\civil-materials-figure\tests -v
+python -m unittest discover -s skills\materials-reader\tests -v
+python -m unittest discover -s skills\materials-citation\mcp\academic_search\tests -v
+python -m unittest discover -s skills\materials-figure\tests -v
 python scripts\check_skill_architecture.py --json
 python scripts\run_release_checks.py --json
 git diff --check

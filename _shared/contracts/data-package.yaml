@@ -1,10 +1,10 @@
 name: data-package
 version: "1.0"
 description: "FAIR-organized dataset package with metadata and data availability statement"
-produced_by: civil-materials-data
+produced_by: materials-data
 consumed_by:
-  - civil-materials-figure
-  - civil-materials-research
+  - materials-figure
+  - materials-research
 
 artifacts:
   metadata.md:
@@ -28,7 +28,7 @@ artifacts:
     required: true
 
 templates:
-  - ../../skills/civil-materials-data/assets/templates/metadata-template.md
-  - ../../skills/civil-materials-data/assets/templates/dataset-readme-template.md
-  - ../../skills/civil-materials-data/assets/templates/data-availability-template.md
-  - ../../skills/civil-materials-data/assets/templates/experiment-data-template.csv
+  - ../../skills/materials-data/assets/templates/metadata-template.md
+  - ../../skills/materials-data/assets/templates/dataset-readme-template.md
+  - ../../skills/materials-data/assets/templates/data-availability-template.md
+  - ../../skills/materials-data/assets/templates/experiment-data-template.csv

@@ -16,18 +16,18 @@ Take these reviewer comments and build a revision-ready response package with pr
 ## Proof Assets
 
 - Major revision example:
-  `skills/civil-materials-response/examples/cbm-major-revision-response-example.md`
+  `skills/materials-response/examples/cbm-major-revision-response-example.md`
 - Additional response examples:
-  `skills/civil-materials-response/examples/ccc-methodology-critique-response-example.md`
-  and `skills/civil-materials-response/examples/rmpd-minor-revision-response-example.md`
+  `skills/materials-response/examples/ccc-methodology-critique-response-example.md`
+  and `skills/materials-response/examples/rmpd-minor-revision-response-example.md`
 - Response skill contract:
-  `skills/civil-materials-response/README.md`
+  `skills/materials-response/README.md`
 - Weakness-routing backbone:
   `skills/_shared/paper-production/weakness-routing.md`
 
 ## Build Path
 
-1. Start with `civil-materials-response` once reviewer comments are available.
+1. Start with `materials-response` once reviewer comments are available.
 2. Route technical weaknesses back into reader, citation, writing, figure,
    polishing, or data work before finalizing the letter.
 3. Use the example response files to keep the tone specific and evidence-backed.

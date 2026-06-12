@@ -1,4 +1,4 @@
-# Civil Materials Gallery
+# Materials Science Gallery
 
 This gallery is the visual proof layer for the bundle. It uses editorial
 multi-panel boards assembled from real reader-package outputs and extracted
@@ -12,19 +12,19 @@ internal references, but they no longer serve as the front-door proof surface.
 
 ### Reader-package proof wall
 
-![Reader-package proof wall](../../skills/civil-materials-figure/assets/showcase-proof/reader_package_proof_wall.png)
+![Reader-package proof wall](../../skills/materials-figure/assets/showcase-proof/reader_package_proof_wall.png)
 
 ### WER-EA review evidence board
 
-![WER-EA review evidence board](../../skills/civil-materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
+![WER-EA review evidence board](../../skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
 
 ### SBR-WER performance editorial board
 
-![SBR-WER performance editorial board](../../skills/civil-materials-figure/assets/showcase-proof/sbr_wer_performance_proof_board.png)
+![SBR-WER performance editorial board](../../skills/materials-figure/assets/showcase-proof/sbr_wer_performance_proof_board.png)
 
 ### Interlayer fatigue editorial board
 
-![Interlayer fatigue editorial board](../../skills/civil-materials-figure/assets/showcase-proof/interlayer_fatigue_proof_board.png)
+![Interlayer fatigue editorial board](../../skills/materials-figure/assets/showcase-proof/interlayer_fatigue_proof_board.png)
 
 ## Workflow Proof
 
@@ -51,20 +51,20 @@ internal references, but they no longer serve as the front-door proof surface.
 - Reader-package sample:
   [outputs/wer-ea-30-reading-sample/README.md](../../outputs/wer-ea-30-reading-sample/README.md)
 - Front-door proof board assets:
-  `skills/civil-materials-figure/assets/showcase-proof/`
+  `skills/materials-figure/assets/showcase-proof/`
 - Front-door board manifest:
-  `skills/civil-materials-figure/assets/showcase-proof/showcase_manifest.json`
+  `skills/materials-figure/assets/showcase-proof/showcase_manifest.json`
 - Example library:
-  [library-index.md](../../skills/civil-materials-research/examples/library/library-index.md)
+  [library-index.md](../../skills/materials-research/examples/library/library-index.md)
 - Skills index:
   [docs/skills-index.md](../skills-index.md)
 - Outcome showcase hub:
   [docs/showcases/README.md](../showcases/README.md)
 - Template atlas output folder:
-  `skills/civil-materials-figure/assets/wer-ea-atlas/generated/`
+  `skills/materials-figure/assets/wer-ea-atlas/generated/`
 - Internal layout references:
-  `skills/civil-materials-figure/assets/rich-gallery/generated/`
-  and `skills/civil-materials-figure/assets/review-first/generated/`
+  `skills/materials-figure/assets/rich-gallery/generated/`
+  and `skills/materials-figure/assets/review-first/generated/`
 
 ## How To Read This Gallery
 

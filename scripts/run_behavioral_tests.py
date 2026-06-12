@@ -23,17 +23,17 @@ from pathlib import Path
 SKILLS_ROOT = Path(__file__).resolve().parents[1] / "skills"
 
 ALL_SKILLS = [
-    "civil-materials-citation",
-    "civil-materials-data",
-    "civil-materials-figure",
-    "civil-materials-paper2ppt",
-    "civil-materials-polishing",
-    "civil-materials-pptx",
-    "civil-materials-reader",
-    "civil-materials-research",
-    "civil-materials-response",
-    "civil-materials-reviewer",
-    "civil-materials-writing",
+    "materials-citation",
+    "materials-data",
+    "materials-figure",
+    "materials-paper2ppt",
+    "materials-polishing",
+    "materials-pptx",
+    "materials-reader",
+    "materials-research",
+    "materials-response",
+    "materials-reviewer",
+    "materials-writing",
 ]
 
 # Hard-coded scenarios (to be discovered from tests/scenarios/ directories)
@@ -199,7 +199,7 @@ def main() -> int:
         return 0
 
     if args.skill:
-        skill_map = {s.replace('civil-materials-', ''): s for s in ALL_SKILLS}
+        skill_map = {s.replace('materials-', ''): s for s in ALL_SKILLS}
         skill_map.update({s: s for s in ALL_SKILLS})
         skill_name = skill_map.get(args.skill, args.skill)
         results = run_skill(skill_name, silent=args.json)

@@ -1,0 +1,125 @@
+version: "1.1.0"
+
+always_load:
+  - static/core/contract.md
+  - ../_shared/core/stance.md
+  - ../_shared/core/evidence-contract.md
+  - ../_shared/core/claim-strength-ladder.md
+  - ../_shared/core/terminology-ledger.md
+  - ../_shared/core/ethics.md
+  - ../_shared/paper-production/weakness-routing.md
+  - static/core/stance.md
+  - static/core/workflow.md
+
+axes:
+  paper_type:
+    default: experimental-manuscript
+    values:
+      experimental-manuscript:
+        path: static/fragments/paper_type/experimental-manuscript.md
+        triggers: ["experiment", "results", "bonding performance", "waterborne epoxy", "test matrix", "mechanism"]
+      review-paper:
+        path: static/fragments/paper_type/review-paper.md
+        triggers: ["review", "mini-review", "small review", "literature review", "research progress"]
+      methods-paper:
+        path: static/fragments/paper_type/methods-paper.md
+        triggers: ["method", "standard", "protocol", "test method", "workflow"]
+
+  section:
+    default: full-argument
+    values:
+      abstract:
+        path: static/fragments/section/abstract.md
+        triggers: ["abstract", "summary", "摘要"]
+      introduction:
+        path: static/fragments/section/introduction.md
+        triggers: ["introduction", "gap", "novelty", "引言"]
+      methods:
+        path: static/fragments/section/methods.md
+        triggers: ["methods", "materials and methods", "experimental", "方法"]
+      results-discussion:
+        path: static/fragments/section/results-discussion.md
+        triggers: ["results", "discussion", "结果", "讨论"]
+      conclusion:
+        path: static/fragments/section/conclusion.md
+        triggers: ["conclusion", "结论"]
+      full-argument:
+        path: references/argument-chain.md
+        triggers: ["outline", "manuscript structure", "paper framework", "论文框架"]
+
+  language:
+    default: en
+    values:
+      en:
+        path: references/journal-positioning-writing.md
+        triggers: ["English", "SCI", "manuscript"]
+      zh-to-en:
+        path: references/chinese-to-english-drafting.md
+        triggers: ["Chinese", "translate", "中译英", "中文"]
+
+  journal_family:
+    default: materials
+    values:
+      CBM:
+        path: references/journal-positioning-writing.md
+        triggers: ["CBM", "Construction and Building Materials"]
+      CCC:
+        path: references/journal-positioning-writing.md
+        triggers: ["CCC", "Cement and Concrete Composites"]
+      RMPD:
+        path: references/journal-positioning-writing.md
+        triggers: ["RMPD", "IJPE", "JRE", "pavement"]
+      JBE:
+        path: references/journal-positioning-writing.md
+        triggers: ["JBE", "CSCM", "building"]
+
+references:
+  on_demand:
+    argument-chain:
+      path: references/argument-chain.md
+      when: "The user needs paper logic, contribution chain, or section-to-section flow."
+    waterborne-epoxy-narrative:
+      path: references/waterborne-epoxy-narrative.md
+      when: "The manuscript concerns waterborne epoxy modified emulsified asphalt."
+    review-paper-strategy:
+      path: references/review-paper-strategy.md
+      when: "The task is a mini-review, small review, or literature review."
+    wer-ea-mini-review-pipeline:
+      path: references/wer-ea-mini-review-pipeline.md
+      when: "The task is a WER-EA mini-review, waterborne epoxy emulsified asphalt review, or small review on modified emulsified asphalt bonding performance."
+    reviewer-risk-writing:
+      path: references/reviewer-risk-writing.md
+      when: "The draft needs overclaim, missing-evidence, or journal-fit risk checking."
+    journal-cbm-facts:
+      path: ../_shared/journal-formats/cbm.md
+      when: "The target journal is CBM, Construction and Building Materials."
+    journal-ccc-facts:
+      path: ../_shared/journal-formats/ccc.md
+      when: "The target journal is CCC, Cement and Concrete Composites."
+    journal-rmpd-facts:
+      path: ../_shared/journal-formats/rmpd.md
+      when: "The target journal is RMPD or IJPE."
+    journal-jbe-facts:
+      path: ../_shared/journal-formats/jbe.md
+      when: "The target journal is JBE, Journal of Building Engineering."
+    table-system:
+      path: references/table-system.md
+      when: "The user needs table system templates."
+assets:
+  - assets
+scripts:
+  - scripts
+tests:
+  - tests
+quality_gates:
+  - release gate must report no issues for this skill
+  - claims must stay inside the skill evidence contract
+handoffs:
+  provides: {}
+  consumes:
+    - handoff: reader-package
+      from: materials-reader
+      optional: true
+release_checks:
+  - scripts/run_release_checks.py --json
+  - scripts/check_skill_architecture.py --json

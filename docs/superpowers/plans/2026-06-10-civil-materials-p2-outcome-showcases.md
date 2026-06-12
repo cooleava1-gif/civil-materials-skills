@@ -1,4 +1,4 @@
-# Civil Materials P2 Outcome Showcase Implementation Plan
+# Materials Science P2 Outcome Showcase Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -77,7 +77,7 @@ git commit -m "test: require outcome showcase docs"
 - [ ] **Step 3: Use real repo assets and examples**
 
 ```markdown
-- `skills/civil-materials-response/examples/cbm-major-revision-response-example.md`
+- `skills/materials-response/examples/cbm-major-revision-response-example.md`
 ```
 
 - [ ] **Step 4: Re-run the product docs contract test**

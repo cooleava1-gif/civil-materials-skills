@@ -14,16 +14,16 @@ Take these reviewer comments, route the weaknesses to the right skills, and buil
 
 ## Workflow Steps
 
-1. Start with `civil-materials-reviewer` or directly with
-   `civil-materials-response` if comments are already structured.
+1. Start with `materials-reviewer` or directly with
+   `materials-response` if comments are already structured.
 2. Convert major concerns into weakness routes: reader for source-grounding,
    citation for coverage, writing for argument chain, figure for caption or
    panel risk, data for variables and metadata, polishing for overclaim control.
 3. Repair the technical content in the owning module before polishing the reply
    text.
-4. Return to `civil-materials-response` to build point-by-point replies with
+4. Return to `materials-response` to build point-by-point replies with
    proof of change, manuscript location, and bounded commitments.
-5. Re-run `civil-materials-reviewer` if the revision is substantial and you need
+5. Re-run `materials-reviewer` if the revision is substantial and you need
    a regression check before resubmission.
 
 ## Expected Artifacts

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate all 19 civil materials figures."""
+"""Generate all 19 materials figures."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-SKILL_ROOT = Path(__file__).resolve().parents[1] / "skills" / "civil-materials-figure"
+SKILL_ROOT = Path(__file__).resolve().parents[1] / "skills" / "materials-figure"
 SCRIPTS_ROOT = SKILL_ROOT / "scripts" / "figures4materials"
 OUTPUT_ROOT = Path(__file__).resolve().parents[1] / "outputs" / "generated-figures"
 
