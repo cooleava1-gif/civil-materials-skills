@@ -34,7 +34,7 @@ axes:
         triggers: ["journal", "submission", "target", "投稿", "选刊", "期刊"]
       experiment-design:
         path: static/fragments/task/experiment-design.md
-        triggers: ["experiment", "test matrix", "实验方案", "实验矩阵", "试验设计"]
+        triggers: ["experiment", "test matrix", "实验方案", "实验矩阵", "试验设计", "DOE", "factorial", "response surface", "RSM", "Taguchi", "正交试验", "响应面", "因子设计"]
       data-analysis:
         path: static/fragments/task/data-analysis.md
         triggers: ["data", "result", "interpret", "statistics", "数据", "结果分析", "数据分析", "强度", "粘度", "黏度", "储存稳定性"]
@@ -245,7 +245,7 @@ references:
       when: "The user asks for master's thesis planning, semester roadmap, paper timeline, weekly research plan, or how to progress from review to experiment to submission."
     companion-modules:
       path: references/companion-modules.md
-      when: "The task should be handed off to materials-reader, materials-citation, materials-writing, materials-polishing, materials-response, materials-reviewer, materials-paper2ppt, materials-pptx, or materials-figure."
+      when: "The task should be handed off to materials-reader, materials-citation, materials-writing, materials-polishing, materials-response, materials-reviewer, materials-paper2ppt, materials-pptx, materials-figure, or materials-doe."
     paper-production-orchestrator:
       path: references/paper-production-orchestrator.md
       when: "The user asks for WER-EA mini-review production, experimental manuscript planning, paper gates, weakness routing, reviewer-risk loops, or end-to-end paper-production control."
@@ -282,6 +282,7 @@ companion_skills:
   pptx: materials-pptx
   figure: materials-figure
   data: materials-data
+  doe: materials-doe
 assets: []
 scripts:
   - scripts
