@@ -1,4 +1,4 @@
-"""Audit civil-materials paper-production routing and gate templates."""
+"""Audit materials paper-production routing and gate templates."""
 
 from __future__ import annotations
 

@@ -20,7 +20,7 @@ def load_audit_module():
     return module
 
 
-class CivilMaterialsDataSkillStructureTest(unittest.TestCase):
+class MaterialsDataSkillStructureTest(unittest.TestCase):
     def test_skill_core_files_exist_and_describe_data_fair_work(self):
         required = [
             "SKILL.md",
@@ -87,7 +87,7 @@ class CivilMaterialsDataSkillStructureTest(unittest.TestCase):
         self.assertTrue((package_dir / "raw_data" / "experiment_data_template.csv").exists())
 
 
-class CivilMaterialsDataScriptsTest(unittest.TestCase):
+class MaterialsDataScriptsTest(unittest.TestCase):
     def test_build_fair_package_creates_submission_ready_structure(self):
         script = SKILL_ROOT / "scripts" / "build_fair_package.py"
         self.assertTrue(script.exists(), "build_fair_package.py should exist")
@@ -241,7 +241,7 @@ class CivilMaterialsDataScriptsTest(unittest.TestCase):
             )
 
 
-class CivilMaterialsDataRouterIntegrationTest(unittest.TestCase):
+class MaterialsDataRouterIntegrationTest(unittest.TestCase):
     def test_research_router_lists_data_fair_companion_skill(self):
         research_root = SKILL_ROOT.parent / "materials-research"
         skill_text = (research_root / "SKILL.md").read_text(encoding="utf-8")

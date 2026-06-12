@@ -86,7 +86,7 @@ class ProductDocsContractTests(unittest.TestCase):
             "## Quick Start",
             "## Four Workflow Entry Points",
             "## Installation Paths",
-            "## Skill Status Index",
+            "## Skills",
             "## Guided Demos",
             "## Visual Gallery",
             "## Outcome Showcases",

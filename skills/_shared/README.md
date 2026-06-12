@@ -1,6 +1,6 @@
 # Shared Support Directory
 
-This directory contains shared support content used by multiple civil-materials skills. Keep this directory next to the `civil-materials-*` folders when installing skills manually.
+This directory contains shared support content used by multiple materials skills. Keep this directory next to the `materials-*` folders when installing skills manually.
 
 ## Directory Structure
 
